@@ -1013,7 +1013,7 @@ function CisteniPage() {
       <SectionHero eyebrow="Čištění systémů" icon={<Droplets size={14} />}
         title={<>ČIŠTĚNÍ<br />TOPENÍ</>}
         subtitle={<>Kal a koroze v potrubí kradou teplo a ničí váš kotel.<br />Profesionálním proplachem obnovíme efektivitu a ušetříme vám 15–30 %.</>}
-        formId="cisteni-form" videoSrc="/videos/cisteni-hero.mp4" />
+        formId="cisteni-form" imgSrc="/images/realizace/1.webp" />
 
       <section style={{ background: SMOKE }} className="py-16 px-6">
         <div className="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-4">
