@@ -644,7 +644,7 @@ function HomePage({ setPage }: { setPage: (p: Page) => void }) {
   ];
 
   const stats = [
-    { val: "623", lbl: "spokojených zákazníků" },
+    { val: "624", lbl: "spokojených zákazníků" },
     { val: "9", lbl: "let v oboru" },
     { val: "98%", lbl: "zákazníků doporučuje" },
   ];
