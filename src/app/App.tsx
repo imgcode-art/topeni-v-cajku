@@ -134,7 +134,8 @@ function VideoCard({ src, duration }: { src: string; duration: string }) {
 }
 
 // ── HeroVideo ────────────────────────────────────────────────────────────────
-function HeroVideo({ src, loopEnd = 2.6, className = "w-full h-auto block", style }: { src: string; loopEnd?: number; className?: string; style?: React.CSSProperties }) {
+// Loops from the start up to loopEnd (last radiator lit), then jumps back — never plays the full tail.
+function HeroVideo({ src, loopEnd = 3.3, className = "w-full h-auto block", style }: { src: string; loopEnd?: number; className?: string; style?: React.CSSProperties }) {
   const videoRef = useRef<HTMLVideoElement>(null);
   useEffect(() => {
     const v = videoRef.current;
@@ -299,7 +300,7 @@ function Header({ currentPage, setPage }: { currentPage: Page; setPage: (p: Page
       style={{ background: INK, boxShadow: scrolled ? "0 8px 24px -12px rgba(0,0,0,0.5)" : "none" }}>
       <div className="max-w-7xl mx-auto px-6 lg:px-10 h-16 lg:h-[76px] flex items-center justify-between gap-8">
         {/* Logo */}
-        <button onClick={() => go("home")} className="flex items-center gap-2 shrink-0 transition-opacity hover:opacity-75" aria-label="Domů">
+        <button onClick={() => go("home")} className="appearance-none flex items-center gap-2 shrink-0 transition-opacity hover:opacity-75 outline-none focus-visible:ring-2 focus-visible:ring-white/25 focus-visible:ring-offset-2 focus-visible:ring-offset-[#0a0a0a] rounded-md" aria-label="Domů">
           <Logo textSize="text-xl" markSize={34} />
         </button>
 
@@ -393,7 +394,7 @@ function Footer({ setPage }: { setPage: (p: Page) => void }) {
       <div style={{ background: INK }}>
       <div className="max-w-7xl mx-auto px-6 py-12 grid grid-cols-2 md:grid-cols-4 gap-x-12 gap-y-10 md:gap-8">
         <div className="col-span-2 md:col-span-1">
-          <button onClick={() => go("home")} className="mb-4 inline-block hover:opacity-80 transition-opacity">
+          <button onClick={() => go("home")} className="appearance-none mb-4 inline-block hover:opacity-80 transition-opacity outline-none focus-visible:ring-2 focus-visible:ring-white/25 focus-visible:ring-offset-2 focus-visible:ring-offset-[#0a0a0a] rounded-md">
             <Logo textSize="text-sm" markSize={24} />
           </button>
           <p className="text-xs text-white/30 leading-relaxed">
@@ -657,7 +658,7 @@ function HomePage({ setPage }: { setPage: (p: Page) => void }) {
       desc: "Radiátory hřejí nerovnoměrně, spotřeba plynu roste.",
       cta: "Zjistit více",
       action: () => go("cisteni"),
-      img: "/images/realizace/2.webp",
+      img: "/images/realizace/uspora.jpg",
     },
     {
       icon: <Leaf size={20} />,
@@ -666,7 +667,7 @@ function HomePage({ setPage }: { setPage: (p: Page) => void }) {
       desc: "Uvažuji o tepelném čerpadle nebo novém kotli.",
       cta: "Poradit se",
       action: () => go("tepelna-cerpadla"),
-      img: "/images/realizace/IMG_2848-web.jpg",
+      img: "/images/realizace/modernizace.jpg",
     },
     {
       icon: <AlertCircle size={20} />,
@@ -675,7 +676,7 @@ function HomePage({ setPage }: { setPage: (p: Page) => void }) {
       desc: "Chybový kód, výpadek topení, kotel se zastavil.",
       cta: "Zavolat",
       action: () => (window.location.href = PHONE_HREF),
-      img: "/images/realizace/6.webp",
+      img: "/images/realizace/porucha.jpg",
     },
   ];
 
@@ -691,12 +692,12 @@ function HomePage({ setPage }: { setPage: (p: Page) => void }) {
       <section className="relative overflow-hidden" style={{ background: INK, clipPath: "polygon(0 0, 100% 0, 100% 100%, 0 96%)" }}>
         <div className="max-w-7xl mx-auto lg:grid lg:grid-cols-2 lg:items-start lg:gap-12 lg:px-6 pt-12 lg:pt-16">
           <div className="relative w-full lg:order-2 lg:h-[440px]" style={{ aspectRatio: "1376 / 768" }}>
-            <HeroVideo src="/videos/hero-heating.mp4" loopEnd={4.6} className="w-full h-full object-cover block"
+            <HeroVideo src="/videos/hero-heating.mp4" className="w-full h-full object-cover block"
               style={{ maskImage: "radial-gradient(ellipse 75% 75% at center, black 55%, transparent 100%)", WebkitMaskImage: "radial-gradient(ellipse 75% 75% at center, black 55%, transparent 100%)" }} />
           </div>
 
-          <div className="w-full px-6 lg:px-0 pt-10 lg:pt-0 pb-16 lg:pb-20 relative lg:order-1">
-            <motion.h1 className="font-semibold leading-tight" style={{ fontFamily: FD, fontSize: "clamp(1.8rem,3.2vw,2.6rem)", color: "rgba(255,255,255,0.55)" }}
+          <div className="w-full px-6 lg:px-0 pt-14 lg:pt-12 pb-16 lg:pb-20 relative lg:order-1">
+            <motion.h1 className="font-semibold text-white leading-tight" style={{ fontFamily: FB, fontSize: "clamp(1.8rem,3.2vw,2.6rem)" }}
               initial={{ opacity: 0, y: 34 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-60px" }} transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}>
               Chemicko-mechanické čištění topných systémů, tepelná čerpadla, servis a montáž kotlů
             </motion.h1>
@@ -883,7 +884,7 @@ function ServisPage() {
       <SectionHero eyebrow="Servis a montáž" icon={<Wrench size={14} />}
         title={<>SERVIS<br />KOTLŮ</>}
         subtitle={<>Revize, opravy, záruční i pozáruční servis, nové montáže.<br />Hlavní značky: Baxi a De Dietrich.</>}
-        formId="servis-form" aurora />
+        formId="servis-form" imgSrc="/images/realizace/kotel.jpg" />
 
       <section style={{ background: INK }} className="py-24 px-6">
         <div className="max-w-6xl mx-auto">
@@ -1011,7 +1012,7 @@ function CisteniPage() {
     <div>
       <SectionHero eyebrow="Čištění systémů" icon={<Droplets size={14} />}
         title={<>ČIŠTĚNÍ<br />TOPENÍ</>}
-        subtitle={<>Kal a koroze v potrubí kradou teplo a ničí váš kotel.<br />Profesionálním proplachem obnovíme efektivitu a snížíme vaše účty o 15–30 %.</>}
+        subtitle={<>Kal a koroze v potrubí kradou teplo a ničí váš kotel.<br />Profesionálním proplachem obnovíme efektivitu a ušetříme vám 15–30 %.</>}
         formId="cisteni-form" videoSrc="/videos/cisteni-hero.mp4" />
 
       <section style={{ background: SMOKE }} className="py-16 px-6">
@@ -1213,10 +1214,6 @@ function MaroxPage() {
   return (
     <div>
       <section className="relative overflow-hidden py-24 px-6" style={{ background: INK }}>
-        <div className="absolute inset-0">
-          <video src="/videos/marox-hero.mp4" className="w-full h-full object-cover" autoPlay muted loop playsInline />
-          <div className="absolute inset-0" style={{ background: `linear-gradient(180deg, ${INK}66 0%, ${INK}99 55%, ${INK}E0 100%)` }} />
-        </div>
         <div className="max-w-4xl mx-auto relative z-10">
                     <h2 className="font-bold text-white leading-none mb-4" style={{ fontFamily: FD, fontSize: "clamp(1.8rem,3.5vw,2.6rem)" }}>
             FERNOX <span style={{ color: FIRE }}>&</span> KAMCO
