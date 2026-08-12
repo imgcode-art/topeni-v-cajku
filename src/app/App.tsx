@@ -397,7 +397,7 @@ function Footer({ setPage }: { setPage: (p: Page) => void }) {
           <button onClick={() => go("home")} className="appearance-none mb-4 inline-block hover:opacity-80 transition-opacity outline-none" style={{ WebkitTapHighlightColor: "transparent", boxShadow: "none" }}>
             <Logo textSize="text-sm" markSize={24} />
           </button>
-          <p className="text-xs text-white/30 leading-relaxed">
+          <p className="text-xs text-white/55 leading-relaxed">
             Váš spolehlivý topenář.
           </p>
         </div>
@@ -1440,6 +1440,7 @@ function KontaktInlineForm() {
 function KontaktPage() {
   const info = [
     { label: "Jméno", value: "Martin Macháč" },
+    { label: "IČO", value: "09606475" },
     { label: "Telefon", value: PHONE, href: PHONE_HREF },
     { label: "E-mail", value: "martinmachac24@seznam.cz", href: "mailto:martinmachac24@seznam.cz" },
     { label: "Oblast", value: "Brno a Jihomoravský kraj" },
@@ -1478,24 +1479,7 @@ function KontaktPage() {
       </section>
 
       <section id="kontakt-form" style={{ background: INK }} className="py-24 px-6">
-        <div className="max-w-xl mx-auto flex flex-col gap-8">
-          <div className="p-8" style={{ background: "rgba(255,255,255,0.04)", clipPath: NOTCH_MD, border: "1px solid rgba(255,255,255,0.1)" }}>
-            <h2 className="font-bold mb-5 text-white" style={{ fontFamily: FD, fontSize: "clamp(1.5rem,2.5vw,1.9rem)", lineHeight: 1 }}>
-              POJĎME TO VYŘEŠIT
-            </h2>
-            <KontaktInlineForm />
-          </div>
-
-          <div className="p-8 text-center" style={{ background: "rgba(255,255,255,0.04)", clipPath: NOTCH_MD, border: "1px solid rgba(255,255,255,0.1)" }}>
-            <p className="text-xs font-semibold uppercase tracking-wide mb-3" style={{ color: FIRE }}>Zavolejte ještě dnes</p>
-            <StarBorder as="a" href={PHONE_HREF} color={FIRE} speed="4s" thickness={2} className="w-full" style={{ display: "block" }}>
-              <span className="flex items-center justify-center gap-3 text-white font-semibold px-6 py-4" style={{ fontFamily: FD, fontSize: "clamp(1.4rem, 3vw, 1.9rem)", lineHeight: 1 }}>
-                <Phone size={20} />
-                {PHONE}
-              </span>
-            </StarBorder>
-          </div>
-
+        <div className="max-w-xl mx-auto flex flex-col gap-12">
           <div className="p-8" style={{ background: "rgba(255,255,255,0.04)", clipPath: NOTCH_MD, border: "1px solid rgba(255,255,255,0.1)" }}>
             <div className="divide-y divide-white/10">
               {info.map((c, i) => (
@@ -1509,6 +1493,13 @@ function KontaktPage() {
                 </div>
               ))}
             </div>
+          </div>
+
+          <div className="p-8" style={{ background: "rgba(255,255,255,0.04)", clipPath: NOTCH_MD, border: "1px solid rgba(255,255,255,0.1)" }}>
+            <h2 className="font-bold mb-5 text-white" style={{ fontFamily: FD, fontSize: "clamp(1.5rem,2.5vw,1.9rem)", lineHeight: 1 }}>
+              POJĎME TO VYŘEŠIT
+            </h2>
+            <KontaktInlineForm />
           </div>
         </div>
       </section>
