@@ -300,7 +300,7 @@ function Header({ currentPage, setPage }: { currentPage: Page; setPage: (p: Page
       style={{ background: INK, boxShadow: scrolled ? "0 8px 24px -12px rgba(0,0,0,0.5)" : "none" }}>
       <div className="max-w-7xl mx-auto px-6 lg:px-10 h-16 lg:h-[76px] flex items-center justify-between gap-8">
         {/* Logo */}
-        <button onClick={() => go("home")} className="appearance-none flex items-center gap-2 shrink-0 transition-opacity hover:opacity-75 outline-none focus-visible:ring-2 focus-visible:ring-white/25 focus-visible:ring-offset-2 focus-visible:ring-offset-[#0a0a0a] rounded-md" aria-label="Domů">
+        <button onClick={() => go("home")} className="appearance-none flex items-center gap-2 shrink-0 transition-opacity hover:opacity-75 outline-none" style={{ WebkitTapHighlightColor: "transparent", boxShadow: "none" }} aria-label="Domů">
           <Logo textSize="text-xl" markSize={34} />
         </button>
 
@@ -394,7 +394,7 @@ function Footer({ setPage }: { setPage: (p: Page) => void }) {
       <div style={{ background: INK }}>
       <div className="max-w-7xl mx-auto px-6 py-12 grid grid-cols-2 md:grid-cols-4 gap-x-12 gap-y-10 md:gap-8">
         <div className="col-span-2 md:col-span-1">
-          <button onClick={() => go("home")} className="appearance-none mb-4 inline-block hover:opacity-80 transition-opacity outline-none focus-visible:ring-2 focus-visible:ring-white/25 focus-visible:ring-offset-2 focus-visible:ring-offset-[#0a0a0a] rounded-md">
+          <button onClick={() => go("home")} className="appearance-none mb-4 inline-block hover:opacity-80 transition-opacity outline-none" style={{ WebkitTapHighlightColor: "transparent", boxShadow: "none" }}>
             <Logo textSize="text-sm" markSize={24} />
           </button>
           <p className="text-xs text-white/30 leading-relaxed">
