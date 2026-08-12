@@ -707,7 +707,7 @@ function HomePage({ setPage }: { setPage: (p: Page) => void }) {
           </div>
 
           <div className="w-full px-6 lg:px-0 pt-14 lg:pt-12 pb-16 lg:pb-20 relative lg:order-1">
-            <motion.h1 className="font-semibold text-white leading-tight" style={{ fontFamily: FB, fontSize: "clamp(1.8rem,3.2vw,2.6rem)" }}
+            <motion.h1 className="font-bold leading-tight" style={{ fontFamily: FD, fontSize: "clamp(1.8rem,3.5vw,2.6rem)", color: "rgba(255,255,255,0.88)" }}
               initial={{ opacity: 0, y: 34 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-60px" }} transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}>
               Chemicko-mechanické čištění topných systémů, tepelná čerpadla, servis a montáž kotlů
             </motion.h1>
