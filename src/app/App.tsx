@@ -894,7 +894,7 @@ function ServisPage() {
       <SectionHero eyebrow="Servis a montáž" icon={<Wrench size={14} />}
         title={<>SERVIS<br />KOTLŮ</>}
         subtitle={<>Revize, opravy, záruční i pozáruční servis, nové montáže.<br />Hlavní značky: Baxi a De Dietrich.</>}
-        formId="servis-form" imgSrc="/images/realizace/kotel.jpg" />
+        formId="servis-form" imgSrc="/images/realizace/kotelna.jpeg" />
 
       <section style={{ background: INK }} className="py-24 px-6">
         <div className="max-w-6xl mx-auto">
