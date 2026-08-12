@@ -499,10 +499,11 @@ function InquiryForm({ title = "Pojďme to vyřešit", subtitle, dark = false, i
   const [form, setForm] = useState({ name: "", phone: "", issue: "" });
   const [sent, setSent] = useState(false);
   const [busy, setBusy] = useState(false);
+  const [error, setError] = useState(false);
   const submit = async (e: React.FormEvent) => {
-    e.preventDefault(); setBusy(true);
+    e.preventDefault(); setBusy(true); setError(false);
     try {
-      await fetch("https://api.web3forms.com/submit", {
+      const res = await fetch("https://api.web3forms.com/submit", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -513,8 +514,12 @@ function InquiryForm({ title = "Pojďme to vyřešit", subtitle, dark = false, i
           co_resite: form.issue,
         }),
       });
-    } catch {}
-    setBusy(false); setSent(true);
+      const data = await res.json();
+      if (data.success) setSent(true); else setError(true);
+    } catch {
+      setError(true);
+    }
+    setBusy(false);
   };
 
   const bg = dark ? SMOKE : CREAM;
@@ -567,6 +572,11 @@ function InquiryForm({ title = "Pojďme to vyřešit", subtitle, dark = false, i
                 {busy ? "Odesílám…" : "ODESLAT POPTÁVKU →"}
               </span>
             </StarBorder>
+            {error && (
+              <p className="text-sm text-center" style={{ color: "#ef4444" }}>
+                Odeslání se nepovedlo. Zkuste to prosím znovu, nebo nám rovnou zavolejte na {PHONE}.
+              </p>
+            )}
           </form>
         )}
       </Reveal>
@@ -1363,10 +1373,11 @@ function KontaktInlineForm() {
   const [form, setForm] = useState({ name: "", phone: "", issue: "" });
   const [sent, setSent] = useState(false);
   const [busy, setBusy] = useState(false);
+  const [error, setError] = useState(false);
   const submit = async (e: React.FormEvent) => {
-    e.preventDefault(); setBusy(true);
+    e.preventDefault(); setBusy(true); setError(false);
     try {
-      await fetch("https://api.web3forms.com/submit", {
+      const res = await fetch("https://api.web3forms.com/submit", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -1377,8 +1388,12 @@ function KontaktInlineForm() {
           co_resite: form.issue,
         }),
       });
-    } catch {}
-    setBusy(false); setSent(true);
+      const data = await res.json();
+      if (data.success) setSent(true); else setError(true);
+    } catch {
+      setError(true);
+    }
+    setBusy(false);
   };
   if (sent) {
     return (
@@ -1413,6 +1428,11 @@ function KontaktInlineForm() {
           {busy ? "Odesílám…" : "Odeslat →"}
         </span>
       </StarBorder>
+      {error && (
+        <p className="text-sm text-center" style={{ color: "#ef4444" }}>
+          Odeslání se nepovedlo. Zkuste to prosím znovu, nebo nám rovnou zavolejte na {PHONE}.
+        </p>
+      )}
     </form>
   );
 }
@@ -1436,7 +1456,7 @@ function KontaktPage() {
               KOTEL<br />NEJEDE?
             </h1>
             <p className="text-white/50 max-w-xl leading-relaxed text-base mb-8" style={{ fontFamily: FB }}>
-              Volejte přímo — domluvíme se na termínu výjezdu.
+              Žádný strach, rádi vám to dáme do pořádku.
             </p>
             <div className="flex flex-wrap gap-3">
               <StarBorder as="a" href={PHONE_HREF} color={FIRE} speed="4s" thickness={2}>
@@ -1458,39 +1478,37 @@ function KontaktPage() {
       </section>
 
       <section id="kontakt-form" style={{ background: INK }} className="py-24 px-6">
-        <div className="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6 items-start">
-          <div className="flex flex-col gap-6">
-            <div className="p-8" style={{ background: "rgba(255,255,255,0.04)", clipPath: NOTCH_MD, border: "1px solid rgba(255,255,255,0.1)" }}>
-              <div className="divide-y divide-white/10">
-                {info.map((c, i) => (
-                  <div key={i} className="flex items-center justify-between gap-4 py-4">
-                    <span className="text-xs text-white/40 uppercase tracking-wide shrink-0" style={{ fontFamily: FB }}>{c.label}</span>
-                    {c.href ? (
-                      <a href={c.href} className="font-semibold text-white hover:opacity-70 transition-opacity text-sm text-right break-all" style={{ fontFamily: FB }}>{c.value}</a>
-                    ) : (
-                      <span className="font-semibold text-white text-sm text-right break-all" style={{ fontFamily: FB }}>{c.value}</span>
-                    )}
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            <div className="p-8 text-center" style={{ background: "rgba(255,255,255,0.04)", clipPath: NOTCH_MD, border: "1px solid rgba(255,255,255,0.1)" }}>
-              <p className="text-xs font-semibold uppercase tracking-wide mb-3" style={{ color: FIRE }}>Zavolejte ještě dnes</p>
-              <StarBorder as="a" href={PHONE_HREF} color={FIRE} speed="4s" thickness={2} className="w-full" style={{ display: "block" }}>
-                <span className="flex items-center justify-center gap-3 text-white font-semibold px-6 py-4" style={{ fontFamily: FD, fontSize: "clamp(1.4rem, 3vw, 1.9rem)", lineHeight: 1 }}>
-                  <Phone size={20} />
-                  {PHONE}
-                </span>
-              </StarBorder>
-            </div>
-          </div>
-
+        <div className="max-w-xl mx-auto flex flex-col gap-6">
           <div className="p-8" style={{ background: "rgba(255,255,255,0.04)", clipPath: NOTCH_MD, border: "1px solid rgba(255,255,255,0.1)" }}>
             <h2 className="font-bold mb-5 text-white" style={{ fontFamily: FD, fontSize: "clamp(1.5rem,2.5vw,1.9rem)", lineHeight: 1 }}>
               POJĎME TO VYŘEŠIT
             </h2>
             <KontaktInlineForm />
+          </div>
+
+          <div className="p-8 text-center" style={{ background: "rgba(255,255,255,0.04)", clipPath: NOTCH_MD, border: "1px solid rgba(255,255,255,0.1)" }}>
+            <p className="text-xs font-semibold uppercase tracking-wide mb-3" style={{ color: FIRE }}>Zavolejte ještě dnes</p>
+            <StarBorder as="a" href={PHONE_HREF} color={FIRE} speed="4s" thickness={2} className="w-full" style={{ display: "block" }}>
+              <span className="flex items-center justify-center gap-3 text-white font-semibold px-6 py-4" style={{ fontFamily: FD, fontSize: "clamp(1.4rem, 3vw, 1.9rem)", lineHeight: 1 }}>
+                <Phone size={20} />
+                {PHONE}
+              </span>
+            </StarBorder>
+          </div>
+
+          <div className="p-8" style={{ background: "rgba(255,255,255,0.04)", clipPath: NOTCH_MD, border: "1px solid rgba(255,255,255,0.1)" }}>
+            <div className="divide-y divide-white/10">
+              {info.map((c, i) => (
+                <div key={i} className="flex items-center justify-between gap-4 py-4">
+                  <span className="text-xs text-white/40 uppercase tracking-wide shrink-0" style={{ fontFamily: FB }}>{c.label}</span>
+                  {c.href ? (
+                    <a href={c.href} className="font-semibold text-white hover:opacity-70 transition-opacity text-sm text-right break-all" style={{ fontFamily: FB }}>{c.value}</a>
+                  ) : (
+                    <span className="font-semibold text-white text-sm text-right break-all" style={{ fontFamily: FB }}>{c.value}</span>
+                  )}
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </section>
