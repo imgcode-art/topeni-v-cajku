@@ -1430,7 +1430,6 @@ function KontaktPage() {
     <div>
       <section className="relative overflow-hidden py-24 lg:py-28 px-6"
         style={{ background: INK, clipPath: "polygon(0 0, 100% 0, 100% 100%, 0 96%)" }}>
-        <Aurora color={FIRE} />
         <div className="max-w-4xl mx-auto relative z-10 flex flex-col lg:flex-row lg:items-center gap-10">
           <div className="flex-1 min-w-0">
             <h1 className="font-bold text-white mb-6 leading-none" style={{ fontFamily: FD, fontSize: "clamp(1.8rem,3.5vw,2.6rem)" }}>
