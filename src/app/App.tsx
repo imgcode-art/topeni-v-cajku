@@ -1472,7 +1472,7 @@ function KontaktPage() {
             </div>
           </div>
           <div className="relative w-48 h-48 md:w-56 md:h-56 shrink-0 overflow-hidden" style={{ clipPath: NOTCH_LG, border: "1px solid rgba(255,255,255,0.1)" }}>
-            <img src="/images/realizace/topenivcajku.png" alt="Martin Macháč" className="w-full h-full object-cover" style={{ objectPosition: "56% 50%" }} draggable={false} />
+            <img src="/images/realizace/topenivcajku_martin.jpg" alt="Martin Macháč" className="w-full h-full object-cover" style={{ objectPosition: "56% 50%" }} draggable={false} />
           </div>
         </div>
       </section>
