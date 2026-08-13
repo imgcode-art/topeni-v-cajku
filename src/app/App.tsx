@@ -1111,8 +1111,8 @@ function ServisPage() {
   return (
     <div>
       <SectionHero eyebrow="Servis a montáž" icon={<Wrench size={14} />}
-        title={<>SERVIS A MONTÁŽ<br />KOTLŮ</>}
-        subtitle={<>Revize, opravy, záruční i pozáruční servis, nové montáže.<br />Hlavní značky: Baxi a De Dietrich.</>}
+        title={<>SERVIS A MONTÁŽ <br />KOTLŮ</>}
+        subtitle={<>Revize, opravy, záruční i pozáruční servis, nové montáže. <br />Hlavní značky: Baxi a De Dietrich.</>}
         formId="servis-form" imgSrc="/images/realizace/kotelna1.png" />
 
       <section style={{ background: INK }} className="py-16 md:py-24 px-6">
@@ -1241,8 +1241,8 @@ function CisteniPage() {
   return (
     <div>
       <SectionHero eyebrow="Čištění systémů" icon={<Droplets size={14} />}
-        title={<>ČIŠTĚNÍ<br />TOPENÍ</>}
-        subtitle={<>Kal a koroze v potrubí kradou teplo a ničí váš kotel.<br />Profesionálním proplachem obnovíme efektivitu a ušetříme vám 15–30 %.</>}
+        title={<>ČIŠTĚNÍ <br />TOPENÍ</>}
+        subtitle={<>Kal a koroze v potrubí kradou teplo a ničí váš kotel. <br />Profesionálním proplachem obnovíme efektivitu a ušetříme vám 15–30 %.</>}
         formId="cisteni-form" imgSrc="/images/realizace/cisteni_topeni.png" />
 
       <section style={{ background: INK }} className="pt-12 md:pt-16 pb-8 md:pb-10 px-6">
@@ -1390,8 +1390,8 @@ function TepelnaCerpadlaPage() {
   return (
     <div>
       <SectionHero eyebrow="Tepelná čerpadla" icon={<Wind size={14} />}
-        title={<>TEPELNÁ<br />ČERPADLA</>}
-        subtitle={<>Přejít na tepelné čerpadlo dnes dává smysl ekonomicky i ekologicky.<br />Pomůžeme vybrat správný typ a zajistíme instalaci.</>}
+        title={<>TEPELNÁ <br />ČERPADLA</>}
+        subtitle={<>Přejít na tepelné čerpadlo dnes dává smysl ekonomicky i ekologicky. <br />Pomůžeme vybrat správný typ a zajistíme instalaci.</>}
         formId="tc-form" imgSrc="/images/realizace/heat-pump-hero.jpg" imgDim={0.55} />
 
       <section style={{ background: INK }} className="py-16 md:py-24 px-6">
@@ -1429,10 +1429,10 @@ function TepelnaCerpadlaPage() {
 
 function MaroxPage() {
   const products = [
-    { title: "Fernox F1 Filter Fluid+", brand: "Fernox", desc: <>Inhibitor koroze a ochrana topné soustavy.<br />Zabraňuje usazování kalu a rzi — chrání kotel i radiátory.</> },
-    { title: "Fernox F3 Cleaner", brand: "Fernox", desc: <>Čisticí přípravek pro chemicko-mechanické čištění topných systémů.<br />Účinně odstraňuje kal, koroze a usazeniny.</> },
-    { title: "Kamco Cleaner X400", brand: "Kamco", desc: <>Profesionální čisticí přípravek pro silně zanesené systémy.<br />Britská značka s dlouholetou tradicí v oboru.</> },
-    { title: "Kamco Protector F1", brand: "Kamco", desc: <>Inhibitor koroze přidávaný po čištění.<br />Udržuje topnou vodu čistou a chrání systém před zanášením.</> },
+    { title: "Fernox F1 Filter Fluid+", brand: "Fernox", desc: <>Inhibitor koroze a ochrana topné soustavy. <br />Zabraňuje usazování kalu a rzi — chrání kotel i radiátory.</> },
+    { title: "Fernox F3 Cleaner", brand: "Fernox", desc: <>Čisticí přípravek pro chemicko-mechanické čištění topných systémů. <br />Účinně odstraňuje kal, koroze a usazeniny.</> },
+    { title: "Kamco Cleaner X400", brand: "Kamco", desc: <>Profesionální čisticí přípravek pro silně zanesené systémy. <br />Britská značka s dlouholetou tradicí v oboru.</> },
+    { title: "Kamco Protector F1", brand: "Kamco", desc: <>Inhibitor koroze přidávaný po čištění. <br />Udržuje topnou vodu čistou a chrání systém před zanášením.</> },
   ];
 
   const productPhotos = [
@@ -1461,7 +1461,7 @@ function MaroxPage() {
             FERNOX <span style={{ color: FIRE }}>&</span> KAMCO
           </h1>
           <p className="text-white/40 max-w-xl leading-relaxed mb-8 text-base" style={{ fontFamily: FB }}>
-            Přímý prodej přípravků britských značek Fernox a Kamco.<br />Pro soukromé osoby i topenářské firmy.
+            Přímý prodej přípravků britských značek Fernox a Kamco. <br />Pro soukromé osoby i topenářské firmy.
           </p>
           <div className="flex flex-wrap gap-3">
             <StarBorder as="a" href={PHONE_HREF} color={FIRE} speed="4s" thickness={2}>
@@ -1550,7 +1550,7 @@ function ONasPage() {
       <section style={{ background: HERO_GRADIENT }} className="py-16 md:py-24 px-6">
         <div className="max-w-4xl mx-auto">
                     <h1 className="font-bold text-white leading-none" style={{ fontFamily: FD, fontSize: "clamp(1.8rem,3.5vw,2.6rem)" }}>
-            MARTIN<br />MACHÁČ
+            MARTIN <br />MACHÁČ
           </h1>
         </div>
       </section>
@@ -1678,7 +1678,7 @@ function KontaktPage() {
         style={{ background: INK, clipPath: "polygon(0 0, 100% 0, 100% 100%, 0 96%)" }}>
         <div className="max-w-4xl mx-auto relative z-10">
           <h1 className="font-bold text-white mb-6 leading-none" style={{ fontFamily: FD, fontSize: "clamp(1.8rem,3.5vw,2.6rem)" }}>
-            KOTEL<br />NEJEDE?
+            KOTEL <br />NEJEDE?
           </h1>
           <p className="text-white/50 max-w-xl leading-relaxed text-base mb-8" style={{ fontFamily: FB }}>
             Žádný strach, rádi vám to dáme do pořádku.
