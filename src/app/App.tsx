@@ -1257,8 +1257,8 @@ function MaroxPage() {
               <div className="marquee-track flex items-center w-max py-8">
                 {[...productPhotos, ...productPhotos].map((src, i) => (
                   <div key={i} className="shrink-0 w-24 md:w-28 aspect-square flex items-center justify-center p-3 mx-3"
-                    style={{ background: "#fff", clipPath: NOTCH_SM }}>
-                    <img src={src} alt="Přípravek Fernox / Kamco" className="max-w-full max-h-full object-contain" draggable={false} />
+                    style={{ background: "#dcdcdc", clipPath: NOTCH_SM }}>
+                    <img src={src} alt="Přípravek Fernox / Kamco" className="max-w-full max-h-full object-contain" draggable={false} style={{ filter: "brightness(0.82)" }} />
                   </div>
                 ))}
               </div>
