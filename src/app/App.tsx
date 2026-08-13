@@ -1477,26 +1477,40 @@ function KontaktPage() {
     <div>
       <section className="relative overflow-hidden pt-16 md:pt-24 lg:pt-28 pb-8 md:pb-10 px-6"
         style={{ background: INK, clipPath: "polygon(0 0, 100% 0, 100% 100%, 0 96%)" }}>
-        <div className="max-w-4xl mx-auto relative z-10 flex flex-col lg:flex-row lg:items-center gap-10">
+        <div className="max-w-4xl mx-auto relative z-10">
+          <h1 className="font-bold text-white mb-6 leading-none" style={{ fontFamily: FD, fontSize: "clamp(1.8rem,3.5vw,2.6rem)" }}>
+            KOTEL<br />NEJEDE?
+          </h1>
+          <p className="text-white/50 max-w-xl leading-relaxed text-base mb-8" style={{ fontFamily: FB }}>
+            Žádný strach, rádi vám to dáme do pořádku.
+          </p>
+          <div className="flex flex-wrap gap-3">
+            <StarBorder as="a" href={PHONE_HREF} color={FIRE} speed="4s" thickness={2}>
+              <span className="inline-flex items-center gap-2 text-white font-bold text-base px-8 py-3.5 tracking-wide uppercase" style={{ fontFamily: FD }}>
+                <Phone size={18} />Zavolat
+              </span>
+            </StarBorder>
+            <button onClick={() => scrollTo("kontakt-form")}
+              className="inline-flex items-center gap-2 text-white/70 hover:text-white font-semibold uppercase tracking-wide text-sm px-7 py-3.5 border border-white/20 hover:border-white/40 transition-all"
+              style={{ fontFamily: FB }}>
+              Nezávazná poptávka <ArrowRight size={14} />
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <section style={{ background: INK }} className="pt-8 md:pt-10 pb-8 md:pb-10 px-6">
+        <div className="max-w-4xl mx-auto flex flex-col lg:flex-row lg:items-center gap-10">
           <div className="flex-1 min-w-0">
-            <h1 className="font-bold text-white mb-6 leading-none" style={{ fontFamily: FD, fontSize: "clamp(1.8rem,3.5vw,2.6rem)" }}>
-              KOTEL<br />NEJEDE?
-            </h1>
-            <p className="text-white/50 max-w-xl leading-relaxed text-base mb-8" style={{ fontFamily: FB }}>
-              Žádný strach, rádi vám to dáme do pořádku.
+            <h2 className="font-bold text-white mb-6 leading-none" style={{ fontFamily: FD, fontSize: "clamp(1.5rem,3vw,2.2rem)" }}>
+              KDO SE VÁM O TO POSTARÁ?
+            </h2>
+            <p className="text-white/55 leading-relaxed text-base mb-4" style={{ fontFamily: FB }}>
+              Za každou zakázkou a každým zapojeným kotlem stojím osobně já – Martin. V oboru se pohybuji už řadu let a vím, že nikdo z vás nechce poslouchat složité technické řeči. Chcete jedinou věc: aby to prostě fungovalo.
             </p>
-            <div className="flex flex-wrap gap-3">
-              <StarBorder as="a" href={PHONE_HREF} color={FIRE} speed="4s" thickness={2}>
-                <span className="inline-flex items-center gap-2 text-white font-bold text-base px-8 py-3.5 tracking-wide uppercase" style={{ fontFamily: FD }}>
-                  <Phone size={18} />Zavolat
-                </span>
-              </StarBorder>
-              <button onClick={() => scrollTo("kontakt-form")}
-                className="inline-flex items-center gap-2 text-white/70 hover:text-white font-semibold uppercase tracking-wide text-sm px-7 py-3.5 border border-white/20 hover:border-white/40 transition-all"
-                style={{ fontFamily: FB }}>
-                Nezávazná poptávka <ArrowRight size={14} />
-              </button>
-            </div>
+            <p className="text-white/55 leading-relaxed text-base" style={{ fontFamily: FB }}>
+              Žádné zbytečné kličky, na všem se domluvíme narovinu a nenechám vás v tom, když se něco pokazí a vy potřebujete rychlou pomoc. Mým cílem je, abyste měli doma klid a o topení vůbec nemuseli přemýšlet.
+            </p>
           </div>
           <div className="relative w-56 h-56 md:w-64 md:h-64 shrink-0 overflow-hidden" style={{ clipPath: NOTCH_LG, border: "1px solid rgba(255,255,255,0.1)" }}>
             <img src="/images/realizace/topenivcajku_martin.jpg" alt="Martin Macháč" className="w-full h-full object-cover" style={{ objectPosition: "56% 50%" }} draggable={false} />
