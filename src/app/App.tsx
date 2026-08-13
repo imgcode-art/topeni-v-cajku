@@ -1235,7 +1235,7 @@ function CisteniPage() {
     "Systém nebyl čištěn déle než 5 let",
   ];
 
-  const flowMeterPair = { before: "/images/realizace/2.webp", after: "/images/realizace/3.webp", label: "Průtokoměry rozdělovače — kalná voda vs. čirá voda po vyčištění" };
+  const flowMeterPair = { before: "/images/realizace/prutokomery_podlahoveho_topeni2.jpeg", after: "/images/realizace/prutokomery_podlahoveho_topeni1.jpeg", label: "Průtokoměry podlahového topení — kalná voda vs. čirá voda po vyčištění" };
   const sludgePair = { before: "/images/realizace/7.webp", after: "/images/realizace/1.webp", label: "Vnitřek kotle a rozvody" };
 
   return (
