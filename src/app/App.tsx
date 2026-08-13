@@ -1492,7 +1492,7 @@ function KontaktPage() {
         </div>
       </section>
 
-      <section style={{ background: INK }} className="pt-8 md:pt-10 pb-8 md:pb-10 px-6">
+      <section style={{ background: INK }} className="pt-8 md:pt-10 pb-16 md:pb-24 px-6">
         <div className="max-w-4xl mx-auto flex flex-col lg:flex-row lg:items-center gap-10">
           <div className="flex-1 min-w-0">
             <h2 className="font-bold text-white mb-6 leading-none" style={{ fontFamily: FD, fontSize: "clamp(1.5rem,3vw,2.2rem)" }}>
@@ -1516,7 +1516,7 @@ function KontaktPage() {
         </div>
       </section>
 
-      <section id="kontakt-form" style={{ background: INK }} className="pt-8 md:pt-10 pb-16 md:pb-24 px-6">
+      <section id="kontakt-form" style={{ background: SMOKE }} className="pt-16 md:pt-24 pb-16 md:pb-24 px-6">
         <div className="max-w-xl mx-auto flex flex-col gap-12">
           <div className="p-8" style={{ background: "rgba(255,255,255,0.04)", clipPath: NOTCH_MD, border: "1px solid rgba(255,255,255,0.1)" }}>
             <div className="flex flex-wrap gap-3 mb-6">
