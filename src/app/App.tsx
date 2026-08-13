@@ -707,7 +707,7 @@ function HomePage({ setPage }: { setPage: (p: Page) => void }) {
           </div>
 
           <div className="w-full px-6 lg:px-0 pt-14 lg:pt-12 pb-16 lg:pb-20 relative lg:order-1">
-            <motion.h1 className="font-bold leading-tight" style={{ fontFamily: FD, fontSize: "clamp(1.8rem,3.5vw,2.6rem)", color: "rgba(255,255,255,0.88)" }}
+            <motion.h1 className="font-bold leading-tight" style={{ fontFamily: FD, fontSize: "clamp(1.8rem,3.5vw,2.6rem)", color: "rgba(255,255,255,0.75)" }}
               initial={{ opacity: 0, y: 34 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-60px" }} transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}>
               Chemicko-mechanické čištění topných systémů, tepelná čerpadla, servis a montáž kotlů
             </motion.h1>
@@ -1449,7 +1449,7 @@ function KontaktPage() {
 
   return (
     <div>
-      <section className="relative overflow-hidden pt-24 lg:pt-28 pb-12 lg:pb-14 px-6"
+      <section className="relative overflow-hidden pt-24 lg:pt-28 pb-8 px-6"
         style={{ background: INK, clipPath: "polygon(0 0, 100% 0, 100% 100%, 0 96%)" }}>
         <div className="max-w-4xl mx-auto relative z-10 flex flex-col lg:flex-row lg:items-center gap-10">
           <div className="flex-1 min-w-0">
@@ -1478,7 +1478,7 @@ function KontaktPage() {
         </div>
       </section>
 
-      <section id="kontakt-form" style={{ background: INK }} className="py-24 px-6">
+      <section id="kontakt-form" style={{ background: INK }} className="pt-10 pb-24 px-6">
         <div className="max-w-xl mx-auto flex flex-col gap-12">
           <div className="p-8" style={{ background: "rgba(255,255,255,0.04)", clipPath: NOTCH_MD, border: "1px solid rgba(255,255,255,0.1)" }}>
             <div className="divide-y divide-white/10">
