@@ -1506,10 +1506,10 @@ function KontaktPage() {
               KDO SE VÁM O TO POSTARÁ?
             </h2>
             <p className="text-white/55 leading-relaxed text-base mb-4" style={{ fontFamily: FB }}>
-              Za každou zakázkou a každým zapojeným kotlem stojím osobně já – Martin. V oboru se pohybuji už řadu let a vím, že nikdo z vás nechce poslouchat složité technické řeči. Chcete jedinou věc: aby to prostě fungovalo.
+              Za Topením v cajku stojím já, Martin, s mým týmem zkušených parťáků. V oboru se pohybujeme už řadu let a víme, že nikdo z vás nechce poslouchat složité technické řeči. Chcete jedinou věc – aby to prostě fungovalo.
             </p>
             <p className="text-white/55 leading-relaxed text-base" style={{ fontFamily: FB }}>
-              Žádné zbytečné kličky, na všem se domluvíme narovinu a nenechám vás v tom, když se něco pokazí a vy potřebujete rychlou pomoc. Mým cílem je, abyste měli doma klid a o topení vůbec nemuseli přemýšlet.
+              Dohodneme se narovinu, a když se cokoliv stane, jsme tu pro vás. Chceme, abyste měli doma klid a o topení nemuseli přemýšlet.
             </p>
           </div>
           <div className="relative w-56 h-56 md:w-64 md:h-64 shrink-0 overflow-hidden" style={{ clipPath: NOTCH_LG, border: "1px solid rgba(255,255,255,0.1)" }}>
