@@ -440,7 +440,7 @@ function Footer({ setPage }: { setPage: (p: Page) => void }) {
     <footer style={{ background: INK, fontFamily: FB }}>
       {/* Links */}
       <div style={{ background: INK }}>
-      <div className="max-w-7xl mx-auto px-6 py-12 grid grid-cols-2 md:grid-cols-4 gap-x-12 gap-y-10 md:gap-8">
+      <div className="max-w-7xl mx-auto px-6 py-12 grid grid-cols-2 md:grid-cols-3 gap-x-12 gap-y-10 md:gap-8">
         <div className="col-span-2 md:col-span-1">
           <button onClick={() => go("home")} className="appearance-none mb-4 inline-block hover:opacity-80 transition-opacity outline-none" style={{ WebkitTapHighlightColor: "transparent", boxShadow: "none" }}>
             <Logo textSize="text-sm" markSize={24} />
