@@ -744,7 +744,7 @@ function HomePage({ setPage }: { setPage: (p: Page) => void }) {
               initial={{ opacity: 0, y: 34 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-60px" }} transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}>
               Chemicko-mechanické čištění topných systémů, tepelná čerpadla, servis a montáž kotlů
             </motion.h1>
-            <motion.div className="flex flex-wrap gap-x-8 gap-y-3 mt-6"
+            <motion.div className="flex flex-col md:flex-row md:flex-wrap gap-2 md:gap-x-8 md:gap-y-3 mt-6"
               initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-60px" }} transition={{ duration: 0.5, delay: 0.1 }}>
               {["Férové jednání", "100% spolehlivost", "Ochota"].map((text, i) => (
                 <span key={i} className="flex items-center gap-2 text-white/80 text-sm font-medium" style={{ fontFamily: FB }}>
