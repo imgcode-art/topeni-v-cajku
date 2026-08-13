@@ -1287,7 +1287,7 @@ function CisteniPage() {
                 <img src={flowMeterPair.before} alt={`${flowMeterPair.label} — před čištěním`} className="w-full h-full object-cover" />
               </div>
               <div className="relative aspect-[4/3] overflow-hidden">
-                <img src={flowMeterPair.after} alt={`${flowMeterPair.label} — po čištění`} className="w-full h-full object-cover" />
+                <img src={flowMeterPair.after} alt={`${flowMeterPair.label} — po čištění`} className="w-full h-full object-cover" style={{ transform: "scale(1.15)", transformOrigin: "80% center" }} />
               </div>
             </div>
             <div className="px-6 py-5" style={{ background: "rgba(255,255,255,0.03)" }}>
