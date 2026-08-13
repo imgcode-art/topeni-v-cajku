@@ -752,7 +752,7 @@ function InquiryForm({ title = "Pojďme to vyřešit", subtitle, dark = false, i
   return (
     <section id={id} className={tightTop ? "pt-8 md:pt-10 pb-16 md:pb-24 px-6" : "py-16 md:py-24 px-6"} style={{ background: bg, fontFamily: FB }}>
       <Reveal className="max-w-lg mx-auto">
-        <h2 className="font-bold mb-2" style={{ fontFamily: FD, fontSize: "clamp(1.8rem,3.5vw,2.6rem)", lineHeight: 1, color: headColor }}>
+        <h2 className="font-bold mb-2" style={{ fontFamily: FD, fontSize: "clamp(1.8rem,3vw,2.6rem)", lineHeight: 1, color: headColor }}>
           {title.toUpperCase()}
         </h2>
         {subtitle && <p className="text-sm mb-8 leading-relaxed" style={{ color: subColor }}>{subtitle}</p>}
@@ -1083,6 +1083,13 @@ function HomePage({ setPage }: { setPage: (p: Page) => void }) {
 // PAGE: SERVIS
 // ═══════════════════════════════════════════════════════════════════════════════
 
+const SERVIS_FAQ: FAQItem[] = [
+  { q: "Jak často je potřeba dělat revizi plynového kotle?", a: "Revize plynového kotle je ze zákona povinná jednou ročně. Zajišťuje bezpečný provoz a bývá podmínkou platné záruky i pojištění. Po revizi vystavujeme revizní protokol." },
+  { q: "Servisujete kotle i mimo záruku a od jiných značek?", a: "Ano, servisujeme kotle v záruce i po jejím vypršení, bez ohledu na to, kde byl kotel původně zakoupen. Specializujeme se na Baxi a De Dietrich, zvládneme ale i ostatní běžné plynové kotle." },
+  { q: "Kolik stojí oprava nebo výměna kotle?", a: "Cena se odvíjí od konkrétní závady nebo typu nového kotle. Po telefonické konzultaci nebo výjezdu vám cenu sdělíme předem — bez skrytých poplatků." },
+  { q: "Jak dlouho trvá výměna starého kotle za nový?", a: "Výměna kotle na klíč — demontáž starého, instalace nového a zprovoznění — trvá obvykle jeden den. Pomůžeme i s dokumentací a přihlášením nového zařízení." },
+];
+
 function ServisPage() {
   interface Card { icon: React.ReactNode; title: string; desc: string; }
   const cards: Card[] = [
@@ -1187,6 +1194,7 @@ function ServisPage() {
         </div>
       </section>
 
+      <FAQBlock items={SERVIS_FAQ} title="Časté dotazy o servisu kotlů" />
       <InquiryForm id="servis-form" subtitle="Popište závadu nebo co potřebujete. Domluvíme se na termínu výjezdu." dark tightTop />
     </div>
   );
@@ -1365,6 +1373,13 @@ function CisteniPage() {
 // PAGE: TEPELNÁ ČERPADLA
 // ═══════════════════════════════════════════════════════════════════════════════
 
+const TC_FAQ: FAQItem[] = [
+  { q: "Jaké tepelné čerpadlo je pro rodinný dům nejvhodnější?", a: "Pro většinu rodinných domů v ČR je nejčastější volbou čerpadlo vzduch-voda — instaluje se bez výkopů a vrtů a spolehlivě pracuje i při mrazech do −20 °C. Konkrétní typ doporučíme po zjištění stavu domu a topného systému." },
+  { q: "Dá se tepelné čerpadlo napojit na stávající radiátory?", a: "Ve většině případů ano, záleží na typu radiátorů a teplotním spádu systému. Posoudíme to při obhlídce a navrhneme řešení, které nebude vyžadovat kompletní výměnu otopné soustavy." },
+  { q: "Kolik stojí montáž tepelného čerpadla?", a: "Cena závisí na typu čerpadla, výkonu a náročnosti instalace. Po nezávazné konzultaci připravíme konkrétní nabídku na míru vašemu domu." },
+  { q: "Jak náročná je údržba tepelného čerpadla?", a: "Tepelné čerpadlo vyžaduje minimální údržbu — doporučujeme pravidelnou servisní kontrolu jednou ročně, podobně jako u kotle. Servis tepelných čerpadel zajišťujeme i my." },
+];
+
 function TepelnaCerpadlaPage() {
   const types = [
     { title: "Vzduch-voda", tag: "Nejčastější volba", desc: "Nejrozšířenější typ pro rodinné domy. Instalace bez výkopů nebo vrtů. Pracuje spolehlivě do −20 °C.", highlight: true },
@@ -1401,7 +1416,8 @@ function TepelnaCerpadlaPage() {
         </div>
       </section>
 
-      <InquiryForm id="tc-form" subtitle="Napište velikost domu a typ stávajícího zdroje. Připravíme nabídku." dark />
+      <FAQBlock items={TC_FAQ} title="Časté dotazy o tepelných čerpadlech" />
+      <InquiryForm id="tc-form" subtitle="Napište velikost domu a typ stávajícího zdroje. Připravíme nabídku." dark tightTop />
     </div>
   );
 }
@@ -1441,9 +1457,9 @@ function MaroxPage() {
     <div>
       <section className="relative overflow-hidden pt-16 md:pt-24 pb-8 md:pb-10 px-6" style={{ background: INK }}>
         <div className="max-w-4xl mx-auto relative z-10">
-                    <h2 className="font-bold text-white leading-none mb-6" style={{ fontFamily: FD, fontSize: "clamp(1.8rem,3.5vw,2.6rem)" }}>
+                    <h1 className="font-bold text-white leading-none mb-6" style={{ fontFamily: FD, fontSize: "clamp(1.8rem,3.5vw,2.6rem)" }}>
             FERNOX <span style={{ color: FIRE }}>&</span> KAMCO
-          </h2>
+          </h1>
           <p className="text-white/40 max-w-xl leading-relaxed mb-8 text-base" style={{ fontFamily: FB }}>
             Přímý prodej přípravků britských značek Fernox a Kamco.<br />Pro soukromé osoby i topenářské firmy.
           </p>
@@ -1533,9 +1549,9 @@ function ONasPage() {
     <div>
       <section style={{ background: HERO_GRADIENT }} className="py-16 md:py-24 px-6">
         <div className="max-w-4xl mx-auto">
-                    <h2 className="font-bold text-white leading-none" style={{ fontFamily: FD, fontSize: "clamp(1.8rem,3.5vw,2.6rem)" }}>
+                    <h1 className="font-bold text-white leading-none" style={{ fontFamily: FD, fontSize: "clamp(1.8rem,3.5vw,2.6rem)" }}>
             MARTIN<br />MACHÁČ
-          </h2>
+          </h1>
         </div>
       </section>
 
@@ -1731,7 +1747,7 @@ function KontaktPage() {
           </div>
 
           <div>
-            <h2 className="font-bold mb-5 text-white" style={{ fontFamily: FD, fontSize: "clamp(1.5rem,2.5vw,1.9rem)", lineHeight: 1 }}>
+            <h2 className="font-bold mb-5 text-white" style={{ fontFamily: FD, fontSize: "clamp(1.8rem,3vw,2.6rem)", lineHeight: 1 }}>
               POJĎME TO VYŘEŠIT
             </h2>
             <KontaktInlineForm />
@@ -1740,6 +1756,103 @@ function KontaktPage() {
       </section>
     </div>
   );
+}
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// STRUKTUROVANÁ DATA (JSON-LD)
+// ═══════════════════════════════════════════════════════════════════════════════
+// Firemní údaje (LocalBusiness) jsou staticky v index.html, aby je viděli i
+// roboti, kteří nespouští JavaScript. Tady se ke každé stránce dynamicky
+// přidává její vlastní Service / FAQPage / BreadcrumbList / Person schéma.
+
+const SITE_URL = "https://topenivcajku.com";
+const BUSINESS_ID = `${SITE_URL}/#firma`;
+const SERVICE_AREA = [
+  { "@type": "City", "name": "Brno" },
+  { "@type": "AdministrativeArea", "name": "Jihomoravský kraj" },
+];
+
+function breadcrumbSchema(page: Page) {
+  if (page === "home") return null;
+  return {
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Domů", "item": `${SITE_URL}/` },
+      { "@type": "ListItem", "position": 2, "name": PAGE_META[page].title.split(" | ")[0], "item": SITE_URL + PAGE_PATHS[page] },
+    ],
+  };
+}
+
+function faqPageSchema(items: FAQItem[]) {
+  return {
+    "@type": "FAQPage",
+    "mainEntity": items.map((f) => ({
+      "@type": "Question",
+      "name": f.q,
+      "acceptedAnswer": { "@type": "Answer", "text": f.a },
+    })),
+  };
+}
+
+function serviceSchema(name: string, description: string) {
+  return {
+    "@type": "Service",
+    "name": name,
+    "description": description,
+    "provider": { "@id": BUSINESS_ID },
+    "areaServed": SERVICE_AREA,
+  };
+}
+
+function buildPageSchema(page: Page): object | null {
+  const graph: object[] = [];
+  const bc = breadcrumbSchema(page);
+  if (bc) graph.push(bc);
+
+  switch (page) {
+    case "home":
+      graph.push(faqPageSchema(HOME_FAQ));
+      break;
+    case "servis":
+      graph.push(serviceSchema(
+        "Servis a montáž plynových kotlů",
+        "Revize, opravy, záruční i pozáruční servis plynových kotlů. Kompletní montáž a zprovoznění nových kotlů, hlavně značek Baxi a De Dietrich."
+      ));
+      graph.push(faqPageSchema(SERVIS_FAQ));
+      break;
+    case "cisteni":
+      graph.push(serviceSchema(
+        "Chemicko-mechanické čištění topných systémů",
+        "Profesionální proplach topného systému přípravky Fernox a Kamco, který odstraní kal a korozi a obnoví efektivitu vytápění."
+      ));
+      graph.push(faqPageSchema(CISTENI_FAQ));
+      break;
+    case "tepelna-cerpadla":
+      graph.push(serviceSchema(
+        "Tepelná čerpadla",
+        "Dodávka, montáž a servis tepelných čerpadel vzduch-voda, vzduch-vzduch a země-voda pro rodinné domy."
+      ));
+      graph.push(faqPageSchema(TC_FAQ));
+      break;
+    case "marox":
+      graph.push(serviceSchema(
+        "Prodej přípravků Fernox a Kamco",
+        "Přímý prodej čisticích přípravků a inhibitorů koroze britských značek Fernox a Kamco pro soukromé osoby i topenářské firmy."
+      ));
+      break;
+    case "o-nas":
+      graph.push({
+        "@type": "Person",
+        "name": "Martin Macháč",
+        "jobTitle": "Topenář",
+        "worksFor": { "@id": BUSINESS_ID },
+        "description": "Topenářským pracím se věnuje přes 9 let — servis a diagnostika plynových kotlů, chemicko-mechanické čištění topných soustav a montáž tepelných čerpadel.",
+      });
+      break;
+  }
+
+  if (graph.length === 0) return null;
+  return { "@context": "https://schema.org", "@graph": graph };
 }
 
 // ═══════════════════════════════════════════════════════════════════════════════
@@ -1773,6 +1886,19 @@ export default function App() {
     const meta = PAGE_META[currentPage];
     document.title = meta.title;
     document.querySelector('meta[name="description"]')?.setAttribute("content", meta.description);
+  }, [currentPage]);
+
+  // Keep the page's JSON-LD structured data (Service/FAQPage/BreadcrumbList/Person) in sync.
+  useEffect(() => {
+    document.getElementById("ld-page")?.remove();
+    const data = buildPageSchema(currentPage);
+    if (data) {
+      const script = document.createElement("script");
+      script.type = "application/ld+json";
+      script.id = "ld-page";
+      script.textContent = JSON.stringify(data);
+      document.head.appendChild(script);
+    }
   }, [currentPage]);
 
   const renderPage = () => {
