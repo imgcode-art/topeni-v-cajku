@@ -585,8 +585,8 @@ function InquiryForm({ title = "Pojďme to vyřešit", subtitle, dark = false, i
 }
 
 // ── SectionHero ───────────────────────────────────────────────────────────────
-function SectionHero({ eyebrow, title, subtitle, icon, formId, imgId, imgSrc, videoSrc, aurora }: {
-  eyebrow: string; title: React.ReactNode; subtitle: React.ReactNode; icon: React.ReactNode; formId: string; imgId?: string; imgSrc?: string; videoSrc?: string; aurora?: boolean;
+function SectionHero({ eyebrow, title, subtitle, icon, formId, imgId, imgSrc, videoSrc, aurora, imgDim }: {
+  eyebrow: string; title: React.ReactNode; subtitle: React.ReactNode; icon: React.ReactNode; formId: string; imgId?: string; imgSrc?: string; videoSrc?: string; aurora?: boolean; imgDim?: number;
 }) {
   const heroImg = imgSrc || (imgId ? `https://images.unsplash.com/${imgId}?w=1400&h=600&fit=crop&auto=format` : undefined);
   return (
@@ -604,6 +604,7 @@ function SectionHero({ eyebrow, title, subtitle, icon, formId, imgId, imgSrc, vi
           <img src={heroImg} alt="" className="w-full h-full object-cover" />
           <div className="absolute inset-0" style={{ background: `linear-gradient(180deg, ${INK}66 0%, ${INK}99 55%, ${INK}E0 100%)` }} />
           <div className="absolute inset-0 mix-blend-multiply" style={{ background: `linear-gradient(115deg, ${FIRE}66 0%, transparent 55%)` }} />
+          {imgDim && <div className="absolute inset-0" style={{ background: INK, opacity: imgDim }} />}
         </div>
       )}
       <div className="max-w-4xl mx-auto relative z-10">
@@ -707,7 +708,7 @@ function HomePage({ setPage }: { setPage: (p: Page) => void }) {
           </div>
 
           <div className="w-full px-6 lg:px-0 pt-14 lg:pt-12 pb-16 lg:pb-20 relative lg:order-1">
-            <motion.h1 className="font-semibold leading-tight" style={{ fontFamily: FD, fontSize: "clamp(1.8rem,3.5vw,2.6rem)", color: "rgba(255,255,255,0.7)" }}
+            <motion.h1 className="font-semibold uppercase leading-tight" style={{ fontFamily: FD, fontSize: "clamp(1.4rem,2.6vw,2rem)", color: "rgba(255,255,255,0.7)" }}
               initial={{ opacity: 0, y: 34 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-60px" }} transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}>
               Chemicko-mechanické čištění topných systémů, tepelná čerpadla, servis a montáž kotlů
             </motion.h1>
@@ -1165,7 +1166,7 @@ function TepelnaCerpadlaPage() {
       <SectionHero eyebrow="Tepelná čerpadla" icon={<Wind size={14} />}
         title={<>TEPELNÁ<br />ČERPADLA</>}
         subtitle={<>Přejít na tepelné čerpadlo dnes dává smysl ekonomicky i ekologicky.<br />Pomůžeme vybrat správný typ a zajistíme instalaci.</>}
-        formId="tc-form" imgSrc="/images/realizace/heat-pump-hero.jpg" />
+        formId="tc-form" imgSrc="/images/realizace/heat-pump-hero.jpg" imgDim={0.35} />
 
       <section style={{ background: INK }} className="py-24 px-6">
         <div className="max-w-6xl mx-auto">
