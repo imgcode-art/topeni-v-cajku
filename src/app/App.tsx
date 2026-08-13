@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { motion, useInView, AnimatePresence } from "motion/react";
 import {
-  Phone, Menu, X, Wrench, Droplets, Zap, Shield,
+  Phone, Menu, X, Wrench, Droplets, Shield,
   CheckCircle, ArrowRight, ChevronDown, Clock,
   Star, Award, Wind, Flame, Check,
   Leaf, TrendingDown, AlertCircle, FileText, Users, RefreshCw, Handshake, Heart,
@@ -909,8 +909,7 @@ function ServisPage() {
     { icon: <FileText size={20} />, title: "Revize kotle", desc: "Zákonná povinnost jednou ročně. Kontrola spalování, těsnosti plynu a bezpečnostních prvků." },
     { icon: <Wrench size={20} />, title: "Oprava a diagnostika", desc: "Výjezd, přesná diagnostika závady, oprava na místě. Cenu sdělíme před zahájením — bez překvapení." },
     { icon: <Shield size={20} />, title: "Záruční a pozáruční servis", desc: "Servisujeme kotle v záruce i po ní. Specializujeme se na Baxi a De Dietrich, zvládneme i ostatní." },
-    { icon: <Zap size={20} />, title: "Montáž nového kotle", desc: "Dodávka a montáž kondenzačního plynového kotle. Nezávislé doporučení — vybereme co vám sedí." },
-    { icon: <RefreshCw size={20} />, title: "Výměna starého kotle", desc: "Demontáž starého, instalace nového. Zpracujeme dokumentaci a přihlášení k plynárenské společnosti." },
+    { icon: <RefreshCw size={20} />, title: "Výměna a montáž kotlů", desc: "Dodávka, demontáž starého a instalace nového kotle na klíč. Pomůžeme s výběrem, zpracujeme dokumentaci a vyřídíme přihlášení." },
   ];
 
   const symptoms = [
