@@ -99,7 +99,7 @@ function Counter({ value, className, style }: { value: string; className?: strin
 }
 
 // ── VideoCard ────────────────────────────────────────────────────────────────
-function VideoCard({ src, duration }: { src: string; duration: string }) {
+function VideoCard({ src, duration, poster }: { src: string; duration: string; poster?: string }) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [started, setStarted] = useState(false);
 
@@ -116,6 +116,7 @@ function VideoCard({ src, duration }: { src: string; duration: string }) {
           controls={started}
           playsInline
           preload="metadata"
+          poster={poster}
           className="w-full h-full object-cover"
           src={src}
         />
@@ -1297,7 +1298,7 @@ function CisteniPage() {
             ))}
           </div>
           <div className="mt-10 p-6 border border-white/10">
-            <p className="text-white/40 text-sm" style={{ fontFamily: FB }}>
+            <p className="text-white/70 text-sm" style={{ fontFamily: FB }}>
               Cena závisí na velikosti systému a stupni znečištění. Přesná nabídka po obhlídce.
             </p>
           </div>
@@ -1309,7 +1310,7 @@ function CisteniPage() {
         <div className="max-w-4xl mx-auto">
           <h2 className="font-bold leading-none mb-6 text-white" style={{ fontFamily: FD, fontSize: "clamp(1.6rem,2.5vw,2.2rem)" }}>ČIŠTĚNÍ V PRAXI</h2>
           <p className="text-sm text-white/55 mb-8" style={{ fontFamily: FB }}>Krátké video přímo ze zakázky — podívejte se, jak proplach probíhá ve skutečnosti.</p>
-          <VideoCard src="/videos/cisteni-video.mp4" duration="0:57" />
+          <VideoCard src="/videos/cisteni-video.mp4" duration="0:57" poster="/images/cisteni-video-poster.jpg" />
         </div>
       </section>
 
