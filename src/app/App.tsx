@@ -448,7 +448,7 @@ interface FAQItem { q: string; a: string; }
 function FAQBlock({ items, title = "Časté dotazy" }: { items: FAQItem[]; title?: string }) {
   const [openIdx, setOpenIdx] = useState<number | null>(null);
   return (
-    <section style={{ background: SMOKE, fontFamily: FB }} className="py-24 px-6">
+    <section style={{ background: SMOKE, fontFamily: FB }} className="pt-16 md:pt-24 pb-8 md:pb-10 px-6">
       <div className="max-w-3xl mx-auto">
         <Reveal>
           <h2 className="font-bold text-white mb-12" style={{ fontFamily: FD, fontSize: "clamp(1.6rem,2.5vw,2.2rem)", lineHeight: 1 }}>
@@ -493,8 +493,8 @@ function FAQBlock({ items, title = "Časté dotazy" }: { items: FAQItem[]; title
 }
 
 // ── InquiryForm ───────────────────────────────────────────────────────────────
-function InquiryForm({ title = "Pojďme to vyřešit", subtitle, dark = false, id }: {
-  title?: string; subtitle?: string; dark?: boolean; id?: string;
+function InquiryForm({ title = "Pojďme to vyřešit", subtitle, dark = false, id, tightTop = false }: {
+  title?: string; subtitle?: string; dark?: boolean; id?: string; tightTop?: boolean;
 }) {
   const [form, setForm] = useState({ name: "", phone: "", issue: "" });
   const [sent, setSent] = useState(false);
@@ -531,7 +531,7 @@ function InquiryForm({ title = "Pojďme to vyřešit", subtitle, dark = false, i
     : "bg-white border-black/12 text-[#111] placeholder:text-black/25 focus:border-[#E8623E] focus:shadow-[0_0_0_3px_rgba(232,98,62,0.12)]";
 
   return (
-    <section id={id} className="py-24 px-6" style={{ background: bg, fontFamily: FB }}>
+    <section id={id} className={tightTop ? "pt-8 md:pt-10 pb-16 md:pb-24 px-6" : "py-16 md:py-24 px-6"} style={{ background: bg, fontFamily: FB }}>
       <Reveal className="max-w-lg mx-auto">
         <h2 className="font-bold mb-2" style={{ fontFamily: FD, fontSize: "clamp(1.8rem,3.5vw,2.6rem)", lineHeight: 1, color: headColor }}>
           {title.toUpperCase()}
@@ -590,7 +590,7 @@ function SectionHero({ eyebrow, title, subtitle, icon, formId, imgId, imgSrc, vi
 }) {
   const heroImg = imgSrc || (imgId ? `https://images.unsplash.com/${imgId}?w=1400&h=600&fit=crop&auto=format` : undefined);
   return (
-    <section className="relative overflow-hidden py-28 lg:py-32 px-6"
+    <section className="relative overflow-hidden py-20 md:py-28 lg:py-32 px-6"
       style={{ background: aurora ? INK : HERO_GRADIENT, clipPath: "polygon(0 0, 100% 0, 100% 100%, 0 96%)" }}>
       {aurora && <Aurora color={FIRE} />}
       {!aurora && videoSrc && (
@@ -739,7 +739,7 @@ function HomePage({ setPage }: { setPage: (p: Page) => void }) {
       </section>
 
       {/* ── STATS ── */}
-      <section style={{ background: INK }} className="py-14 px-6">
+      <section style={{ background: INK }} className="py-10 md:py-14 px-6">
         <div className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-3 gap-4">
           {stats.map((s, i) => (
             <motion.div key={i} className="text-center px-4 py-6"
@@ -754,7 +754,7 @@ function HomePage({ setPage }: { setPage: (p: Page) => void }) {
       </section>
 
       {/* ── SITUATIONS ── */}
-      <section style={{ background: SMOKE }} className="pt-24 pb-10 px-6">
+      <section style={{ background: SMOKE }} className="pt-16 md:pt-24 pb-8 md:pb-10 px-6">
         <div className="max-w-7xl mx-auto">
           <Reveal className="flex items-end justify-between mb-12">
             <div>
@@ -799,10 +799,10 @@ function HomePage({ setPage }: { setPage: (p: Page) => void }) {
       </section>
 
       {/* ── SERVICES ── */}
-      <section style={{ background: SMOKE }} className="pt-10 pb-24 px-6">
+      <section style={{ background: SMOKE }} className="pt-8 md:pt-10 pb-16 md:pb-24 px-6">
         <div className="max-w-7xl mx-auto">
           <Reveal>
-            <h2 className="font-bold leading-none mb-16 text-white" style={{ fontFamily: FD, fontSize: "clamp(1.8rem,3vw,2.6rem)" }}>
+            <h2 className="font-bold leading-none mb-12 text-white" style={{ fontFamily: FD, fontSize: "clamp(1.8rem,3vw,2.6rem)" }}>
               S ČÍM VÁM POMŮŽEME
             </h2>
           </Reveal>
@@ -831,7 +831,7 @@ function HomePage({ setPage }: { setPage: (p: Page) => void }) {
       </section>
 
       {/* ── TESTIMONIALS ── */}
-      <section style={{ background: INK }} className="py-24 px-6">
+      <section style={{ background: INK }} className="py-16 md:py-24 px-6">
         <div className="max-w-4xl mx-auto">
           <Reveal>
             <h2 className="font-bold text-white leading-none mb-12" style={{ fontFamily: FD, fontSize: "clamp(1.8rem,3vw,2.6rem)" }}>
@@ -862,7 +862,7 @@ function HomePage({ setPage }: { setPage: (p: Page) => void }) {
       </section>
 
       <FAQBlock items={HOME_FAQ} title="Nejčastější dotazy" />
-      <InquiryForm id="inquiry-home" dark />
+      <InquiryForm id="inquiry-home" dark tightTop />
     </div>
   );
 }
@@ -897,7 +897,7 @@ function ServisPage() {
         subtitle={<>Revize, opravy, záruční i pozáruční servis, nové montáže.<br />Hlavní značky: Baxi a De Dietrich.</>}
         formId="servis-form" imgSrc="/images/realizace/kotelna1.png" />
 
-      <section style={{ background: INK }} className="py-24 px-6">
+      <section style={{ background: INK }} className="py-16 md:py-24 px-6">
         <div className="max-w-6xl mx-auto">
                     <h2 className="font-bold leading-none mb-12 text-white" style={{ fontFamily: FD, fontSize: "clamp(1.6rem,2.5vw,2.2rem)" }}>SLUŽBY</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -912,7 +912,7 @@ function ServisPage() {
         </div>
       </section>
 
-      <section style={{ background: SMOKE }} className="py-24 px-6">
+      <section style={{ background: SMOKE }} className="pt-16 md:pt-24 pb-8 md:pb-10 px-6">
         <div className="max-w-4xl mx-auto">
                     <h2 className="font-bold text-white leading-none mb-12" style={{ fontFamily: FD, fontSize: "clamp(1.6rem,2.5vw,2.2rem)" }}>KDY VOLAT TOPENÁŘE?</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
@@ -926,7 +926,7 @@ function ServisPage() {
         </div>
       </section>
 
-      <section style={{ background: SMOKE }} className="py-24 px-6">
+      <section style={{ background: SMOKE }} className="pt-8 md:pt-10 pb-8 md:pb-10 px-6">
         <div className="max-w-4xl mx-auto">
                     <h2 className="font-bold leading-none mb-12 text-white" style={{ fontFamily: FD, fontSize: "clamp(1.6rem,2.5vw,2.2rem)" }}>JAK PROBÍHÁ SERVIS</h2>
           <div className="relative">
@@ -976,7 +976,7 @@ function ServisPage() {
         </div>
       </section>
 
-      <InquiryForm id="servis-form" subtitle="Popište závadu nebo co potřebujete. Domluvíme se na termínu výjezdu." dark />
+      <InquiryForm id="servis-form" subtitle="Popište závadu nebo co potřebujete. Domluvíme se na termínu výjezdu." dark tightTop />
     </div>
   );
 }
@@ -1026,7 +1026,7 @@ function CisteniPage() {
         subtitle={<>Kal a koroze v potrubí kradou teplo a ničí váš kotel.<br />Profesionálním proplachem obnovíme efektivitu a ušetříme vám 15–30 %.</>}
         formId="cisteni-form" imgSrc="/images/realizace/cisteni_topeni.png" />
 
-      <section style={{ background: SMOKE }} className="py-16 px-6">
+      <section style={{ background: SMOKE }} className="pt-12 md:pt-16 pb-8 md:pb-10 px-6">
         <div className="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-4">
           {benefits.map((b, i) => (
             <div key={i} className="text-center p-6" style={{ clipPath: NOTCH_MD, background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.08)" }}>
@@ -1038,7 +1038,7 @@ function CisteniPage() {
         </div>
       </section>
 
-      <section style={{ background: SMOKE }} className="py-24 px-6">
+      <section style={{ background: SMOKE }} className="pt-8 md:pt-10 pb-16 md:pb-24 px-6">
         <div className="max-w-4xl mx-auto">
                     <h2 className="font-bold leading-none mb-12 text-white" style={{ fontFamily: FD, fontSize: "clamp(1.6rem,2.5vw,2.2rem)" }}>POTŘEBUJE VÁŠE TOPENÍ ČIŠTĚNÍ?</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
@@ -1056,7 +1056,7 @@ function CisteniPage() {
       </section>
 
       {/* ── BEFORE / AFTER ── */}
-      <section style={{ background: INK }} className="py-24 px-6">
+      <section style={{ background: INK }} className="py-16 md:py-24 px-6">
         <div className="max-w-6xl mx-auto">
           <h2 className="font-bold text-white leading-none mb-12" style={{ fontFamily: FD, fontSize: "clamp(1.8rem,3vw,2.6rem)" }}>
             PŘED A PO
@@ -1077,7 +1077,7 @@ function CisteniPage() {
         </div>
       </section>
 
-      <section style={{ background: SMOKE }} className="py-24 px-6">
+      <section style={{ background: SMOKE }} className="py-16 md:py-24 px-6">
         <div className="max-w-4xl mx-auto">
                     <h2 className="font-bold text-white leading-none mb-12" style={{ fontFamily: FD, fontSize: "clamp(1.6rem,2.5vw,2.2rem)" }}>JAK PROBÍHÁ ČIŠTĚNÍ</h2>
           <div className="relative">
@@ -1127,9 +1127,9 @@ function CisteniPage() {
       </section>
 
       {/* ── VIDEO Z REALIZACE ── */}
-      <section style={{ background: INK }} className="py-24 px-6">
+      <section style={{ background: INK }} className="py-16 md:py-24 px-6">
         <div className="max-w-4xl mx-auto">
-          <h2 className="font-bold leading-none mb-4 text-white" style={{ fontFamily: FD, fontSize: "clamp(1.6rem,2.5vw,2.2rem)" }}>ČIŠTĚNÍ V PRAXI</h2>
+          <h2 className="font-bold leading-none mb-6 text-white" style={{ fontFamily: FD, fontSize: "clamp(1.6rem,2.5vw,2.2rem)" }}>ČIŠTĚNÍ V PRAXI</h2>
           <p className="text-sm text-white/55 mb-8" style={{ fontFamily: FB }}>Krátké video přímo ze zakázky — podívejte se, jak proplach probíhá ve skutečnosti.</p>
           <VideoCard src="/videos/cisteni-video.mp4" duration="0:57" />
         </div>
@@ -1145,7 +1145,7 @@ function CisteniPage() {
       </div>
 
       <FAQBlock items={CISTENI_FAQ} title="Časté dotazy" />
-      <InquiryForm id="cisteni-form" subtitle="Napište nám velikost domu a jak starý systém máte. Připravíme nabídku." dark />
+      <InquiryForm id="cisteni-form" subtitle="Napište nám velikost domu a jak starý systém máte. Připravíme nabídku." dark tightTop />
     </div>
   );
 }
@@ -1168,7 +1168,7 @@ function TepelnaCerpadlaPage() {
         subtitle={<>Přejít na tepelné čerpadlo dnes dává smysl ekonomicky i ekologicky.<br />Pomůžeme vybrat správný typ a zajistíme instalaci.</>}
         formId="tc-form" imgSrc="/images/realizace/heat-pump-hero.jpg" imgDim={0.55} />
 
-      <section style={{ background: INK }} className="py-24 px-6">
+      <section style={{ background: INK }} className="py-16 md:py-24 px-6">
         <div className="max-w-6xl mx-auto">
                     <h2 className="font-bold leading-none mb-12 text-white" style={{ fontFamily: FD, fontSize: "clamp(1.6rem,2.5vw,2.2rem)" }}>JAKÉ ČERPADLO VYBRAT</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -1224,9 +1224,9 @@ function MaroxPage() {
 
   return (
     <div>
-      <section className="relative overflow-hidden pt-24 pb-10 px-6" style={{ background: INK }}>
+      <section className="relative overflow-hidden pt-16 md:pt-24 pb-8 md:pb-10 px-6" style={{ background: INK }}>
         <div className="max-w-4xl mx-auto relative z-10">
-                    <h2 className="font-bold text-white leading-none mb-4" style={{ fontFamily: FD, fontSize: "clamp(1.8rem,3.5vw,2.6rem)" }}>
+                    <h2 className="font-bold text-white leading-none mb-6" style={{ fontFamily: FD, fontSize: "clamp(1.8rem,3.5vw,2.6rem)" }}>
             FERNOX <span style={{ color: FIRE }}>&</span> KAMCO
           </h2>
           <p className="text-white/40 max-w-xl leading-relaxed mb-8 text-base" style={{ fontFamily: FB }}>
@@ -1247,7 +1247,7 @@ function MaroxPage() {
         </div>
       </section>
 
-      <section style={{ background: INK }} className="pt-10 pb-24 px-6">
+      <section style={{ background: INK }} className="pt-8 md:pt-10 pb-16 md:pb-24 px-6">
         <div className="max-w-6xl mx-auto">
           <div className="overflow-hidden" style={{ background: INK, clipPath: NOTCH_MD, border: "1px solid rgba(255,255,255,0.1)" }}>
             <div className="px-6 md:px-8 pt-6 md:pt-8">
@@ -1310,7 +1310,7 @@ function ONasPage() {
 
   return (
     <div>
-      <section style={{ background: HERO_GRADIENT }} className="py-24 px-6">
+      <section style={{ background: HERO_GRADIENT }} className="py-16 md:py-24 px-6">
         <div className="max-w-4xl mx-auto">
                     <h2 className="font-bold text-white leading-none" style={{ fontFamily: FD, fontSize: "clamp(1.8rem,3.5vw,2.6rem)" }}>
             MARTIN<br />MACHÁČ
@@ -1318,7 +1318,7 @@ function ONasPage() {
         </div>
       </section>
 
-      <section style={{ background: INK }} className="py-24 px-6">
+      <section style={{ background: INK }} className="py-16 md:py-24 px-6">
         <div className="max-w-4xl mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-16 mb-16">
             <div>
@@ -1450,7 +1450,7 @@ function KontaktPage() {
 
   return (
     <div>
-      <section className="relative overflow-hidden pt-24 lg:pt-28 pb-8 px-6"
+      <section className="relative overflow-hidden pt-16 md:pt-24 lg:pt-28 pb-8 md:pb-10 px-6"
         style={{ background: INK, clipPath: "polygon(0 0, 100% 0, 100% 100%, 0 96%)" }}>
         <div className="max-w-4xl mx-auto relative z-10 flex flex-col lg:flex-row lg:items-center gap-10">
           <div className="flex-1 min-w-0">
@@ -1479,7 +1479,7 @@ function KontaktPage() {
         </div>
       </section>
 
-      <section id="kontakt-form" style={{ background: INK }} className="pt-10 pb-24 px-6">
+      <section id="kontakt-form" style={{ background: INK }} className="pt-8 md:pt-10 pb-16 md:pb-24 px-6">
         <div className="max-w-xl mx-auto flex flex-col gap-12">
           <div className="p-8" style={{ background: "rgba(255,255,255,0.04)", clipPath: NOTCH_MD, border: "1px solid rgba(255,255,255,0.1)" }}>
             <div className="divide-y divide-white/10">
