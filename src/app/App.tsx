@@ -1502,11 +1502,16 @@ function KontaktPage() {
               Za Topením v cajku stojím já, Martin, s mým týmem zkušených parťáků. V oboru se pohybujeme už řadu let a víme, že nikdo z vás nechce poslouchat složité technické řeči. Chcete jedinou věc – aby to prostě fungovalo.
             </p>
             <p className="text-white/55 leading-relaxed text-base" style={{ fontFamily: FB }}>
-              Dohodneme se narovinu, a když se cokoliv stane, jsme tu pro vás. Chceme, abyste měli doma klid a o topení nemuseli přemýšlet.
+              Dohodneme se narovinu, a když se cokoliv stane, jsme tu pro vás.
+              <br />
+              Chceme, abyste měli doma klid a o topení nemuseli přemýšlet.
             </p>
           </div>
-          <div className="relative w-56 h-56 md:w-64 md:h-64 shrink-0 overflow-hidden" style={{ clipPath: NOTCH_LG, border: "1px solid rgba(255,255,255,0.1)" }}>
+          <div className="relative w-full aspect-square md:w-64 md:h-64 shrink-0 overflow-hidden" style={{ clipPath: NOTCH_LG, border: "1px solid rgba(255,255,255,0.1)" }}>
             <img src="/images/realizace/topenivcajku_martin.jpg" alt="Martin Macháč" className="w-full h-full object-cover" style={{ objectPosition: "56% 50%" }} draggable={false} />
+            <div className="absolute pointer-events-none" style={{ left: "74%", top: "74%", width: "15%", aspectRatio: "1 / 1", transform: "translate(-50%, -50%)" }}>
+              <div className="logo-glow w-full h-full" />
+            </div>
           </div>
         </div>
       </section>
