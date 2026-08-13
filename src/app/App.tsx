@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { motion, useInView, AnimatePresence } from "motion/react";
 import {
-  Phone, Menu, X, Wrench, Droplets, Shield,
+  Phone, Mail, Menu, X, Wrench, Droplets, Shield,
   CheckCircle, ArrowRight, ChevronDown, Clock,
   Star, Award, Wind, Flame, Check,
   Leaf, TrendingDown, AlertCircle, FileText, Users, RefreshCw, Handshake, Heart,
@@ -1464,14 +1464,7 @@ function KontaktInlineForm() {
 }
 
 function KontaktPage() {
-  const info = [
-    { label: "Jméno", value: "Martin Macháč" },
-    { label: "IČO", value: "09606475" },
-    { label: "Telefon", value: PHONE, href: PHONE_HREF },
-    { label: "E-mail", value: "martinmachac24@seznam.cz", href: "mailto:martinmachac24@seznam.cz" },
-    { label: "Oblast", value: "Brno a Jihomoravský kraj" },
-    { label: "Po–Pá", value: "8:00–16:00" },
-  ];
+  const EMAIL = "martinmachac24@seznam.cz";
 
   return (
     <div>
@@ -1521,18 +1514,25 @@ function KontaktPage() {
       <section id="kontakt-form" style={{ background: INK }} className="pt-8 md:pt-10 pb-16 md:pb-24 px-6">
         <div className="max-w-xl mx-auto flex flex-col gap-12">
           <div className="p-8" style={{ background: "rgba(255,255,255,0.04)", clipPath: NOTCH_MD, border: "1px solid rgba(255,255,255,0.1)" }}>
-            <div className="divide-y divide-white/10">
-              {info.map((c, i) => (
-                <div key={i} className="flex items-center justify-between gap-4 py-4">
-                  <span className="text-xs text-white/40 uppercase tracking-wide shrink-0" style={{ fontFamily: FB }}>{c.label}</span>
-                  {c.href ? (
-                    <a href={c.href} className="font-semibold text-white hover:opacity-70 transition-opacity text-sm text-right break-all" style={{ fontFamily: FB }}>{c.value}</a>
-                  ) : (
-                    <span className="font-semibold text-white text-sm text-right break-all" style={{ fontFamily: FB }}>{c.value}</span>
-                  )}
-                </div>
-              ))}
+            <div className="flex flex-wrap gap-3 mb-6">
+              <a href={PHONE_HREF}
+                className="inline-flex items-center gap-2 px-5 py-3 rounded-full text-sm font-semibold text-white break-all transition-colors hover:bg-white/[0.14] hover:border-white/25"
+                style={{ background: "rgba(255,255,255,0.08)", border: "1px solid rgba(255,255,255,0.14)", fontFamily: FB }}>
+                <Phone size={16} style={{ color: FIRE }} className="shrink-0" />
+                {PHONE}
+              </a>
+              <a href={`mailto:${EMAIL}`}
+                className="inline-flex items-center gap-2 px-5 py-3 rounded-full text-sm font-semibold text-white break-all transition-colors hover:bg-white/[0.14] hover:border-white/25"
+                style={{ background: "rgba(255,255,255,0.08)", border: "1px solid rgba(255,255,255,0.14)", fontFamily: FB }}>
+                <Mail size={16} style={{ color: FIRE }} className="shrink-0" />
+                {EMAIL}
+              </a>
             </div>
+            <p className="text-sm text-white/50 leading-relaxed" style={{ fontFamily: FB }}>
+              <span className="text-white font-semibold">Martin Macháč</span> · IČO 09606475
+              <br />
+              Jsme vám k dispozici v Brně a Jihomoravském kraji, Po–Pá od 8:00 do 16:00.
+            </p>
           </div>
 
           <div>
