@@ -858,6 +858,9 @@ const HOME_FAQ: FAQItem[] = [
   { q: "Jak poznám, že topení potřebuje čištění?", a: "Typické příznaky jsou studené radiátory (často nahoře teplé, dole studené), hluk nebo klapání v kotli, kalná či tmavá voda v systému a celkově horší ohřev i přes vyšší výkon kotle. Pokud systém nebyl čištěn déle než 5 let, čištění se obvykle vyplatí." },
 ];
 
+// Body důvěryhodnosti pod hlavním nadpisem hero sekce.
+const DUVERYHODNOST = ["Férové jednání", "Spolehlivost", "Ochota"];
+
 function HomePage({ setPage }: { setPage: (p: Page) => void }) {
   const go = (page: Page) => navTo(page, setPage);
 
@@ -868,10 +871,10 @@ function HomePage({ setPage }: { setPage: (p: Page) => void }) {
     { icon: <FileText size={18} />, title: "Prodej přípravků Fernox a Kamco", desc: "Přípravky britských značek pro čištění a ochranu topných soustav.", page: "marox" as Page },
   ];
 
-  const stats = [
-    { val: "624", lbl: "spokojených zákazníků" },
-    { val: "9", lbl: "let v oboru" },
-    { val: "98%", lbl: "zákazníků doporučuje" },
+  const statistiky = [
+    { hodnota: "100 %", popisek: "Pokrytí regionu" },
+    { hodnota: "9 let", popisek: "V oboru" },
+    { hodnota: "3 v 1", popisek: "Montáž, servis, revize" },
   ];
 
   const situations = [
@@ -927,7 +930,7 @@ function HomePage({ setPage }: { setPage: (p: Page) => void }) {
             </motion.h1>
             <motion.div className="flex flex-col md:flex-row md:flex-wrap gap-2 md:gap-x-8 md:gap-y-3 mt-6"
               initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-60px" }} transition={{ duration: 0.5, delay: 0.1 }}>
-              {["Férové jednání", "100% spolehlivost", "Ochota"].map((text, i) => (
+              {DUVERYHODNOST.map((text, i) => (
                 <span key={i} className="flex items-center gap-2 text-white/80 text-sm font-medium" style={{ fontFamily: FB }}>
                   <Check size={16} style={{ color: FIRE }} strokeWidth={3} />
                   {text}
@@ -954,13 +957,13 @@ function HomePage({ setPage }: { setPage: (p: Page) => void }) {
       {/* ── STATS ── */}
       <section style={{ background: INK }} className="py-10 md:py-14 px-6">
         <div className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-3 gap-4">
-          {stats.map((s, i) => (
+          {statistiky.map((s, i) => (
             <motion.div key={i} className="text-center px-4 py-6"
               style={{ background: "rgba(255,255,255,0.04)", clipPath: NOTCH_MD, border: "1px solid rgba(255,255,255,0.1)" }}
               initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-40px" }}
               transition={{ duration: 0.5, delay: i * 0.1 }}>
-              <Counter value={s.val} className="font-bold break-words" style={{ fontFamily: FD, fontSize: "clamp(1.6rem,5vw,2.8rem)", lineHeight: 1, color: FIRE }} />
-              <div className="text-white/50 text-xs mt-2 uppercase tracking-wide font-semibold" style={{ fontFamily: FB }}>{s.lbl}</div>
+              <Counter value={s.hodnota} className="font-bold break-words" style={{ fontFamily: FD, fontSize: "clamp(1.6rem,5vw,2.8rem)", lineHeight: 1, color: FIRE }} />
+              <div className="text-white/50 text-xs mt-2 uppercase tracking-wide font-semibold" style={{ fontFamily: FB }}>{s.popisek}</div>
             </motion.div>
           ))}
         </div>
