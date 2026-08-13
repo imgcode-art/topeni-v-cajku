@@ -12,6 +12,21 @@ type Page =
   | "home" | "servis" | "cisteni" | "tepelna-cerpadla"
   | "marox" | "o-nas" | "kontakt";
 
+// URL <-> Page mapping, so every page has a real, bookmarkable, back/forward-able address.
+const PAGE_PATHS: Record<Page, string> = {
+  "home": "/",
+  "servis": "/servis-kotlu",
+  "cisteni": "/cisteni-systemu",
+  "tepelna-cerpadla": "/tepelna-cerpadla",
+  "marox": "/fernox-kamco",
+  "o-nas": "/o-nas",
+  "kontakt": "/kontakt",
+};
+function pageFromPath(pathname: string): Page {
+  const match = (Object.keys(PAGE_PATHS) as Page[]).find((p) => PAGE_PATHS[p] === pathname);
+  return match || "home";
+}
+
 const PHONE = "608 888 325";
 const PHONE_HREF = "tel:+420608888325";
 const WEB3FORMS_KEY = "4040abc3-6d29-433c-a981-b0c339e2a2d4";
@@ -1557,8 +1572,27 @@ function KontaktPage() {
 // ═══════════════════════════════════════════════════════════════════════════════
 
 export default function App() {
-  const [currentPage, setCurrentPage] = useState<Page>("home");
-  const setPage = (page: Page) => { setCurrentPage(page); window.scrollTo({ top: 0, behavior: "smooth" }); };
+  const [currentPage, setCurrentPage] = useState<Page>(() => pageFromPath(window.location.pathname));
+
+  const setPage = (page: Page) => {
+    setCurrentPage(page);
+    const path = PAGE_PATHS[page];
+    if (window.location.pathname !== path) {
+      window.history.pushState({ page }, "", path);
+    }
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
+  // Sync state when the user uses the browser's Back/Forward buttons.
+  useEffect(() => {
+    const onPopState = () => {
+      setCurrentPage(pageFromPath(window.location.pathname));
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    };
+    window.addEventListener("popstate", onPopState);
+    return () => window.removeEventListener("popstate", onPopState);
+  }, []);
+
   const renderPage = () => {
     switch (currentPage) {
       case "home": return <HomePage setPage={setPage} />;
