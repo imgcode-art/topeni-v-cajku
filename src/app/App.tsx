@@ -1223,7 +1223,7 @@ function MaroxPage() {
 
   return (
     <div>
-      <section className="relative overflow-hidden py-24 px-6" style={{ background: INK }}>
+      <section className="relative overflow-hidden pt-24 pb-10 px-6" style={{ background: INK }}>
         <div className="max-w-4xl mx-auto relative z-10">
                     <h2 className="font-bold text-white leading-none mb-4" style={{ fontFamily: FD, fontSize: "clamp(1.8rem,3.5vw,2.6rem)" }}>
             FERNOX <span style={{ color: FIRE }}>&</span> KAMCO
@@ -1246,24 +1246,9 @@ function MaroxPage() {
         </div>
       </section>
 
-      <section style={{ background: INK }} className="py-24 px-6">
+      <section style={{ background: INK }} className="pt-10 pb-24 px-6">
         <div className="max-w-6xl mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {products.map((p, i) => (
-              <div key={i} className="p-8 transition-all duration-300 hover:-translate-y-1"
-                style={{ background: "rgba(255,255,255,0.04)", clipPath: NOTCH_MD, border: "1px solid rgba(255,255,255,0.1)" }}>
-                <h3 className="font-bold text-white mb-4" style={{ fontFamily: FD, fontSize: "1.3rem" }}>{p.title.toUpperCase()}</h3>
-                <p className="text-sm text-white/55 leading-relaxed mb-5" style={{ fontFamily: FB }}>{p.desc}</p>
-                <button onClick={() => scrollTo("marox-form")}
-                  className="text-xs font-semibold uppercase tracking-wide flex items-center gap-2 hover:gap-3 transition-all"
-                  style={{ color: FIRE, fontFamily: FD }}>
-                  Poptat cenu <ArrowRight size={12} />
-                </button>
-              </div>
-            ))}
-          </div>
-
-          <div className="mt-6 overflow-hidden" style={{ background: INK, clipPath: NOTCH_MD, border: "1px solid rgba(255,255,255,0.1)" }}>
+          <div className="overflow-hidden" style={{ background: INK, clipPath: NOTCH_MD, border: "1px solid rgba(255,255,255,0.1)" }}>
             <div className="px-6 md:px-8 pt-6 md:pt-8">
               <p className="font-semibold text-white" style={{ fontFamily: FB, fontSize: "0.95rem" }}>Zprostředkujeme celý sortiment Fernox a Kamco — stačí napsat.</p>
             </div>
@@ -1277,6 +1262,21 @@ function MaroxPage() {
                 ))}
               </div>
             </div>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
+            {products.map((p, i) => (
+              <div key={i} className="p-8 transition-all duration-300 hover:-translate-y-1"
+                style={{ background: "rgba(255,255,255,0.04)", clipPath: NOTCH_MD, border: "1px solid rgba(255,255,255,0.1)" }}>
+                <h3 className="font-bold text-white mb-4" style={{ fontFamily: FD, fontSize: "1.3rem" }}>{p.title.toUpperCase()}</h3>
+                <p className="text-sm text-white/55 leading-relaxed mb-5" style={{ fontFamily: FB }}>{p.desc}</p>
+                <button onClick={() => scrollTo("marox-form")}
+                  className="text-xs font-semibold uppercase tracking-wide flex items-center gap-2 hover:gap-3 transition-all"
+                  style={{ color: FIRE, fontFamily: FD }}>
+                  Poptat cenu <ArrowRight size={12} />
+                </button>
+              </div>
+            ))}
           </div>
 
           <div className="flex items-center justify-center gap-3 mt-8 px-6 py-4 mx-auto w-fit"
