@@ -830,7 +830,7 @@ function HomePage({ setPage }: { setPage: (p: Page) => void }) {
   const services = [
     { icon: <Droplets size={18} />, title: "Chemicko-mechanické čištění", desc: "Profesionální proplach systému — úspora 15–30 % na energiích. Přípravky Fernox a Kamco.", page: "cisteni" as Page },
     { icon: <Wind size={18} />, title: "Tepelná čerpadla", desc: "Dodávka, montáž a servis tepelných čerpadel. Nezávislé doporučení.", page: "tepelna-cerpadla" as Page },
-    { icon: <Wrench size={18} />, title: "Servis plynových kotlů", desc: "Revize, opravy, záruční i pozáruční servis. Přesná diagnostika, cena sdělena před zahájením.", page: "servis" as Page },
+    { icon: <Wrench size={18} />, title: "Servis a montáž kotlů", desc: "Revize, opravy, záruční i pozáruční servis. Kompletní montáž a zprovoznění nových plynových kotlů.", page: "servis" as Page },
     { icon: <FileText size={18} />, title: "Prodej přípravků Fernox a Kamco", desc: "Přípravky britských značek pro čištění a ochranu topných soustav.", page: "marox" as Page },
   ];
 
