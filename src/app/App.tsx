@@ -852,9 +852,10 @@ function SectionHero({ eyebrow, title, subtitle, icon, formId, imgId, imgSrc, vi
 
 const HOME_FAQ: FAQItem[] = [
   { q: "Jak se objednat na servis nebo opravu kotle?", a: "Zavolejte na 608 888 325 nebo pošlete poptávku přes formulář. Domluvíme se na termínu výjezdu dle vzájemné domluvy." },
-  { q: "Jaké kotle servisujete?", a: "Servisujeme všechny běžné plynové kotle bez ohledu na značku — Viessmann, Vaillant, Buderus, Junkers, Protherm, Baxi a další. Nejsme vázáni na jednoho výrobce." },
+  { q: "Jaké kotle servisujete?", a: "Specializujeme se na servis plynových kotlů značek Baxi a De Dietrich." },
   { q: "Kolik stojí výjezd a diagnostika?", a: "Cena závisí na konkrétní situaci. Vždy vám ale cenu sdělíme předem – stačí nám popsat váš problém a na ceně se domluvíme dopředu." },
   { q: "Provádíte i povinné revize kotlů?", a: "Ano, pravidelné servisní prohlídky i revize plynových kotlů. Po revizi dostanete revizní protokol. Revize je zákonnou povinností — doporučujeme ji jednou ročně." },
+  { q: "Jak poznám, že topení potřebuje čištění?", a: "Typické příznaky jsou studené radiátory (často nahoře teplé, dole studené), hluk nebo klapání v kotli, kalná či tmavá voda v systému a celkově horší ohřev i přes vyšší výkon kotle. Pokud systém nebyl čištěn déle než 5 let, čištění se obvykle vyplatí." },
 ];
 
 function HomePage({ setPage }: { setPage: (p: Page) => void }) {
