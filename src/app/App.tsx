@@ -1026,7 +1026,7 @@ function CisteniPage() {
         subtitle={<>Kal a koroze v potrubí kradou teplo a ničí váš kotel.<br />Profesionálním proplachem obnovíme efektivitu a ušetříme vám 15–30 %.</>}
         formId="cisteni-form" imgSrc="/images/realizace/cisteni_topeni.png" />
 
-      <section style={{ background: SMOKE }} className="pt-12 md:pt-16 pb-8 md:pb-10 px-6">
+      <section style={{ background: INK }} className="pt-12 md:pt-16 pb-8 md:pb-10 px-6">
         <div className="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-4">
           {benefits.map((b, i) => (
             <div key={i} className="text-center p-6" style={{ clipPath: NOTCH_MD, background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.08)" }}>
@@ -1038,7 +1038,7 @@ function CisteniPage() {
         </div>
       </section>
 
-      <section style={{ background: SMOKE }} className="pt-8 md:pt-10 pb-16 md:pb-24 px-6">
+      <section style={{ background: INK }} className="pt-8 md:pt-10 pb-8 md:pb-10 px-6">
         <div className="max-w-4xl mx-auto">
                     <h2 className="font-bold leading-none mb-12 text-white" style={{ fontFamily: FD, fontSize: "clamp(1.6rem,2.5vw,2.2rem)" }}>POTŘEBUJE VÁŠE TOPENÍ ČIŠTĚNÍ?</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
@@ -1056,7 +1056,7 @@ function CisteniPage() {
       </section>
 
       {/* ── BEFORE / AFTER ── */}
-      <section style={{ background: INK }} className="py-16 md:py-24 px-6">
+      <section style={{ background: INK }} className="pt-8 md:pt-10 pb-16 md:pb-24 px-6">
         <div className="max-w-6xl mx-auto">
           <h2 className="font-bold text-white leading-none mb-12" style={{ fontFamily: FD, fontSize: "clamp(1.8rem,3vw,2.6rem)" }}>
             PŘED A PO
