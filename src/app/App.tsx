@@ -331,8 +331,8 @@ function Header({ currentPage, setPage }: { currentPage: Page; setPage: (p: Page
             </StarBorder>
           </div>
           <button onClick={() => setOpen(!open)}
-            className="lg:hidden p-1.5 text-white/60 hover:text-white">
-            {open ? <X size={22} /> : <Menu size={22} />}
+            className="lg:hidden p-1.5 text-white/90 hover:text-white">
+            {open ? <X size={24} strokeWidth={2.25} /> : <Menu size={24} strokeWidth={2.25} />}
           </button>
         </div>
       </div>
@@ -550,7 +550,7 @@ function InquiryForm({ title = "Pojďme to vyřešit", subtitle, dark = false, i
         ) : (
           <form onSubmit={submit} className="space-y-4">
             {[
-              { label: "Jméno *", key: "name", type: "text", ph: "Jan Novák" },
+              { label: "Jméno *", key: "name", type: "text", ph: "Tonda Cajk" },
               { label: "Telefon *", key: "phone", type: "tel", ph: "+420 xxx xxx xxx" },
             ].map(({ label, key, type, ph }) => (
               <div key={key}>
@@ -754,7 +754,7 @@ function HomePage({ setPage }: { setPage: (p: Page) => void }) {
       </section>
 
       {/* ── SITUATIONS ── */}
-      <section style={{ background: SMOKE }} className="py-24 px-6">
+      <section style={{ background: SMOKE }} className="pt-24 pb-10 px-6">
         <div className="max-w-7xl mx-auto">
           <Reveal className="flex items-end justify-between mb-12">
             <div>
@@ -799,7 +799,7 @@ function HomePage({ setPage }: { setPage: (p: Page) => void }) {
       </section>
 
       {/* ── SERVICES ── */}
-      <section style={{ background: SMOKE }} className="py-24 px-6">
+      <section style={{ background: SMOKE }} className="pt-10 pb-24 px-6">
         <div className="max-w-7xl mx-auto">
           <Reveal>
             <h2 className="font-bold leading-none mb-16 text-white" style={{ fontFamily: FD, fontSize: "clamp(1.8rem,3vw,2.6rem)" }}>
@@ -1166,7 +1166,7 @@ function TepelnaCerpadlaPage() {
       <SectionHero eyebrow="Tepelná čerpadla" icon={<Wind size={14} />}
         title={<>TEPELNÁ<br />ČERPADLA</>}
         subtitle={<>Přejít na tepelné čerpadlo dnes dává smysl ekonomicky i ekologicky.<br />Pomůžeme vybrat správný typ a zajistíme instalaci.</>}
-        formId="tc-form" imgSrc="/images/realizace/heat-pump-hero.jpg" imgDim={0.35} />
+        formId="tc-form" imgSrc="/images/realizace/heat-pump-hero.jpg" imgDim={0.55} />
 
       <section style={{ background: INK }} className="py-24 px-6">
         <div className="max-w-6xl mx-auto">
@@ -1408,7 +1408,7 @@ function KontaktInlineForm() {
   return (
     <form onSubmit={submit} className="space-y-4" style={{ fontFamily: FB }}>
       {[
-        { label: "Jméno *", key: "name", type: "text", ph: "Jan Novák" },
+        { label: "Jméno *", key: "name", type: "text", ph: "Tonda Cajk" },
         { label: "Telefon *", key: "phone", type: "tel", ph: "+420 xxx xxx xxx" },
       ].map(({ label, key, type, ph }) => (
         <div key={key}>
