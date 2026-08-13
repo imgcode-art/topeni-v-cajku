@@ -492,6 +492,48 @@ function FAQBlock({ items, title = "Časté dotazy" }: { items: FAQItem[]; title
   );
 }
 
+// ── FloatingField ────────────────────────────────────────────────────────────
+// Shared floating-label input/textarea used by every contact form on the site.
+function FloatingField({ label, id, type = "text", value, onChange, required, dark = true, textarea = false, rows = 3 }: {
+  label: string; id: string; type?: string; value: string;
+  onChange: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
+  required?: boolean; dark?: boolean; textarea?: boolean; rows?: number;
+}) {
+  const [focused, setFocused] = useState(false);
+  const active = focused || value.length > 0;
+  const fieldClass = dark
+    ? "bg-white/10 border-white/25 text-white focus:border-[#E8623E] focus:bg-white/[0.14] focus:shadow-[0_0_0_3px_rgba(232,98,62,0.18)]"
+    : "bg-white border-black/12 text-[#111] focus:border-[#E8623E] focus:shadow-[0_0_0_3px_rgba(232,98,62,0.12)]";
+  const restColor = dark ? "rgba(255,255,255,0.4)" : "rgba(0,0,0,0.35)";
+  const idleColor = dark ? "rgba(255,255,255,0.6)" : "#555";
+  const shared = {
+    id, required, value, onChange,
+    onFocus: () => setFocused(true),
+    onBlur: () => setFocused(false),
+  };
+  const paddingClass = active ? "pt-6 pb-2" : textarea ? "pt-3.5 pb-3.5" : "py-3.5";
+  return (
+    <div className="relative">
+      {textarea ? (
+        <textarea {...shared} rows={rows}
+          className={`peer w-full px-4 ${paddingClass} border text-sm outline-none resize-none transition-all duration-200 ${fieldClass}`} />
+      ) : (
+        <input {...shared} type={type}
+          className={`peer w-full px-4 ${paddingClass} border text-sm outline-none transition-all duration-200 ${fieldClass}`} />
+      )}
+      <label htmlFor={id} className="absolute left-4 pointer-events-none transition-all duration-200"
+        style={{
+          top: active ? "0.5rem" : textarea ? "0.9rem" : "50%",
+          transform: (!active && !textarea) ? "translateY(-50%)" : "none",
+          fontSize: active ? "0.7rem" : "0.875rem",
+          color: focused ? FIRE : active ? idleColor : restColor,
+        }}>
+        {label}
+      </label>
+    </div>
+  );
+}
+
 // ── InquiryForm ───────────────────────────────────────────────────────────────
 function InquiryForm({ title = "Pojďme to vyřešit", subtitle, dark = false, id, tightTop = false }: {
   title?: string; subtitle?: string; dark?: boolean; id?: string; tightTop?: boolean;
@@ -525,10 +567,7 @@ function InquiryForm({ title = "Pojďme to vyřešit", subtitle, dark = false, i
   const bg = dark ? SMOKE : CREAM;
   const headColor = dark ? "#fff" : "#111";
   const subColor = dark ? "rgba(255,255,255,0.45)" : "#777";
-  const labelColor = dark ? "rgba(255,255,255,0.6)" : "#555";
-  const inputClass = dark
-    ? "bg-white/10 border-white/25 text-white placeholder:text-white/35 focus:border-[#E8623E] focus:bg-white/[0.14] focus:shadow-[0_0_0_3px_rgba(232,98,62,0.18)]"
-    : "bg-white border-black/12 text-[#111] placeholder:text-black/25 focus:border-[#E8623E] focus:shadow-[0_0_0_3px_rgba(232,98,62,0.12)]";
+  const fieldId = id || "form";
 
   return (
     <section id={id} className={tightTop ? "pt-8 md:pt-10 pb-16 md:pb-24 px-6" : "py-16 md:py-24 px-6"} style={{ background: bg, fontFamily: FB }}>
@@ -550,23 +589,16 @@ function InquiryForm({ title = "Pojďme to vyřešit", subtitle, dark = false, i
         ) : (
           <form onSubmit={submit} className="space-y-4">
             {[
-              { label: "Jméno *", key: "name", type: "text", ph: "Tonda Cajk" },
-              { label: "Telefon *", key: "phone", type: "tel", ph: "+420 xxx xxx xxx" },
-            ].map(({ label, key, type, ph }) => (
-              <div key={key}>
-                <label className="block text-xs font-semibold uppercase tracking-normal mb-2" style={{ color: labelColor }}>{label}</label>
-                <input type={type} required value={form[key as keyof typeof form]}
-                  onChange={(e) => setForm({ ...form, [key]: e.target.value })} placeholder={ph}
-                  className={`w-full px-4 py-3.5 border text-sm outline-none transition-colors ${inputClass}`} />
-              </div>
+              { label: "Jméno *", key: "name", type: "text" },
+              { label: "Telefon *", key: "phone", type: "tel" },
+            ].map(({ label, key, type }) => (
+              <FloatingField key={key} label={label} id={`${fieldId}-${key}`} type={type} required dark={dark}
+                value={form[key as keyof typeof form]}
+                onChange={(e) => setForm({ ...form, [key]: e.target.value })} />
             ))}
-            <div>
-              <label className="block text-xs font-semibold uppercase tracking-normal mb-2" style={{ color: labelColor }}>Co řešíte? *</label>
-              <textarea required rows={3} value={form.issue}
-                onChange={(e) => setForm({ ...form, issue: e.target.value })}
-                placeholder="Kotel nespouští, chci revizi, zajímá mě tepelné čerpadlo…"
-                className={`w-full px-4 py-3.5 border text-sm outline-none resize-none transition-colors ${inputClass}`} />
-            </div>
+            <FloatingField label="Co řešíte? *" id={`${fieldId}-issue`} textarea rows={3} required dark={dark}
+              value={form.issue}
+              onChange={(e) => setForm({ ...form, issue: e.target.value })} />
             <StarBorder as="button" type="submit" disabled={busy} color={FIRE} speed="4s" thickness={2} className="w-full" style={{ display: "block", opacity: busy ? 0.6 : 1 }}>
               <span className="block text-white font-bold text-sm py-4.5 tracking-wide uppercase" style={{ fontFamily: FD }}>
                 {busy ? "Odesílám…" : "ODESLAT POPTÁVKU →"}
@@ -1408,22 +1440,16 @@ function KontaktInlineForm() {
   return (
     <form onSubmit={submit} className="space-y-4" style={{ fontFamily: FB }}>
       {[
-        { label: "Jméno *", key: "name", type: "text", ph: "Tonda Cajk" },
-        { label: "Telefon *", key: "phone", type: "tel", ph: "+420 xxx xxx xxx" },
-      ].map(({ label, key, type, ph }) => (
-        <div key={key}>
-          <label className="block text-xs font-semibold uppercase tracking-wide text-white/50 mb-2">{label}</label>
-          <input type={type} required value={form[key as keyof typeof form]}
-            onChange={(e) => setForm({ ...form, [key]: e.target.value })} placeholder={ph}
-            className="w-full px-4 py-3.5 border border-white/15 bg-white/5 text-sm text-white placeholder:text-white/25 outline-none focus:border-[#E8623E] focus:bg-white/[0.08] transition-colors" />
-        </div>
+        { label: "Jméno *", key: "name", type: "text" },
+        { label: "Telefon *", key: "phone", type: "tel" },
+      ].map(({ label, key, type }) => (
+        <FloatingField key={key} label={label} id={`kontakt-${key}`} type={type} required
+          value={form[key as keyof typeof form]}
+          onChange={(e) => setForm({ ...form, [key]: e.target.value })} />
       ))}
-      <div>
-        <label className="block text-xs font-semibold uppercase tracking-wide text-white/50 mb-2">Co řešíte? *</label>
-        <textarea required rows={3} value={form.issue}
-          onChange={(e) => setForm({ ...form, issue: e.target.value })} placeholder="Popis situace…"
-          className="w-full px-4 py-3.5 border border-white/15 bg-white/5 text-sm text-white placeholder:text-white/25 outline-none focus:border-[#E8623E] focus:bg-white/[0.08] resize-none transition-colors" />
-      </div>
+      <FloatingField label="Co řešíte? *" id="kontakt-issue" textarea rows={3} required
+        value={form.issue}
+        onChange={(e) => setForm({ ...form, issue: e.target.value })} />
       <StarBorder as="button" type="submit" disabled={busy} color={FIRE} speed="4s" thickness={2} className="w-full" style={{ display: "block", opacity: busy ? 0.6 : 1 }}>
         <span className="block text-white font-bold text-sm py-4 uppercase tracking-wide" style={{ fontFamily: FD }}>
           {busy ? "Odesílám…" : "Odeslat →"}
@@ -1496,7 +1522,7 @@ function KontaktPage() {
             </div>
           </div>
 
-          <div className="p-8" style={{ background: "rgba(255,255,255,0.04)", clipPath: NOTCH_MD, border: "1px solid rgba(255,255,255,0.1)" }}>
+          <div>
             <h2 className="font-bold mb-5 text-white" style={{ fontFamily: FD, fontSize: "clamp(1.5rem,2.5vw,1.9rem)", lineHeight: 1 }}>
               POJĎME TO VYŘEŠIT
             </h2>
