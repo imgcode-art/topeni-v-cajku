@@ -554,11 +554,18 @@ function FloatingField({ label, id, type = "text", value, onChange, required, da
 function Lightbox({ images, index, onClose, onNav }: {
   images: string[]; index: number; onClose: () => void; onNav: (dir: 1 | -1) => void;
 }) {
+  const [direction, setDirection] = useState<1 | -1>(1);
+  const dragX = useRef(0);
+  const touchStart = useRef<{ x: number; y: number } | null>(null);
+  const swiping = useRef(false);
+
+  const go = (dir: 1 | -1) => { setDirection(dir); onNav(dir); };
+
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") onClose();
-      else if (e.key === "ArrowRight") onNav(1);
-      else if (e.key === "ArrowLeft") onNav(-1);
+      else if (e.key === "ArrowRight") go(1);
+      else if (e.key === "ArrowLeft") go(-1);
     };
     window.addEventListener("keydown", onKey);
     const prevOverflow = document.body.style.overflow;
@@ -567,44 +574,102 @@ function Lightbox({ images, index, onClose, onNav }: {
       window.removeEventListener("keydown", onKey);
       document.body.style.overflow = prevOverflow;
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [onClose, onNav]);
 
-  const iconBtnClass = "absolute flex items-center justify-center text-white transition-colors hover:bg-white/[0.16] hover:border-white/30 z-10";
-  const iconBtnStyle = { background: "rgba(255,255,255,0.08)", border: "1px solid rgba(255,255,255,0.15)", clipPath: NOTCH_SM } as React.CSSProperties;
+  const SWIPE_THRESHOLD = 60;
+
+  const handleTouchStart = (e: React.TouchEvent) => {
+    if (e.touches.length !== 1) { touchStart.current = null; return; }
+    touchStart.current = { x: e.touches[0].clientX, y: e.touches[0].clientY };
+    swiping.current = false;
+  };
+  const handleTouchMove = (e: React.TouchEvent) => {
+    if (!touchStart.current || e.touches.length !== 1) return;
+    const dx = e.touches[0].clientX - touchStart.current.x;
+    const dy = e.touches[0].clientY - touchStart.current.y;
+    if (Math.abs(dx) > Math.abs(dy)) {
+      // Horizontal drag — this is our gesture, not a page/pinch gesture.
+      if (Math.abs(dx) > 8) swiping.current = true;
+      dragX.current = dx;
+    }
+  };
+  const handleTouchEnd = () => {
+    if (!touchStart.current) return;
+    touchStart.current = null;
+    if (images.length > 1 && Math.abs(dragX.current) > SWIPE_THRESHOLD) {
+      go(dragX.current < 0 ? 1 : -1);
+    }
+    dragX.current = 0;
+    // Swallow the synthetic click that follows a touch, so a swipe over the
+    // backdrop doesn't also trigger the close-on-backdrop-click handler.
+    setTimeout(() => { swiping.current = false; }, 80);
+  };
+  const handleBackdropClick = () => {
+    if (swiping.current) return;
+    onClose();
+  };
+
+  const navBtnClass = "absolute flex items-center justify-center transition-colors z-10";
+  const navBtnStyle = {
+    background: "rgba(232,98,62,0.16)",
+    border: "1px solid rgba(232,98,62,0.5)",
+    clipPath: NOTCH_SM,
+    color: FIRE,
+    filter: "drop-shadow(0 2px 8px rgba(0,0,0,0.5))",
+  } as React.CSSProperties;
+
+  const closeBtnClass = "absolute flex items-center justify-center text-white transition-colors hover:bg-white/[0.16] hover:border-white/30 z-10";
+  const closeBtnStyle = { background: "rgba(255,255,255,0.08)", border: "1px solid rgba(255,255,255,0.15)", clipPath: NOTCH_SM } as React.CSSProperties;
+
+  const slideVariants = {
+    enter: (dir: 1 | -1) => ({ opacity: 0, x: dir > 0 ? 40 : -40, scale: 0.97 }),
+    center: { opacity: 1, x: 0, scale: 1 },
+    exit: (dir: 1 | -1) => ({ opacity: 0, x: dir > 0 ? -40 : 40, scale: 0.97 }),
+  };
 
   return (
     <AnimatePresence>
       <motion.div
         className="fixed inset-0 z-[70] flex items-center justify-center p-4 md:p-10"
-        style={{ background: "rgba(0,0,0,0.92)", backdropFilter: "blur(4px)" }}
+        style={{ background: "rgba(0,0,0,0.92)", backdropFilter: "blur(4px)", touchAction: "pan-y" }}
         initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.2 }}
-        onClick={onClose}>
+        onClick={handleBackdropClick}
+        onTouchStart={handleTouchStart}
+        onTouchMove={handleTouchMove}
+        onTouchEnd={handleTouchEnd}>
         <button onClick={(e) => { e.stopPropagation(); onClose(); }} aria-label="Zavřít"
-          className={`${iconBtnClass} top-4 right-4 md:top-6 md:right-6 w-11 h-11`} style={iconBtnStyle}>
+          className={`${closeBtnClass} top-4 right-4 md:top-6 md:right-6 w-11 h-11`} style={closeBtnStyle}>
           <X size={20} />
         </button>
 
         {images.length > 1 && (
           <>
-            <button onClick={(e) => { e.stopPropagation(); onNav(-1); }} aria-label="Předchozí obrázek"
-              className={`${iconBtnClass} left-2 md:left-6 top-1/2 -translate-y-1/2 w-11 h-11 md:w-14 md:h-14`} style={iconBtnStyle}>
-              <ChevronLeft size={22} />
+            <button onClick={(e) => { e.stopPropagation(); go(-1); }} aria-label="Předchozí obrázek"
+              className={`${navBtnClass} left-2 md:left-6 top-1/2 -translate-y-1/2 w-12 h-12 md:w-14 md:h-14 hover:bg-[rgba(232,98,62,0.28)]`}
+              style={navBtnStyle}>
+              <ChevronLeft size={26} strokeWidth={2.5} />
             </button>
-            <button onClick={(e) => { e.stopPropagation(); onNav(1); }} aria-label="Další obrázek"
-              className={`${iconBtnClass} right-2 md:right-6 top-1/2 -translate-y-1/2 w-11 h-11 md:w-14 md:h-14`} style={iconBtnStyle}>
-              <ChevronRight size={22} />
+            <button onClick={(e) => { e.stopPropagation(); go(1); }} aria-label="Další obrázek"
+              className={`${navBtnClass} right-2 md:right-6 top-1/2 -translate-y-1/2 w-12 h-12 md:w-14 md:h-14 hover:bg-[rgba(232,98,62,0.28)]`}
+              style={navBtnStyle}>
+              <ChevronRight size={26} strokeWidth={2.5} />
             </button>
           </>
         )}
 
-        <motion.div key={index}
-          initial={{ opacity: 0, scale: 0.96 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.96 }}
-          transition={{ duration: 0.18 }}
-          className="flex items-center justify-center p-6 md:p-10"
-          style={{ background: "#fff", clipPath: NOTCH_LG, maxWidth: "min(90vw, 560px)", maxHeight: "min(80vh, 560px)" }}
-          onClick={(e) => e.stopPropagation()}>
-          <img src={images[index]} alt="Přípravek Fernox / Kamco" className="max-w-full object-contain" style={{ maxHeight: "min(68vh, 460px)" }} draggable={false} />
-        </motion.div>
+        <AnimatePresence mode="popLayout" custom={direction}>
+          <motion.div key={index}
+            custom={direction}
+            variants={slideVariants}
+            initial="enter" animate="center" exit="exit"
+            transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
+            className="flex items-center justify-center p-6 md:p-10"
+            style={{ background: "#fff", clipPath: NOTCH_LG, maxWidth: "min(90vw, 560px)", maxHeight: "min(80vh, 560px)" }}
+            onClick={(e) => e.stopPropagation()}>
+            <img src={images[index]} alt="Přípravek Fernox / Kamco" className="max-w-full object-contain" style={{ maxHeight: "min(68vh, 460px)" }} draggable={false} />
+          </motion.div>
+        </AnimatePresence>
 
         {images.length > 1 && (
           <div className="absolute bottom-4 md:bottom-6 left-1/2 -translate-x-1/2 text-white/50 text-xs" style={{ fontFamily: FB }}>
