@@ -34,15 +34,15 @@ const PAGE_META: Record<Page, { title: string; description: string }> = {
     description: "Topení v cajku — chemicko-mechanické čištění topných systémů, tepelná čerpadla, servis a montáž plynových kotlů. Brno a Jihomoravský kraj.",
   },
   "servis": {
-    title: "Servis a montáž kotlů | Topení v cajku",
+    title: "Plynový kotel | Topení v cajku",
     description: "Revize, opravy, záruční i pozáruční servis plynových kotlů. Kompletní montáž a zprovoznění nových kotlů. Hlavní značky Baxi a De Dietrich.",
   },
   "cisteni": {
-    title: "Čištění topných systémů | Topení v cajku",
+    title: "Čištění systému | Topení v cajku",
     description: "Chemicko-mechanické čištění topných systémů odstraní kal a korozi, obnoví efektivitu a ušetří 15–30 % na energiích.",
   },
   "tepelna-cerpadla": {
-    title: "Tepelná čerpadla | Topení v cajku",
+    title: "Tepelné čerpadlo | Topení v cajku",
     description: "Dodávka, montáž a servis tepelných čerpadel. Pomůžeme vybrat správný typ a zajistíme instalaci.",
   },
   "marox": {
@@ -328,9 +328,9 @@ function Header({ currentPage, setPage }: { currentPage: Page; setPage: (p: Page
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const nav: { label: string; page: Page }[] = [
-    { label: "Čištění systémů", page: "cisteni" },
-    { label: "Tepelná čerpadla", page: "tepelna-cerpadla" },
-    { label: "Servis a montáž kotlů", page: "servis" },
+    { label: "Čištění systému", page: "cisteni" },
+    { label: "Tepelné čerpadlo", page: "tepelna-cerpadla" },
+    { label: "Plynový kotel", page: "servis" },
     { label: "Fernox & Kamco", page: "marox" },
     { label: "Kontakt", page: "kontakt" },
   ];
@@ -453,9 +453,9 @@ function Footer({ setPage }: { setPage: (p: Page) => void }) {
           {
             title: "Služby",
             items: [
-              ["cisteni", "Čištění topení"],
-              ["tepelna-cerpadla", "Tepelná čerpadla"],
-              ["servis", "Servis a montáž kotlů"],
+              ["cisteni", "Čištění systému"],
+              ["tepelna-cerpadla", "Tepelné čerpadlo"],
+              ["servis", "Plynový kotel"],
               ["marox", "Fernox & Kamco"],
             ] as [Page, string][],
           },
@@ -866,8 +866,8 @@ function HomePage({ setPage }: { setPage: (p: Page) => void }) {
 
   const services = [
     { icon: <Droplets size={18} />, title: "Chemicko-mechanické čištění", desc: "Profesionální proplach systému — úspora 15–30 % na energiích. Přípravky Fernox a Kamco.", page: "cisteni" as Page },
-    { icon: <Wind size={18} />, title: "Tepelná čerpadla", desc: "Dodávka, montáž a servis tepelných čerpadel.", page: "tepelna-cerpadla" as Page },
-    { icon: <Wrench size={18} />, title: "Servis a montáž kotlů", desc: "Revize, opravy, záruční i pozáruční servis. Kompletní montáž a zprovoznění nových plynových kotlů.", page: "servis" as Page },
+    { icon: <Wind size={18} />, title: "Tepelné čerpadlo", desc: "Dodávka, montáž a servis tepelných čerpadel.", page: "tepelna-cerpadla" as Page },
+    { icon: <Wrench size={18} />, title: "Plynový kotel", desc: "Revize, opravy, záruční i pozáruční servis. Kompletní montáž a zprovoznění nových plynových kotlů.", page: "servis" as Page },
     { icon: <FileText size={18} />, title: "Prodej přípravků Fernox a Kamco", desc: "Přípravky britských značek pro čištění a ochranu topných soustav.", page: "marox" as Page },
   ];
 
@@ -1114,8 +1114,8 @@ function ServisPage() {
 
   return (
     <div>
-      <SectionHero eyebrow="Servis a montáž" icon={<Wrench size={14} />}
-        title={<>SERVIS A MONTÁŽ <br />KOTLŮ</>}
+      <SectionHero eyebrow="Plynový kotel" icon={<Wrench size={14} />}
+        title={<>PLYNOVÝ <br />KOTEL</>}
         subtitle={<>Revize, opravy, záruční i pozáruční servis, nové montáže. <br />Hlavní značky: Baxi a De Dietrich.</>}
         formId="servis-form" imgSrc="/images/realizace/kotelna1.png" />
 
@@ -1244,8 +1244,8 @@ function CisteniPage() {
 
   return (
     <div>
-      <SectionHero eyebrow="Čištění systémů" icon={<Droplets size={14} />}
-        title={<>ČIŠTĚNÍ <br />TOPENÍ</>}
+      <SectionHero eyebrow="Čištění systému" icon={<Droplets size={14} />}
+        title={<>ČIŠTĚNÍ <br />SYSTÉMU</>}
         subtitle={<>Kal a koroze v potrubí kradou teplo a ničí váš kotel. <br />Profesionálním proplachem obnovíme efektivitu a ušetříme vám 15–30 %.</>}
         formId="cisteni-form" imgSrc="/images/realizace/cisteni_topeni.png" />
 
@@ -1393,8 +1393,8 @@ function TepelnaCerpadlaPage() {
 
   return (
     <div>
-      <SectionHero eyebrow="Tepelná čerpadla" icon={<Wind size={14} />}
-        title={<>TEPELNÁ <br />ČERPADLA</>}
+      <SectionHero eyebrow="Tepelné čerpadlo" icon={<Wind size={14} />}
+        title={<>TEPELNÉ <br />ČERPADLO</>}
         subtitle={<>Přejít na tepelné čerpadlo dnes dává smysl ekonomicky i ekologicky. <br />Pomůžeme vybrat správný typ a zajistíme instalaci.</>}
         formId="tc-form" imgSrc="/images/realizace/heat-pump-hero.jpg" imgDim={0.55} />
 
