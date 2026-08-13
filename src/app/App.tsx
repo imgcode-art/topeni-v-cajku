@@ -611,7 +611,7 @@ function SectionHero({ eyebrow, title, subtitle, icon, formId, imgId, imgSrc, vi
           initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.55, delay: 0.08 }}>
           {title}
         </motion.h1>
-        <motion.p className="text-white/50 max-w-xl leading-relaxed mb-8 text-base" style={{ fontFamily: FB }}
+        <motion.p className="text-white/75 max-w-xl leading-relaxed mb-8 text-base" style={{ fontFamily: FB }}
           initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.16 }}>
           {subtitle}
         </motion.p>
@@ -1023,7 +1023,7 @@ function CisteniPage() {
       <SectionHero eyebrow="Čištění systémů" icon={<Droplets size={14} />}
         title={<>ČIŠTĚNÍ<br />TOPENÍ</>}
         subtitle={<>Kal a koroze v potrubí kradou teplo a ničí váš kotel.<br />Profesionálním proplachem obnovíme efektivitu a ušetříme vám 15–30 %.</>}
-        formId="cisteni-form" imgSrc="/images/realizace/1.webp" />
+        formId="cisteni-form" imgSrc="/images/realizace/cisteni_topeni.png" />
 
       <section style={{ background: SMOKE }} className="py-16 px-6">
         <div className="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-4">
