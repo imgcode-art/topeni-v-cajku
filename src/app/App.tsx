@@ -27,6 +27,38 @@ function pageFromPath(pathname: string): Page {
   return match || "home";
 }
 
+// Per-page <title> and meta description, kept in sync with the current page in App().
+const PAGE_META: Record<Page, { title: string; description: string }> = {
+  "home": {
+    title: "Váš spolehlivý topenář",
+    description: "Topení v cajku — chemicko-mechanické čištění topných systémů, tepelná čerpadla, servis a montáž plynových kotlů. Brno a Jihomoravský kraj.",
+  },
+  "servis": {
+    title: "Servis a montáž kotlů | Topení v cajku",
+    description: "Revize, opravy, záruční i pozáruční servis plynových kotlů. Kompletní montáž a zprovoznění nových kotlů. Hlavní značky Baxi a De Dietrich.",
+  },
+  "cisteni": {
+    title: "Čištění topných systémů | Topení v cajku",
+    description: "Chemicko-mechanické čištění topných systémů odstraní kal a korozi, obnoví efektivitu a ušetří 15–30 % na energiích.",
+  },
+  "tepelna-cerpadla": {
+    title: "Tepelná čerpadla | Topení v cajku",
+    description: "Dodávka, montáž a servis tepelných čerpadel. Pomůžeme vybrat správný typ a zajistíme instalaci.",
+  },
+  "marox": {
+    title: "Fernox & Kamco | Topení v cajku",
+    description: "Přímý prodej přípravků britských značek Fernox a Kamco pro čištění a ochranu topných soustav. Pro soukromé osoby i topenářské firmy.",
+  },
+  "o-nas": {
+    title: "O nás | Topení v cajku",
+    description: "Martin Macháč — topenářské práce s devítiletou praxí. Chemicko-mechanické čištění, servis kotlů a tepelná čerpadla v Brně a okolí.",
+  },
+  "kontakt": {
+    title: "Kontakt | Topení v cajku",
+    description: "Kontaktujte nás pro rychlé řešení problémů s topením — telefon, e-mail nebo poptávkový formulář. Brno a Jihomoravský kraj.",
+  },
+};
+
 const PHONE = "608 888 325";
 const PHONE_HREF = "tel:+420608888325";
 const WEB3FORMS_KEY = "4040abc3-6d29-433c-a981-b0c339e2a2d4";
@@ -298,7 +330,7 @@ function Header({ currentPage, setPage }: { currentPage: Page; setPage: (p: Page
   const nav: { label: string; page: Page }[] = [
     { label: "Čištění systémů", page: "cisteni" },
     { label: "Tepelná čerpadla", page: "tepelna-cerpadla" },
-    { label: "Servis kotlů", page: "servis" },
+    { label: "Servis a montáž kotlů", page: "servis" },
     { label: "Fernox & Kamco", page: "marox" },
     { label: "Kontakt", page: "kontakt" },
   ];
@@ -423,7 +455,7 @@ function Footer({ setPage }: { setPage: (p: Page) => void }) {
             items: [
               ["cisteni", "Čištění topení"],
               ["tepelna-cerpadla", "Tepelná čerpadla"],
-              ["servis", "Servis kotlů"],
+              ["servis", "Servis a montáž kotlů"],
               ["marox", "Fernox & Kamco"],
             ] as [Page, string][],
           },
@@ -830,7 +862,7 @@ function HomePage({ setPage }: { setPage: (p: Page) => void }) {
 
   const services = [
     { icon: <Droplets size={18} />, title: "Chemicko-mechanické čištění", desc: "Profesionální proplach systému — úspora 15–30 % na energiích. Přípravky Fernox a Kamco.", page: "cisteni" as Page },
-    { icon: <Wind size={18} />, title: "Tepelná čerpadla", desc: "Dodávka, montáž a servis tepelných čerpadel. Nezávislé doporučení.", page: "tepelna-cerpadla" as Page },
+    { icon: <Wind size={18} />, title: "Tepelná čerpadla", desc: "Dodávka, montáž a servis tepelných čerpadel.", page: "tepelna-cerpadla" as Page },
     { icon: <Wrench size={18} />, title: "Servis a montáž kotlů", desc: "Revize, opravy, záruční i pozáruční servis. Kompletní montáž a zprovoznění nových plynových kotlů.", page: "servis" as Page },
     { icon: <FileText size={18} />, title: "Prodej přípravků Fernox a Kamco", desc: "Přípravky britských značek pro čištění a ochranu topných soustav.", page: "marox" as Page },
   ];
@@ -1072,7 +1104,7 @@ function ServisPage() {
   return (
     <div>
       <SectionHero eyebrow="Servis a montáž" icon={<Wrench size={14} />}
-        title={<>SERVIS<br />KOTLŮ</>}
+        title={<>SERVIS A MONTÁŽ<br />KOTLŮ</>}
         subtitle={<>Revize, opravy, záruční i pozáruční servis, nové montáže.<br />Hlavní značky: Baxi a De Dietrich.</>}
         formId="servis-form" imgSrc="/images/realizace/kotelna1.png" />
 
@@ -1735,6 +1767,13 @@ export default function App() {
     window.addEventListener("popstate", onPopState);
     return () => window.removeEventListener("popstate", onPopState);
   }, []);
+
+  // Keep <title> and meta description in sync with the current page.
+  useEffect(() => {
+    const meta = PAGE_META[currentPage];
+    document.title = meta.title;
+    document.querySelector('meta[name="description"]')?.setAttribute("content", meta.description);
+  }, [currentPage]);
 
   const renderPage = () => {
     switch (currentPage) {
