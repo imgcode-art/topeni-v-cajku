@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import { motion, useInView, AnimatePresence } from "motion/react";
 import {
   Phone, Mail, Menu, X, Wrench, Droplets, Shield,
-  CheckCircle, ArrowRight, ChevronDown, Clock,
+  CheckCircle, ArrowRight, ChevronDown, ChevronLeft, ChevronRight, Clock,
   Star, Award, Wind, Flame, Check,
   Leaf, TrendingDown, AlertCircle, FileText, Users, RefreshCw, Handshake, Heart,
   Play, Volume2, Percent
@@ -546,6 +546,73 @@ function FloatingField({ label, id, type = "text", value, onChange, required, da
         {label}
       </label>
     </div>
+  );
+}
+
+// ── Lightbox ─────────────────────────────────────────────────────────────────
+// Full-size image viewer with prev/next navigation. Reusable for any image list.
+function Lightbox({ images, index, onClose, onNav }: {
+  images: string[]; index: number; onClose: () => void; onNav: (dir: 1 | -1) => void;
+}) {
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") onClose();
+      else if (e.key === "ArrowRight") onNav(1);
+      else if (e.key === "ArrowLeft") onNav(-1);
+    };
+    window.addEventListener("keydown", onKey);
+    const prevOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      window.removeEventListener("keydown", onKey);
+      document.body.style.overflow = prevOverflow;
+    };
+  }, [onClose, onNav]);
+
+  const iconBtnClass = "absolute flex items-center justify-center text-white transition-colors hover:bg-white/[0.16] hover:border-white/30 z-10";
+  const iconBtnStyle = { background: "rgba(255,255,255,0.08)", border: "1px solid rgba(255,255,255,0.15)", clipPath: NOTCH_SM } as React.CSSProperties;
+
+  return (
+    <AnimatePresence>
+      <motion.div
+        className="fixed inset-0 z-[70] flex items-center justify-center p-4 md:p-10"
+        style={{ background: "rgba(0,0,0,0.92)", backdropFilter: "blur(4px)" }}
+        initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.2 }}
+        onClick={onClose}>
+        <button onClick={(e) => { e.stopPropagation(); onClose(); }} aria-label="Zavřít"
+          className={`${iconBtnClass} top-4 right-4 md:top-6 md:right-6 w-11 h-11`} style={iconBtnStyle}>
+          <X size={20} />
+        </button>
+
+        {images.length > 1 && (
+          <>
+            <button onClick={(e) => { e.stopPropagation(); onNav(-1); }} aria-label="Předchozí obrázek"
+              className={`${iconBtnClass} left-2 md:left-6 top-1/2 -translate-y-1/2 w-11 h-11 md:w-14 md:h-14`} style={iconBtnStyle}>
+              <ChevronLeft size={22} />
+            </button>
+            <button onClick={(e) => { e.stopPropagation(); onNav(1); }} aria-label="Další obrázek"
+              className={`${iconBtnClass} right-2 md:right-6 top-1/2 -translate-y-1/2 w-11 h-11 md:w-14 md:h-14`} style={iconBtnStyle}>
+              <ChevronRight size={22} />
+            </button>
+          </>
+        )}
+
+        <motion.div key={index}
+          initial={{ opacity: 0, scale: 0.96 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.96 }}
+          transition={{ duration: 0.18 }}
+          className="flex items-center justify-center p-6 md:p-10"
+          style={{ background: "#fff", clipPath: NOTCH_LG, maxWidth: "min(90vw, 560px)", maxHeight: "min(80vh, 560px)" }}
+          onClick={(e) => e.stopPropagation()}>
+          <img src={images[index]} alt="Přípravek Fernox / Kamco" className="max-w-full object-contain" style={{ maxHeight: "min(68vh, 460px)" }} draggable={false} />
+        </motion.div>
+
+        {images.length > 1 && (
+          <div className="absolute bottom-4 md:bottom-6 left-1/2 -translate-x-1/2 text-white/50 text-xs" style={{ fontFamily: FB }}>
+            {index + 1} / {images.length}
+          </div>
+        )}
+      </motion.div>
+    </AnimatePresence>
   );
 }
 
@@ -1268,6 +1335,10 @@ function MaroxPage() {
     "/images/realizace/E13.webp",
   ];
 
+  const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
+  const navLightbox = (dir: 1 | -1) => setLightboxIndex((prev) =>
+    prev === null ? null : (prev + dir + productPhotos.length) % productPhotos.length);
+
   return (
     <div>
       <section className="relative overflow-hidden pt-16 md:pt-24 pb-8 md:pb-10 px-6" style={{ background: INK }}>
@@ -1300,12 +1371,14 @@ function MaroxPage() {
               <p className="font-semibold text-white" style={{ fontFamily: FB, fontSize: "0.95rem" }}>Zprostředkujeme celý sortiment Fernox a Kamco — stačí napsat.</p>
             </div>
             <div className="mt-6 overflow-hidden" style={{ maskImage: "linear-gradient(90deg, transparent 0%, black 6%, black 94%, transparent 100%)" }}>
-              <div className="marquee-track flex items-center w-max py-8">
+              <div className={`marquee-track flex items-center w-max py-8 ${lightboxIndex !== null ? "marquee-paused" : ""}`}>
                 {[...productPhotos, ...productPhotos].map((src, i) => (
-                  <div key={i} className="shrink-0 w-24 md:w-28 aspect-square flex items-center justify-center p-3 mx-3"
+                  <button key={i} type="button" onClick={() => setLightboxIndex(i % productPhotos.length)}
+                    aria-label="Zobrazit fotku produktu ve větším rozlišení"
+                    className="shrink-0 w-24 md:w-28 aspect-square flex items-center justify-center p-3 mx-3 cursor-pointer transition-transform duration-200 hover:scale-105"
                     style={{ background: "#d4d4d4", clipPath: NOTCH_SM }}>
                     <img src={src} alt="Přípravek Fernox / Kamco" className="max-w-full max-h-full object-contain" draggable={false} style={{ mixBlendMode: "multiply" }} />
-                  </div>
+                  </button>
                 ))}
               </div>
             </div>
@@ -1337,6 +1410,10 @@ function MaroxPage() {
       </section>
 
       <InquiryForm id="marox-form" subtitle="Napište, o které produkty máte zájem a v jakém množství." dark />
+
+      {lightboxIndex !== null && (
+        <Lightbox images={productPhotos} index={lightboxIndex} onClose={() => setLightboxIndex(null)} onNav={navLightbox} />
+      )}
     </div>
   );
 }
