@@ -707,7 +707,7 @@ function HomePage({ setPage }: { setPage: (p: Page) => void }) {
           </div>
 
           <div className="w-full px-6 lg:px-0 pt-14 lg:pt-12 pb-16 lg:pb-20 relative lg:order-1">
-            <motion.h1 className="font-bold leading-tight" style={{ fontFamily: FD, fontSize: "clamp(1.8rem,3.5vw,2.6rem)", color: "rgba(255,255,255,0.75)" }}
+            <motion.h1 className="font-semibold leading-tight" style={{ fontFamily: FD, fontSize: "clamp(1.8rem,3.5vw,2.6rem)", color: "rgba(255,255,255,0.7)" }}
               initial={{ opacity: 0, y: 34 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-60px" }} transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}>
               Chemicko-mechanické čištění topných systémů, tepelná čerpadla, servis a montáž kotlů
             </motion.h1>
@@ -894,7 +894,7 @@ function ServisPage() {
       <SectionHero eyebrow="Servis a montáž" icon={<Wrench size={14} />}
         title={<>SERVIS<br />KOTLŮ</>}
         subtitle={<>Revize, opravy, záruční i pozáruční servis, nové montáže.<br />Hlavní značky: Baxi a De Dietrich.</>}
-        formId="servis-form" imgSrc="/images/realizace/kotelna.jpeg" />
+        formId="servis-form" imgSrc="/images/realizace/kotelna1.png" />
 
       <section style={{ background: INK }} className="py-24 px-6">
         <div className="max-w-6xl mx-auto">
