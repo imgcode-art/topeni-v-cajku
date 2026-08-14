@@ -1308,19 +1308,19 @@ function CisteniPage() {
         <div className="max-w-4xl mx-auto">
                     <h2 className="font-bold text-white leading-none mb-12" style={{ fontFamily: FD, fontSize: "clamp(1.6rem,2.5vw,2.2rem)" }}>JAK PROBÍHÁ ČIŠTĚNÍ</h2>
           <div className="relative">
+            <div className="absolute left-[27px] top-0 bottom-0 w-px overflow-hidden" style={{ background: "rgba(255,255,255,0.1)" }}>
+              <motion.div className="w-full" style={{ background: FIRE }}
+                initial={{ height: "0%" }}
+                whileInView={{ height: "100%" }}
+                viewport={{ once: true, margin: "-80px" }}
+                transition={{ duration: 1.1, ease: "easeOut" }} />
+            </div>
             {processSteps.map((s, i, arr) => (
               <motion.div key={i}
                 initial="inactive"
                 whileInView="active"
                 viewport={{ once: true, margin: "-80px" }}
-                className="relative flex items-start gap-6 pb-9 last:pb-0">
-                {i < arr.length - 1 && (
-                  <div className="absolute left-[27px] top-14 bottom-0 w-px overflow-hidden" style={{ background: "rgba(255,255,255,0.1)" }}>
-                    <motion.div className="w-full" style={{ background: FIRE }}
-                      variants={{ inactive: { height: "0%" }, active: { height: "100%" } }}
-                      transition={{ duration: 0.4, ease: "easeOut", delay: 0.15 }} />
-                  </div>
-                )}
+                className={`relative flex items-start gap-6 ${i < arr.length - 1 ? "pb-9" : ""}`}>
                 <motion.div className="relative z-10 w-14 h-14 text-base font-bold flex items-center justify-center shrink-0"
                   variants={{
                     inactive: { background: "rgba(255,255,255,0.06)", color: "rgba(255,255,255,0.4)", scale: 0.92 },
@@ -1330,7 +1330,7 @@ function CisteniPage() {
                   style={{ fontFamily: FD, border: "1px solid rgba(255,255,255,0.15)", clipPath: NOTCH_SM }}>
                   {i + 1}
                 </motion.div>
-                <div className="pt-3">
+                <div>
                   <motion.h4 className="font-bold mb-1" style={{ fontFamily: FD, fontSize: "1.1rem" }}
                     variants={{ inactive: { color: "rgba(255,255,255,0.35)" }, active: { color: "#fff" } }}
                     transition={{ duration: 0.3 }}>
