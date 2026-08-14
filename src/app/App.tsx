@@ -924,10 +924,14 @@ function HomePage({ setPage }: { setPage: (p: Page) => void }) {
           </div>
 
           <div className="w-full px-6 lg:px-0 pt-14 lg:pt-12 pb-16 lg:pb-20 relative lg:order-1">
-            <motion.h1 className="font-semibold uppercase leading-tight" style={{ fontFamily: FD, fontSize: "clamp(1.4rem,2.6vw,2rem)", color: "rgba(255,255,255,0.7)" }}
+            <motion.h1 className="font-bold text-white leading-tight" style={{ fontFamily: FD, fontSize: "clamp(1.8rem,3.5vw,2.6rem)" }}
               initial={{ opacity: 0, y: 34 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-60px" }} transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}>
-              Chemicko-mechanické čištění topných systémů, tepelná čerpadla, servis a montáž kotlů
+              Teplo domova, na které se můžete spolehnout.
             </motion.h1>
+            <motion.h2 className="font-normal leading-relaxed mt-4 text-base md:text-lg" style={{ fontFamily: FB, color: "rgba(255,255,255,0.65)" }}
+              initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-60px" }} transition={{ duration: 0.55, delay: 0.08, ease: [0.22, 1, 0.36, 1] }}>
+              Provádíme kompletní servis a montáž plynových kotlů, tepelných čerpadel a chemicko-mechanické čištění topných systémů.
+            </motion.h2>
             <motion.div className="flex flex-col md:flex-row md:flex-wrap gap-2 md:gap-x-8 md:gap-y-3 mt-6"
               initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-60px" }} transition={{ duration: 0.5, delay: 0.1 }}>
               {DUVERYHODNOST.map((text, i) => (
