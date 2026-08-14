@@ -926,7 +926,7 @@ function HomePage({ setPage }: { setPage: (p: Page) => void }) {
           <div className="w-full px-6 lg:px-0 pt-14 lg:pt-12 pb-16 lg:pb-20 relative lg:order-1">
             <motion.h1 className="font-bold text-white uppercase leading-tight" style={{ fontFamily: FD, fontSize: "clamp(1.8rem,3.5vw,2.6rem)" }}
               initial={{ opacity: 0, y: 34 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-60px" }} transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}>
-              Teplo domova, na které je spoleh
+              Teplo domova, <br />na které je spoleh
             </motion.h1>
             <motion.h2 className="font-normal leading-relaxed mt-4 text-base md:text-lg" style={{ fontFamily: FB, color: "rgba(255,255,255,0.65)" }}
               initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-60px" }} transition={{ duration: 0.55, delay: 0.08, ease: [0.22, 1, 0.36, 1] }}>
