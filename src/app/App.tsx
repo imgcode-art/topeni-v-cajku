@@ -197,9 +197,9 @@ function HeroVideoDefs() {
             1 0 0 0 0
             0 1 0 0 0
             0 0 1 0 0
-            0.2126 0.7152 0.0722 0 -0.032" />
+            0.2126 0.7152 0.0722 0 -0.038" />
           <feComponentTransfer>
-            <feFuncA type="gamma" amplitude="1.3" exponent="1.35" offset="0" />
+            <feFuncA type="gamma" amplitude="1.45" exponent="1.9" offset="0" />
           </feComponentTransfer>
         </filter>
       </defs>
