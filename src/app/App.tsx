@@ -199,8 +199,20 @@ function HeroVideo({ src, startAt, className = "w-full h-auto block", style }: {
     const v = videoRef.current;
     const canvas = canvasRef.current;
     if (!v || !canvas) return;
-    const ctx = canvas.getContext("2d", { willReadFrequently: true });
+    const ctx = canvas.getContext("2d");
     if (!ctx) return;
+
+    // The per-pixel pass below is done on a small offscreen buffer, not the
+    // full display size — at full res (500px+) the getImageData/putImageData
+    // round trip alone can take longer than a frame budget, which makes the
+    // canvas fall behind the video's own (unrelated, real-time) playback
+    // clock and skip visible chunks of the animation. The glow is soft
+    // already, so processing it small and upscaling onto the display canvas
+    // is visually indistinguishable but stays comfortably inside a frame.
+    const PROCESS_MAX = 320;
+    const off = document.createElement("canvas");
+    const offCtx = off.getContext("2d", { willReadFrequently: true });
+    if (!offCtx) return;
 
     const onLoadedMetadata = () => { if (startAt) v.currentTime = startAt; };
     v.addEventListener("loadedmetadata", onLoadedMetadata);
@@ -216,7 +228,7 @@ function HeroVideo({ src, startAt, className = "w-full h-auto block", style }: {
     }
 
     // Precompute the radial edge-fade mask (mirrors the previous CSS
-    // mask-image) once per canvas size instead of per pixel per frame.
+    // mask-image) once per buffer size instead of per pixel per frame.
     let mask: Float32Array | null = null;
     let maskW = 0, maskH = 0;
     const buildMask = (w: number, h: number) => {
@@ -239,18 +251,23 @@ function HeroVideo({ src, startAt, className = "w-full h-auto block", style }: {
     const draw = () => {
       if (cancelled) return;
       const rect = canvas.getBoundingClientRect();
-      const w = Math.max(1, Math.round(rect.width));
-      const h = Math.max(1, Math.round(rect.height));
-      if (canvas.width !== w || canvas.height !== h) { canvas.width = w; canvas.height = h; }
+      const dispW = Math.max(1, Math.round(rect.width));
+      const dispH = Math.max(1, Math.round(rect.height));
+      if (canvas.width !== dispW || canvas.height !== dispH) { canvas.width = dispW; canvas.height = dispH; }
+
+      const procScale = Math.min(1, PROCESS_MAX / Math.max(dispW, dispH));
+      const w = Math.max(1, Math.round(dispW * procScale));
+      const h = Math.max(1, Math.round(dispH * procScale));
+      if (off.width !== w || off.height !== h) { off.width = w; off.height = h; }
       if (maskW !== w || maskH !== h) buildMask(w, h);
 
       const vw = v.videoWidth, vh = v.videoHeight;
       if (v.readyState >= 2 && vw && vh) {
         const scale = Math.max(w / vw, h / vh);
         const dw = vw * scale, dh = vh * scale;
-        ctx.drawImage(v, (w - dw) / 2, (h - dh) / 2, dw, dh);
+        offCtx.drawImage(v, (w - dw) / 2, (h - dh) / 2, dw, dh);
 
-        const frame = ctx.getImageData(0, 0, w, h);
+        const frame = offCtx.getImageData(0, 0, w, h);
         const data = frame.data;
         const m = mask!;
         for (let p = 0, n = w * h; p < n; p++) {
@@ -269,7 +286,10 @@ function HeroVideo({ src, startAt, className = "w-full h-auto block", style }: {
           data[idx + 2] = bs * 255;
           data[idx + 3] = a * 255;
         }
-        ctx.putImageData(frame, 0, 0);
+        offCtx.putImageData(frame, 0, 0);
+
+        ctx.clearRect(0, 0, dispW, dispH);
+        ctx.drawImage(off, 0, 0, dispW, dispH);
       }
 
       if (!v.ended) raf = requestAnimationFrame(draw);
