@@ -1257,8 +1257,8 @@ const CISTENI_FAQ: FAQItem[] = [
 function CisteniPage() {
   const benefits = [
     { val: "15–30%", title: "Úspora energie", desc: "Čistý systém přenáší teplo efektivněji — kotel nepracuje zbytečně." },
-    { val: "100%", title: "Rovnoměrné topení", desc: "Konec studených radiátorů. Celý systém hřeje tak, jak má." },
     { val: "+5 let", title: "Životnost kotle", desc: "Kal ničí výměník kotle. Čistý systém = kotel vydrží o roky déle." },
+    { val: "100%", title: "Rovnoměrné topení", desc: "Konec studených radiátorů. Celý systém hřeje tak, jak má." },
     { val: "Méně", title: "Poruch a oprav", desc: "Zanešený systém způsobuje poruchy čerpadla a výměníku." },
   ];
 
