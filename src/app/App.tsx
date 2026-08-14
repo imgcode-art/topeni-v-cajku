@@ -1228,11 +1228,11 @@ function CisteniPage() {
   ];
 
   const processSteps = [
-    { title: "Vstupní diagnostika", desc: "Zkontrolujeme stav vody, tlak a vizuální stav radiátorů a kotle." },
-    { title: "Aplikace přípravku Fernox / Kamco", desc: "Certifikovaný čisticí přípravek rozpustí kal, koroze a usazeniny." },
-    { title: "Cirkulace a proplach", desc: "Přípravek cirkuluje systémem 2–4 hodiny, poté propláchneme čistou vodou." },
-    { title: "Doplnění inhibitoru", desc: "Odvzdušníme radiátory, naplníme systém čistou vodou s inhibitorem." },
-    { title: "Kontrola a předání", desc: "Ověříme těsnost, správný tlak a rovnoměrné topení." },
+    { title: "Vstupní diagnostika", desc: "Zkontrolujeme stav vody, tlak, stav kotle, radiátorů i podlahového topení." },
+    { title: "Aplikace přípravku Fernox / Kamco", desc: "Aplikujeme certifikovaný čistící přípravek, který rozpustí vodní kámen, usazeniny a korozi." },
+    { title: "Čištění a proplach", desc: "Chemie cirkuluje v systému, poté celý systém důkladně propláchneme čistou vodou." },
+    { title: "Doplnění inhibitoru", desc: "Odvzdušníme radiátory, napustíme systém demineralizovanou vodou dle normy VDI 2035 a přidáme ochranný inhibitor." },
+    { title: "Kontrola a předání", desc: "Ověříme těsnost systému, správný provozní tlak a rovnoměrné topení v celém domě." },
   ];
   const signs = [
     "Radiátory jsou nahoře teplé, dole studené",
