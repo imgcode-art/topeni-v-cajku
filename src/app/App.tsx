@@ -802,14 +802,21 @@ function SectionHero({ eyebrow, title, subtitle, icon, formId, imgId, imgSrc, vi
   return (
     <section className="relative overflow-hidden py-20 md:py-28 lg:py-32 px-6"
       style={{ background: aurora ? INK : HERO_GRADIENT, clipPath: "polygon(0 0, 100% 0, 100% 100%, 0 96%)" }}>
-      {aurora && <Aurora color={FIRE} />}
+      {aurora && <div className={sideImage ? "hidden lg:block" : undefined}><Aurora color={FIRE} /></div>}
+      {sideImage && (
+        <div className="absolute inset-0 lg:hidden">
+          <img src={sideImage} alt="" className="w-full h-full object-cover" style={{ objectPosition: "56% 30%" }} />
+          <div className="absolute inset-0" style={{ background: `linear-gradient(180deg, ${INK}66 0%, ${INK}99 55%, ${INK}E0 100%)` }} />
+          <div className="absolute inset-0 mix-blend-multiply" style={{ background: `linear-gradient(115deg, ${FIRE}66 0%, transparent 55%)` }} />
+        </div>
+      )}
       {!aurora && videoSrc && (
         <div className="absolute inset-0">
           <video src={videoSrc} className="w-full h-full object-cover" autoPlay muted loop playsInline />
           <div className="absolute inset-0" style={{ background: `linear-gradient(180deg, ${INK}66 0%, ${INK}99 55%, ${INK}E0 100%)` }} />
         </div>
       )}
-      {!aurora && !videoSrc && heroImg && (
+      {!aurora && !videoSrc && !sideImage && heroImg && (
         <div className="absolute inset-0">
           <img src={heroImg} alt="" className="w-full h-full object-cover" />
           <div className="absolute inset-0" style={{ background: `linear-gradient(180deg, ${INK}66 0%, ${INK}99 55%, ${INK}E0 100%)` }} />
@@ -842,7 +849,7 @@ function SectionHero({ eyebrow, title, subtitle, icon, formId, imgId, imgSrc, vi
           </motion.div>
         </div>
         {sideImage && (
-          <motion.div className="relative w-full aspect-square lg:w-72 lg:aspect-auto lg:self-stretch shrink-0 overflow-hidden"
+          <motion.div className="hidden lg:block relative lg:w-72 lg:self-stretch shrink-0 overflow-hidden"
             style={{ clipPath: NOTCH_LG, border: "1px solid rgba(255,255,255,0.15)" }}
             initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.2 }}>
             <img src={sideImage} alt="Martin Macháč" className="w-full h-full object-cover" style={{ objectPosition: "56% 30%" }} draggable={false} />
