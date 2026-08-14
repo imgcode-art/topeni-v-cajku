@@ -207,9 +207,23 @@ function HeroVideoDefs() {
   );
 }
 
-function HeroVideo({ src, className = "w-full h-auto block", style }: { src: string; className?: string; style?: React.CSSProperties }) {
+// The first ~1s of the footage is almost static (nothing visibly lighting up
+// yet), which reads as a dead pause when the page just loaded. Skipping ahead
+// to startAt gets to the "something is happening" part right away.
+function HeroVideo({ src, startAt, className = "w-full h-auto block", style }: { src: string; startAt?: number; className?: string; style?: React.CSSProperties }) {
+  const videoRef = useRef<HTMLVideoElement>(null);
+  useEffect(() => {
+    if (!startAt) return;
+    const v = videoRef.current;
+    if (!v) return;
+    const onLoadedMetadata = () => { v.currentTime = startAt; };
+    v.addEventListener("loadedmetadata", onLoadedMetadata);
+    return () => v.removeEventListener("loadedmetadata", onLoadedMetadata);
+  }, [startAt]);
+
   return (
     <video
+      ref={videoRef}
       src={src}
       className={className}
       style={{ filter: "url(#hero-video-key) saturate(0.85) brightness(0.6)", ...style }}
@@ -940,7 +954,7 @@ function HomePage({ setPage }: { setPage: (p: Page) => void }) {
       <section className="relative overflow-hidden" style={{ background: INK, clipPath: "polygon(0 0, 100% 0, 100% 100%, 0 96%)" }}>
         <div className="max-w-7xl mx-auto lg:grid lg:grid-cols-2 lg:items-start lg:gap-12 lg:px-6 pt-12 lg:pt-16">
           <div className="relative w-full lg:order-2 lg:h-[440px]" style={{ aspectRatio: "1376 / 768" }}>
-            <HeroVideo src="/videos/hero-heating.mp4" className="w-full h-full object-cover block"
+            <HeroVideo src="/videos/hero-heating.mp4" startAt={1.0} className="w-full h-full object-cover block"
               style={{ maskImage: HERO_VIDEO_MASK, WebkitMaskImage: HERO_VIDEO_MASK }} />
           </div>
 
