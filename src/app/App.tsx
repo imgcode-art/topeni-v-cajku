@@ -795,8 +795,8 @@ function InquiryForm({ title = "Pojďme to vyřešit", subtitle, dark = false, i
 }
 
 // ── SectionHero ───────────────────────────────────────────────────────────────
-function SectionHero({ eyebrow, title, subtitle, icon, formId, imgId, imgSrc, imgPos, videoSrc, aurora, imgDim }: {
-  eyebrow: string; title: React.ReactNode; subtitle: React.ReactNode; icon: React.ReactNode; formId: string; imgId?: string; imgSrc?: string; imgPos?: string; videoSrc?: string; aurora?: boolean; imgDim?: number;
+function SectionHero({ eyebrow, title, subtitle, icon, formId, imgId, imgSrc, videoSrc, aurora, imgDim, sideImage }: {
+  eyebrow: string; title: React.ReactNode; subtitle: React.ReactNode; icon: React.ReactNode; formId: string; imgId?: string; imgSrc?: string; videoSrc?: string; aurora?: boolean; imgDim?: number; sideImage?: string;
 }) {
   const heroImg = imgSrc || (imgId ? `https://images.unsplash.com/${imgId}?w=1400&h=600&fit=crop&auto=format` : undefined);
   return (
@@ -811,13 +811,13 @@ function SectionHero({ eyebrow, title, subtitle, icon, formId, imgId, imgSrc, im
       )}
       {!aurora && !videoSrc && heroImg && (
         <div className="absolute inset-0">
-          <img src={heroImg} alt="" className="w-full h-full object-cover" style={imgPos ? { objectPosition: imgPos } : undefined} />
+          <img src={heroImg} alt="" className="w-full h-full object-cover" />
           <div className="absolute inset-0" style={{ background: `linear-gradient(180deg, ${INK}66 0%, ${INK}99 55%, ${INK}E0 100%)` }} />
           <div className="absolute inset-0 mix-blend-multiply" style={{ background: `linear-gradient(115deg, ${FIRE}66 0%, transparent 55%)` }} />
           {imgDim && <div className="absolute inset-0" style={{ background: INK, opacity: imgDim }} />}
         </div>
       )}
-      <div className="mx-auto relative z-10 max-w-4xl">
+      <div className={`mx-auto relative z-10 ${sideImage ? "max-w-5xl flex flex-col lg:flex-row lg:items-stretch gap-10" : "max-w-4xl"}`}>
         <div className="flex-1 min-w-0">
           <motion.h1 className="font-bold text-white mb-6 leading-none" style={{ fontFamily: FD, fontSize: "clamp(1.8rem,3.5vw,2.6rem)" }}
             initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.55, delay: 0.08 }}>
@@ -841,6 +841,13 @@ function SectionHero({ eyebrow, title, subtitle, icon, formId, imgId, imgSrc, im
             </button>
           </motion.div>
         </div>
+        {sideImage && (
+          <motion.div className="relative w-full aspect-square lg:w-72 lg:aspect-auto lg:self-stretch shrink-0 overflow-hidden"
+            style={{ clipPath: NOTCH_LG, border: "1px solid rgba(255,255,255,0.15)" }}
+            initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.2 }}>
+            <img src={sideImage} alt="Martin Macháč" className="w-full h-full object-cover" style={{ objectPosition: "56% 30%" }} draggable={false} />
+          </motion.div>
+        )}
       </div>
     </section>
   );
@@ -1667,7 +1674,7 @@ function KontaktPage() {
       <SectionHero eyebrow="Kontakt" icon={<Phone size={14} />}
         title={<>KOTEL <br />NEJEDE?</>}
         subtitle="Žádný strach, rádi vám to dáme do pořádku."
-        formId="kontakt-form" imgSrc="/images/realizace/topenivcajku_martin.jpg" imgPos="62% 30%" />
+        formId="kontakt-form" aurora sideImage="/images/realizace/topenivcajku_martin.jpg" />
 
       <section style={{ background: INK }} className="pt-8 md:pt-10 pb-16 md:pb-24 px-6">
         <div className="max-w-4xl mx-auto">
