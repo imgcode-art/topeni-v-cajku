@@ -1713,12 +1713,12 @@ function KontaktPage() {
               KDO SE VÁM O TO POSTARÁ?
             </h2>
             <p className="text-white/55 leading-relaxed text-base mb-4" style={{ fontFamily: FB }}>
-              Za Topením v cajku stojím já, Martin, s mým týmem zkušených parťáků. V oboru se pohybujeme už řadu let a víme, že nikdo z vás nechce poslouchat složité technické řeči. Chcete jedinou věc – aby to prostě fungovalo.
+              Za Topením v cajku stojím já, Martin, se svým týmem zkušených parťáků. V oboru se pohybujeme už řadu let a hlavní je pro nás jediné – aby vám to doma bezstarostně fungovalo.
             </p>
             <p className="text-white/55 leading-relaxed text-base" style={{ fontFamily: FB }}>
-              Dohodneme se narovinu, a když se cokoliv stane, jsme tu pro vás.
+              Když se cokoliv přihodí, jsme na telefonu a rychle zasáhneme.
               <br />
-              Chceme, abyste měli doma klid a o topení nemuseli přemýšlet.
+              Naším cílem je, abyste měli doma absolutní klid a o topení nemuseli vůbec přemýšlet.
             </p>
           </div>
           <div className="relative w-full aspect-square md:w-64 md:h-64 shrink-0 overflow-hidden" style={{ clipPath: NOTCH_LG, border: "1px solid rgba(255,255,255,0.1)" }}>
