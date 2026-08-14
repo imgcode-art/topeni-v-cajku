@@ -126,6 +126,15 @@ h1, h2, h3 {
   position: relative;
   border-radius: 20px;
   overflow: hidden;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+.star-border-container:hover {
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 10px 28px -8px var(--sb-color, rgba(232,98,62,0.6));
+}
+.star-border-container:active {
+  transform: translateY(0) scale(0.97);
+  box-shadow: 0 4px 14px -6px var(--sb-color, rgba(232,98,62,0.6));
 }
 
 .border-gradient-bottom {

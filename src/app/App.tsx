@@ -357,7 +357,7 @@ function Header({ currentPage, setPage }: { currentPage: Page; setPage: (p: Page
 
         {/* CTA + hamburger */}
         <div className="flex items-center gap-3 shrink-0">
-          <div className="hidden sm:block">
+          <div className="hidden sm:flex sm:items-center">
             <StarBorder as="a" href={PHONE_HREF} color={FIRE} speed="4s" thickness={2}>
               <span className="flex items-center gap-2.5 text-sm font-semibold uppercase tracking-widest px-7 py-3.5" style={{ fontFamily: FD, background: FIRE, color: INK }}>
                 <ArrowRight size={15} strokeWidth={2.5} />Zavolat
@@ -684,7 +684,7 @@ function Lightbox({ images, index, onClose, onNav }: {
             initial="enter" animate="center" exit="exit"
             transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
             className="flex items-center justify-center p-6 md:p-10"
-            style={{ background: "#fff", clipPath: NOTCH_LG, maxWidth: "min(90vw, 560px)", maxHeight: "min(80vh, 560px)" }}
+            style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.1)", clipPath: NOTCH_LG, maxWidth: "min(90vw, 560px)", maxHeight: "min(80vh, 560px)" }}
             onClick={(e) => e.stopPropagation()}>
             <img src={images[index]} alt="Přípravek Fernox / Kamco" className="max-w-full object-contain" style={{ maxHeight: "min(68vh, 460px)" }} draggable={false} />
           </motion.div>
