@@ -843,7 +843,7 @@ function SectionHero({ eyebrow, title, subtitle, icon, formId, imgId, imgSrc, vi
           </motion.div>
         </div>
         {sideImage && (
-          <motion.div className="relative w-full aspect-square lg:w-64 lg:h-64 shrink-0 overflow-hidden"
+          <motion.div className="relative w-full aspect-square lg:w-80 lg:h-80 shrink-0 overflow-hidden"
             style={{ clipPath: NOTCH_LG, border: "1px solid rgba(255,255,255,0.15)" }}
             initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.2 }}>
             <img src={sideImage} alt="Martin Macháč" className="w-full h-full object-cover" style={{ objectPosition: "56% 50%" }} draggable={false} />
@@ -1474,7 +1474,7 @@ function MaroxPage() {
       <SectionHero eyebrow="Fernox & Kamco" icon={<FileText size={14} />}
         title={<>FERNOX <span style={{ color: FIRE }}>&</span> KAMCO</>}
         subtitle={<>Přímý prodej přípravků britských značek Fernox a Kamco. <br />Pro soukromé osoby i topenářské firmy.</>}
-        formId="marox-form" />
+        formId="marox-form" aurora />
 
       <section style={{ background: INK }} className="pt-8 md:pt-10 pb-16 md:pb-24 px-6">
         <div className="max-w-6xl mx-auto">
