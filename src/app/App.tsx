@@ -263,34 +263,50 @@ function HeroVideo({ src, startAt, className = "w-full h-auto block", style }: {
 
       const vw = v.videoWidth, vh = v.videoHeight;
       if (v.readyState >= 2 && vw && vh) {
-        const scale = Math.max(w / vw, h / vh);
-        const dw = vw * scale, dh = vh * scale;
-        offCtx.drawImage(v, (w - dw) / 2, (h - dh) / 2, dw, dh);
+        // If the pixel effect throws for any reason (e.g. a canvas read
+        // restriction in some environment we haven't hit in testing), fall
+        // back to just showing the plain video frame rather than silently
+        // freezing on the last frame that worked — the animation should
+        // always finish playing through, effect or not.
+        try {
+          const scale = Math.max(w / vw, h / vh);
+          const dw = vw * scale, dh = vh * scale;
+          offCtx.drawImage(v, (w - dw) / 2, (h - dh) / 2, dw, dh);
 
-        const frame = offCtx.getImageData(0, 0, w, h);
-        const data = frame.data;
-        const m = mask!;
-        for (let p = 0, n = w * h; p < n; p++) {
-          const idx = p * 4;
-          const r = data[idx], g = data[idx + 1], b = data[idx + 2];
-          const lum = lr * r + lg * g + lb * b;
-          const a = (alphaLUT[lum | 0] / 255) * m[p];
+          const frame = offCtx.getImageData(0, 0, w, h);
+          const data = frame.data;
+          const m = mask!;
+          for (let p = 0, n = w * h; p < n; p++) {
+            const idx = p * 4;
+            const r = data[idx], g = data[idx + 1], b = data[idx + 2];
+            const lum = lr * r + lg * g + lb * b;
+            const a = (alphaLUT[lum | 0] / 255) * m[p];
 
-          const lumN = lum / 255;
-          const rs = (lumN + 0.85 * (r / 255 - lumN)) * 0.6;
-          const gs = (lumN + 0.85 * (g / 255 - lumN)) * 0.6;
-          const bs = (lumN + 0.85 * (b / 255 - lumN)) * 0.6;
+            const lumN = lum / 255;
+            const rs = (lumN + 0.85 * (r / 255 - lumN)) * 0.6;
+            const gs = (lumN + 0.85 * (g / 255 - lumN)) * 0.6;
+            const bs = (lumN + 0.85 * (b / 255 - lumN)) * 0.6;
 
-          data[idx] = rs * 255;
-          data[idx + 1] = gs * 255;
-          data[idx + 2] = bs * 255;
-          data[idx + 3] = a * 255;
+            data[idx] = rs * 255;
+            data[idx + 1] = gs * 255;
+            data[idx + 2] = bs * 255;
+            data[idx + 3] = a * 255;
+          }
+          offCtx.putImageData(frame, 0, 0);
+
+          ctx.clearRect(0, 0, dispW, dispH);
+          ctx.drawImage(off, 0, 0, dispW, dispH);
+        } catch {
+          const scale = Math.max(dispW / vw, dispH / vh);
+          const dw = vw * scale, dh = vh * scale;
+          ctx.clearRect(0, 0, dispW, dispH);
+          ctx.drawImage(v, (dispW - dw) / 2, (dispH - dh) / 2, dw, dh);
         }
-        offCtx.putImageData(frame, 0, 0);
-
-        ctx.clearRect(0, 0, dispW, dispH);
-        ctx.drawImage(off, 0, 0, dispW, dispH);
       }
+
+      // Autoplay/power-saving policies can pause an off-screen-styled video;
+      // nudge it back into playing so it always reaches its natural end.
+      if (v.paused && !v.ended) v.play().catch(() => {});
 
       if (!v.ended) raf = requestAnimationFrame(draw);
     };
@@ -1033,7 +1049,7 @@ function HomePage({ setPage }: { setPage: (p: Page) => void }) {
       <section className="relative overflow-hidden" style={{ background: INK, clipPath: "polygon(0 0, 100% 0, 100% 100%, 0 96%)" }}>
         <div className="max-w-7xl mx-auto lg:grid lg:grid-cols-2 lg:items-start lg:gap-12 lg:px-6 pt-12 lg:pt-16">
           <div className="relative w-full lg:order-2 lg:h-[440px]" style={{ aspectRatio: "1376 / 768" }}>
-            <HeroVideo src="/videos/hero-heating.mp4" startAt={1.0} className="w-full h-full block" />
+            <HeroVideo src="/videos/hero-heating.mp4" startAt={0.5} className="w-full h-full block" />
           </div>
 
           <div className="w-full px-6 lg:px-0 pt-14 lg:pt-12 pb-16 lg:pb-20 relative lg:order-1">
