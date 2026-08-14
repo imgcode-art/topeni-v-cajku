@@ -924,13 +924,13 @@ function HomePage({ setPage }: { setPage: (p: Page) => void }) {
           </div>
 
           <div className="w-full px-6 lg:px-0 pt-14 lg:pt-12 pb-16 lg:pb-20 relative lg:order-1">
-            <motion.h1 className="font-bold text-white leading-tight" style={{ fontFamily: FD, fontSize: "clamp(1.8rem,3.5vw,2.6rem)" }}
+            <motion.h1 className="font-bold text-white uppercase leading-tight" style={{ fontFamily: FD, fontSize: "clamp(1.8rem,3.5vw,2.6rem)" }}
               initial={{ opacity: 0, y: 34 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-60px" }} transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}>
-              Teplo domova, na které se můžete spolehnout.
+              Teplo domova, na které se můžete spolehnout
             </motion.h1>
             <motion.h2 className="font-normal leading-relaxed mt-4 text-base md:text-lg" style={{ fontFamily: FB, color: "rgba(255,255,255,0.65)" }}
               initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-60px" }} transition={{ duration: 0.55, delay: 0.08, ease: [0.22, 1, 0.36, 1] }}>
-              Provádíme kompletní servis a montáž plynových kotlů, tepelných čerpadel a chemicko-mechanické čištění topných systémů.
+              Provádíme kompletní servis a montáž plynových kotlů, tepelných čerpadel a chemicko-mechanické čištění topných systémů
             </motion.h2>
             <motion.div className="flex flex-col md:flex-row md:flex-wrap gap-2 md:gap-x-8 md:gap-y-3 mt-6"
               initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-60px" }} transition={{ duration: 0.5, delay: 0.1 }}>
@@ -1082,7 +1082,7 @@ function HomePage({ setPage }: { setPage: (p: Page) => void }) {
       </section>
 
       <FAQBlock items={HOME_FAQ} title="Nejčastější dotazy" />
-      <InquiryForm id="inquiry-home" dark tightTop />
+      <InquiryForm id="inquiry-home" subtitle="Popište nám svůj problém nebo požadavek. Ozveme se vám s návrhem řešení" dark tightTop />
     </div>
   );
 }
@@ -1203,7 +1203,7 @@ function ServisPage() {
       </section>
 
       <FAQBlock items={SERVIS_FAQ} title="Časté dotazy o servisu kotlů" />
-      <InquiryForm id="servis-form" subtitle="Popište závadu nebo co potřebujete. Domluvíme se na termínu výjezdu." dark tightTop />
+      <InquiryForm id="servis-form" subtitle="Popište nám svůj problém nebo požadavek. Ozveme se vám s návrhem řešení" dark tightTop />
     </div>
   );
 }
@@ -1372,7 +1372,7 @@ function CisteniPage() {
       </div>
 
       <FAQBlock items={CISTENI_FAQ} title="Časté dotazy" />
-      <InquiryForm id="cisteni-form" subtitle="Napište nám velikost domu a jak starý systém máte. Připravíme nabídku." dark tightTop />
+      <InquiryForm id="cisteni-form" subtitle="Popište nám svůj problém nebo požadavek. Ozveme se vám s návrhem řešení" dark tightTop />
     </div>
   );
 }
@@ -1425,7 +1425,7 @@ function TepelnaCerpadlaPage() {
       </section>
 
       <FAQBlock items={TC_FAQ} title="Časté dotazy o tepelných čerpadlech" />
-      <InquiryForm id="tc-form" subtitle="Napište velikost domu a typ stávajícího zdroje. Připravíme nabídku." dark tightTop />
+      <InquiryForm id="tc-form" subtitle="Popište nám svůj problém nebo požadavek. Ozveme se vám s návrhem řešení" dark tightTop />
     </div>
   );
 }
@@ -1531,7 +1531,7 @@ function MaroxPage() {
         </div>
       </section>
 
-      <InquiryForm id="marox-form" subtitle="Napište, o které produkty máte zájem a v jakém množství." dark />
+      <InquiryForm id="marox-form" subtitle="Popište nám svůj problém nebo požadavek. Ozveme se vám s návrhem řešení" dark />
 
       {lightboxIndex !== null && (
         <Lightbox images={productPhotos} index={lightboxIndex} onClose={() => setLightboxIndex(null)} onNav={navLightbox} />
@@ -1606,7 +1606,7 @@ function ONasPage() {
         </div>
       </section>
 
-      <InquiryForm subtitle="Zavolejte nebo napište — rádi se domluvíme na výjezdu." dark />
+      <InquiryForm subtitle="Popište nám svůj problém nebo požadavek. Ozveme se vám s návrhem řešení" dark />
     </div>
   );
 }
@@ -1755,9 +1755,12 @@ function KontaktPage() {
           </div>
 
           <div>
-            <h2 className="font-bold mb-5 text-white" style={{ fontFamily: FD, fontSize: "clamp(1.8rem,3vw,2.6rem)", lineHeight: 1 }}>
+            <h2 className="font-bold mb-2 text-white" style={{ fontFamily: FD, fontSize: "clamp(1.8rem,3vw,2.6rem)", lineHeight: 1 }}>
               POJĎME TO VYŘEŠIT
             </h2>
+            <p className="text-sm mb-8 leading-relaxed" style={{ color: "rgba(255,255,255,0.45)" }}>
+              Popište nám svůj problém nebo požadavek. Ozveme se vám s návrhem řešení
+            </p>
             <KontaktInlineForm />
           </div>
         </div>
