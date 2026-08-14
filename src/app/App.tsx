@@ -70,7 +70,6 @@ const FIRE = "#E8623E";
 const SMOKE = "#141414";
 const HERO_GRADIENT = `linear-gradient(155deg, #1E1E1E 0%, ${INK} 65%)`;
 const LOGO_TONE = "rgba(255,255,255,0.55)";
-const HERO_VIDEO_MASK = "radial-gradient(ellipse 75% 75% at center, black 55%, transparent 100%)";
 
 const FD = "'Space Grotesk', sans-serif"; // display (headings, buttons, logo)
 const FB = "'Inter', sans-serif"; // body (paragraphs, labels)
@@ -183,52 +182,113 @@ function VideoCard({ src, duration, poster }: { src: string; duration: string; p
 }
 
 // ── HeroVideo ────────────────────────────────────────────────────────────────
-// The source footage has a solid near-black background. Since browsers can't
-// decode per-pixel alpha from a plain mp4, an SVG filter keys the dark
-// background out by turning per-pixel luminance into alpha (dark ⇒
-// transparent, bright glow ⇒ opaque), with a gamma curve on the alpha channel
-// so the glow's soft falloff reads as a tighter line instead of a wide bloom.
-function HeroVideoDefs() {
-  return (
-    <svg width="0" height="0" style={{ position: "absolute" }} aria-hidden="true">
-      <defs>
-        <filter id="hero-video-key" colorInterpolationFilters="sRGB">
-          <feColorMatrix type="matrix" values="
-            1 0 0 0 0
-            0 1 0 0 0
-            0 0 1 0 0
-            0.2126 0.7152 0.0722 0 -0.06" />
-          <feComponentTransfer>
-            <feFuncA type="gamma" amplitude="1.6" exponent="2.6" offset="0" />
-          </feComponentTransfer>
-        </filter>
-      </defs>
-    </svg>
-  );
-}
+// CSS/SVG filters applied directly to a <video> element render inconsistently
+// across browsers — Safari in particular often skips or alters them on
+// hardware-decoded video, so the same `filter: url(#...)` looked quite
+// different in Chrome vs Safari. To get pixel-identical output everywhere,
+// the video plays hidden and every frame is drawn to a <canvas>, where the
+// background-key, glow-narrowing, color and edge-fade math is done by hand in
+// JS instead of relying on the browser's own filter/mask compositing.
+const HERO_VIDEO_LUM = [0.2126, 0.7152, 0.0722] as const;
 
-// The first ~1s of the footage is almost static (nothing visibly lighting up
-// yet), which reads as a dead pause when the page just loaded. Skipping ahead
-// to startAt gets to the "something is happening" part right away.
 function HeroVideo({ src, startAt, className = "w-full h-auto block", style }: { src: string; startAt?: number; className?: string; style?: React.CSSProperties }) {
   const videoRef = useRef<HTMLVideoElement>(null);
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+
   useEffect(() => {
-    if (!startAt) return;
     const v = videoRef.current;
-    if (!v) return;
-    const onLoadedMetadata = () => { v.currentTime = startAt; };
+    const canvas = canvasRef.current;
+    if (!v || !canvas) return;
+    const ctx = canvas.getContext("2d", { willReadFrequently: true });
+    if (!ctx) return;
+
+    const onLoadedMetadata = () => { if (startAt) v.currentTime = startAt; };
     v.addEventListener("loadedmetadata", onLoadedMetadata);
-    return () => v.removeEventListener("loadedmetadata", onLoadedMetadata);
-  }, [startAt]);
+
+    // Precompute the alpha response curve (dark → transparent, bright glow →
+    // opaque, steep gamma so the glow's soft falloff stays a tight line)
+    // once, instead of calling Math.pow per pixel per frame.
+    const [lr, lg, lb] = HERO_VIDEO_LUM;
+    const alphaLUT = new Uint8ClampedArray(256);
+    for (let i = 0; i < 256; i++) {
+      const a = Math.max(0, i / 255 - 0.06);
+      alphaLUT[i] = Math.min(1, 1.6 * Math.pow(a, 2.6)) * 255;
+    }
+
+    // Precompute the radial edge-fade mask (mirrors the previous CSS
+    // mask-image) once per canvas size instead of per pixel per frame.
+    let mask: Float32Array | null = null;
+    let maskW = 0, maskH = 0;
+    const buildMask = (w: number, h: number) => {
+      mask = new Float32Array(w * h);
+      const cx = w / 2, cy = h / 2, rx = 0.75 * cx, ry = 0.75 * cy;
+      for (let py = 0; py < h; py++) {
+        const ey = (py - cy) / ry;
+        for (let px = 0; px < w; px++) {
+          const ex = (px - cx) / rx;
+          const t = Math.sqrt(ex * ex + ey * ey);
+          mask[py * w + px] = t <= 0.55 ? 1 : t >= 1 ? 0 : 1 - (t - 0.55) / 0.45;
+        }
+      }
+      maskW = w; maskH = h;
+    };
+
+    let raf = 0;
+    let cancelled = false;
+
+    const draw = () => {
+      if (cancelled) return;
+      const rect = canvas.getBoundingClientRect();
+      const w = Math.max(1, Math.round(rect.width));
+      const h = Math.max(1, Math.round(rect.height));
+      if (canvas.width !== w || canvas.height !== h) { canvas.width = w; canvas.height = h; }
+      if (maskW !== w || maskH !== h) buildMask(w, h);
+
+      const vw = v.videoWidth, vh = v.videoHeight;
+      if (v.readyState >= 2 && vw && vh) {
+        const scale = Math.max(w / vw, h / vh);
+        const dw = vw * scale, dh = vh * scale;
+        ctx.drawImage(v, (w - dw) / 2, (h - dh) / 2, dw, dh);
+
+        const frame = ctx.getImageData(0, 0, w, h);
+        const data = frame.data;
+        const m = mask!;
+        for (let p = 0, n = w * h; p < n; p++) {
+          const idx = p * 4;
+          const r = data[idx], g = data[idx + 1], b = data[idx + 2];
+          const lum = lr * r + lg * g + lb * b;
+          const a = (alphaLUT[lum | 0] / 255) * m[p];
+
+          const lumN = lum / 255;
+          const rs = (lumN + 0.85 * (r / 255 - lumN)) * 0.6;
+          const gs = (lumN + 0.85 * (g / 255 - lumN)) * 0.6;
+          const bs = (lumN + 0.85 * (b / 255 - lumN)) * 0.6;
+
+          data[idx] = rs * 255;
+          data[idx + 1] = gs * 255;
+          data[idx + 2] = bs * 255;
+          data[idx + 3] = a * 255;
+        }
+        ctx.putImageData(frame, 0, 0);
+      }
+
+      if (!v.ended) raf = requestAnimationFrame(draw);
+    };
+    raf = requestAnimationFrame(draw);
+
+    return () => {
+      cancelled = true;
+      cancelAnimationFrame(raf);
+      v.removeEventListener("loadedmetadata", onLoadedMetadata);
+    };
+  }, [src, startAt]);
 
   return (
-    <video
-      ref={videoRef}
-      src={src}
-      className={className}
-      style={{ filter: "url(#hero-video-key) saturate(0.85) brightness(0.6)", ...style }}
-      autoPlay muted playsInline
-    />
+    <>
+      <video ref={videoRef} src={src} autoPlay muted playsInline aria-hidden="true"
+        style={{ position: "absolute", inset: 0, width: "100%", height: "100%", opacity: 0, pointerEvents: "none" }} />
+      <canvas ref={canvasRef} className={className} style={style} />
+    </>
   );
 }
 
@@ -950,12 +1010,10 @@ function HomePage({ setPage }: { setPage: (p: Page) => void }) {
   return (
     <div>
       {/* ── HERO ── */}
-      <HeroVideoDefs />
       <section className="relative overflow-hidden" style={{ background: INK, clipPath: "polygon(0 0, 100% 0, 100% 100%, 0 96%)" }}>
         <div className="max-w-7xl mx-auto lg:grid lg:grid-cols-2 lg:items-start lg:gap-12 lg:px-6 pt-12 lg:pt-16">
           <div className="relative w-full lg:order-2 lg:h-[440px]" style={{ aspectRatio: "1376 / 768" }}>
-            <HeroVideo src="/videos/hero-heating.mp4" startAt={1.0} className="w-full h-full object-cover block"
-              style={{ maskImage: HERO_VIDEO_MASK, WebkitMaskImage: HERO_VIDEO_MASK }} />
+            <HeroVideo src="/videos/hero-heating.mp4" startAt={1.0} className="w-full h-full block" />
           </div>
 
           <div className="w-full px-6 lg:px-0 pt-14 lg:pt-12 pb-16 lg:pb-20 relative lg:order-1">
