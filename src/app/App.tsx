@@ -1713,7 +1713,7 @@ function KontaktPage() {
               KDO SE VÁM O TO POSTARÁ?
             </h2>
             <p className="text-white/55 leading-relaxed text-base mb-4" style={{ fontFamily: FB }}>
-              Za Topením v cajku stojím já, Martin, se svým týmem zkušených parťáků. V oboru se pohybujeme už řadu let a hlavní je pro nás jediné – aby vám to doma bezstarostně fungovalo.
+              Za Topením v cajku stojím já, Martin, se svým týmem zkušených parťáků. V oboru se pohybujeme už řadu let a hlavní je pro nás jediné – aby vám topení doma bezstarostně fungovalo.
             </p>
             <p className="text-white/55 leading-relaxed text-base" style={{ fontFamily: FB }}>
               Když se cokoliv přihodí, jsme na telefonu a rychle zasáhneme.
