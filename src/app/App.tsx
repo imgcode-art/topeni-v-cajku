@@ -235,10 +235,13 @@ function StarBorder({
 }
 
 // ── Logo ─────────────────────────────────────────────────────────────────────
-function LogoMark({ size = 30 }: { size?: number }) {
+function LogoMark({ size = 30, hovered = false }: { size?: number; hovered?: boolean }) {
+  const tone = hovered ? FIRE : LOGO_TONE;
   return (
-    <span className="relative inline-flex items-center justify-center rounded-full shrink-0"
-      style={{ width: size, height: size, background: "rgba(255,255,255,0.08)", border: `1.3px solid ${LOGO_TONE}` }}>
+    <motion.span className="relative inline-flex items-center justify-center rounded-full shrink-0"
+      animate={{ scale: hovered ? 1.08 : 1 }}
+      transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
+      style={{ width: size, height: size, background: hovered ? "rgba(232,98,62,0.14)" : "rgba(255,255,255,0.08)", border: `1.3px solid ${tone}`, transition: "background 0.25s ease, border-color 0.25s ease" }}>
       <motion.span
         className="inline-flex"
         animate={{
@@ -254,25 +257,26 @@ function LogoMark({ size = 30 }: { size?: number }) {
         }}
         transition={{ duration: 2.4, repeat: Infinity, ease: "easeInOut" }}
         style={{ transformOrigin: "50% 90%" }}>
-        <Flame size={size * 0.56} style={{ color: LOGO_TONE }} fill={LOGO_TONE} strokeWidth={1.5} />
+        <Flame size={size * 0.56} style={{ color: tone, transition: "color 0.25s ease" }} fill={tone} strokeWidth={1.5} />
       </motion.span>
       <span className="absolute inline-flex items-center justify-center rounded-full"
         style={{
           width: size * 0.44, height: size * 0.44,
           right: -size * 0.06, bottom: -size * 0.06,
-          background: INK, border: `1.2px solid ${LOGO_TONE}`,
+          background: INK, border: `1.2px solid ${tone}`, transition: "border-color 0.25s ease",
         }}>
-        <Check size={size * 0.26} style={{ color: LOGO_TONE }} strokeWidth={3} />
+        <Check size={size * 0.26} style={{ color: tone, transition: "color 0.25s ease" }} strokeWidth={3} />
       </span>
-    </span>
+    </motion.span>
   );
 }
 
 function Logo({ textSize = "text-lg", markSize = 30 }: { textSize?: string; markSize?: number }) {
+  const [hovered, setHovered] = useState(false);
   return (
-    <span className="flex items-center gap-2">
-      <LogoMark size={markSize} />
-      <span className={`font-bold ${textSize}`} style={{ fontFamily: FD, letterSpacing: "-0.01em", color: "rgba(255,255,255,0.92)" }}>
+    <span className="flex items-center gap-2" onMouseEnter={() => setHovered(true)} onMouseLeave={() => setHovered(false)}>
+      <LogoMark size={markSize} hovered={hovered} />
+      <span className={`font-bold ${textSize}`} style={{ fontFamily: FD, letterSpacing: "-0.01em", color: hovered ? "#fff" : "rgba(255,255,255,0.92)", transition: "color 0.25s ease" }}>
         Topení v cajku
       </span>
     </span>
@@ -340,7 +344,7 @@ function Header({ currentPage, setPage }: { currentPage: Page; setPage: (p: Page
       style={{ background: INK, boxShadow: scrolled ? "0 8px 24px -12px rgba(0,0,0,0.5)" : "none" }}>
       <div className="max-w-7xl mx-auto px-6 lg:px-10 h-16 lg:h-[76px] flex items-center justify-between gap-8">
         {/* Logo */}
-        <button onClick={() => go("home")} className="appearance-none flex items-center gap-2 shrink-0 transition-opacity hover:opacity-75 outline-none" style={{ WebkitTapHighlightColor: "transparent", boxShadow: "none" }} aria-label="Domů">
+        <button onClick={() => go("home")} className="appearance-none flex items-center gap-2 shrink-0 outline-none" style={{ WebkitTapHighlightColor: "transparent", boxShadow: "none" }} aria-label="Domů">
           <Logo textSize="text-xl" markSize={34} />
         </button>
 
@@ -366,7 +370,7 @@ function Header({ currentPage, setPage }: { currentPage: Page; setPage: (p: Page
           <div className="hidden sm:flex sm:items-center">
             <StarBorder as="a" href={PHONE_HREF} color={FIRE} speed="4s" thickness={2}>
               <span className="flex items-center gap-2.5 text-sm font-semibold uppercase tracking-widest px-7 py-3.5" style={{ fontFamily: FD, background: FIRE, color: INK }}>
-                <ArrowRight size={15} strokeWidth={2.5} />Zavolat
+                Zavolat
               </span>
             </StarBorder>
           </div>
@@ -413,7 +417,7 @@ function Header({ currentPage, setPage }: { currentPage: Page; setPage: (p: Page
               <div className="p-3 pt-0">
                 <StarBorder as="a" href={PHONE_HREF} color={FIRE} speed="4s" thickness={2} className="w-full" style={{ display: "block" }}>
                   <span className="flex items-center justify-center gap-2.5 text-white py-3.5 uppercase tracking-widest font-semibold text-sm" style={{ fontFamily: FD }}>
-                    <ArrowRight size={16} strokeWidth={2.5} />Zavolat
+                    Zavolat
                   </span>
                 </StarBorder>
               </div>
@@ -434,7 +438,7 @@ function Footer({ setPage }: { setPage: (p: Page) => void }) {
       <div style={{ background: INK }}>
       <div className="max-w-7xl mx-auto px-6 py-12 grid grid-cols-2 md:grid-cols-3 gap-x-12 gap-y-10 md:gap-8">
         <div className="col-span-2 md:col-span-1">
-          <button onClick={() => go("home")} className="appearance-none mb-4 inline-block hover:opacity-80 transition-opacity outline-none" style={{ WebkitTapHighlightColor: "transparent", boxShadow: "none" }}>
+          <button onClick={() => go("home")} className="appearance-none mb-4 inline-block outline-none" style={{ WebkitTapHighlightColor: "transparent", boxShadow: "none" }}>
             <Logo textSize="text-sm" markSize={24} />
           </button>
           <p className="text-xs text-white/55 leading-relaxed">
@@ -689,10 +693,12 @@ function Lightbox({ images, index, onClose, onNav }: {
             variants={slideVariants}
             initial="enter" animate="center" exit="exit"
             transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
-            className="flex items-center justify-center p-6 md:p-10"
+            className="relative flex items-center justify-center p-6 md:p-10"
             style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.1)", clipPath: NOTCH_LG, maxWidth: "min(90vw, 560px)", maxHeight: "min(80vh, 560px)" }}
             onClick={(e) => e.stopPropagation()}>
-            <img src={images[index]} alt="Přípravek Fernox / Kamco" className="max-w-full object-contain" style={{ maxHeight: "min(68vh, 460px)" }} draggable={false} />
+            <span className="absolute rounded-full pointer-events-none" aria-hidden="true"
+              style={{ inset: "12%", background: "radial-gradient(circle, rgba(255,255,255,0.18) 0%, rgba(255,255,255,0.06) 55%, transparent 78%)" }} />
+            <img src={images[index]} alt="Přípravek Fernox / Kamco" className="relative max-w-full object-contain" style={{ maxHeight: "min(68vh, 460px)" }} draggable={false} />
           </motion.div>
         </AnimatePresence>
 
@@ -773,7 +779,7 @@ function InquiryForm({ title = "Pojďme to vyřešit", subtitle, dark = false, i
               onChange={(e) => setForm({ ...form, issue: e.target.value })} />
             <StarBorder as="button" type="submit" disabled={busy} color={FIRE} speed="4s" thickness={2} className="w-full" style={{ display: "block", opacity: busy ? 0.6 : 1 }}>
               <span className="block text-white font-bold text-sm py-4.5 tracking-wide uppercase" style={{ fontFamily: FD }}>
-                {busy ? "Odesílám…" : "ODESLAT POPTÁVKU →"}
+                {busy ? "Odesílám…" : "ODESLAT POPTÁVKU"}
               </span>
             </StarBorder>
             {error && (
@@ -831,7 +837,7 @@ function SectionHero({ eyebrow, title, subtitle, icon, formId, imgId, imgSrc, vi
             <button onClick={() => scrollTo(formId)}
               className="inline-flex items-center gap-2 text-white/70 hover:text-white font-semibold uppercase tracking-wide text-sm px-7 py-3.5 border border-white/20 hover:border-white/40 transition-all"
               style={{ fontFamily: FB }}>
-              Nezávazná poptávka <ArrowRight size={14} />
+              Nezávazná poptávka
             </button>
           </motion.div>
         </div>
@@ -951,7 +957,7 @@ function HomePage({ setPage }: { setPage: (p: Page) => void }) {
               <button onClick={() => scrollTo("inquiry-home")}
                 className="inline-flex items-center gap-2 text-white/70 hover:text-white font-semibold uppercase tracking-wide text-sm px-7 py-3.5 border border-white/20 hover:border-white/40 transition-all"
                 style={{ fontFamily: FB }}>
-                Nezávazná poptávka <ArrowRight size={14} />
+                Nezávazná poptávka
               </button>
             </motion.div>
           </div>
@@ -1479,8 +1485,10 @@ function MaroxPage() {
                 {[...productPhotos, ...productPhotos].map((src, i) => (
                   <button key={i} type="button" onClick={() => setLightboxIndex(i % productPhotos.length)}
                     aria-label="Zobrazit fotku produktu ve větším rozlišení"
-                    className="shrink-0 w-24 md:w-28 aspect-square flex items-center justify-center p-3 mx-3 cursor-pointer transition-transform duration-200 hover:scale-105">
-                    <img src={src} alt="Přípravek Fernox / Kamco" className="max-w-full max-h-full object-contain" draggable={false} />
+                    className="relative shrink-0 w-24 md:w-28 aspect-square flex items-center justify-center p-3 mx-3 cursor-pointer transition-transform duration-200 hover:scale-105">
+                    <span className="absolute rounded-full pointer-events-none" aria-hidden="true"
+                      style={{ inset: "10%", background: "radial-gradient(circle, rgba(255,255,255,0.16) 0%, rgba(255,255,255,0.06) 55%, transparent 78%)" }} />
+                    <img src={src} alt="Přípravek Fernox / Kamco" className="relative max-w-full max-h-full object-contain" draggable={false} />
                   </button>
                 ))}
               </div>
@@ -1646,7 +1654,7 @@ function KontaktInlineForm() {
         onChange={(e) => setForm({ ...form, issue: e.target.value })} />
       <StarBorder as="button" type="submit" disabled={busy} color={FIRE} speed="4s" thickness={2} className="w-full" style={{ display: "block", opacity: busy ? 0.6 : 1 }}>
         <span className="block text-white font-bold text-sm py-4 uppercase tracking-wide" style={{ fontFamily: FD }}>
-          {busy ? "Odesílám…" : "Odeslat poptávku →"}
+          {busy ? "Odesílám…" : "Odeslat poptávku"}
         </span>
       </StarBorder>
       {error && (
