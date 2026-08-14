@@ -182,149 +182,20 @@ function VideoCard({ src, duration, poster }: { src: string; duration: string; p
 }
 
 // ── HeroVideo ────────────────────────────────────────────────────────────────
-// CSS/SVG filters applied directly to a <video> element render inconsistently
-// across browsers — Safari in particular often skips or alters them on
-// hardware-decoded video, so the same `filter: url(#...)` looked quite
-// different in Chrome vs Safari. To get pixel-identical output everywhere,
-// the video plays hidden and every frame is drawn to a <canvas>, where the
-// background-key, glow-narrowing, color and edge-fade math is done by hand in
-// JS instead of relying on the browser's own filter/mask compositing.
-const HERO_VIDEO_LUM = [0.2126, 0.7152, 0.0722] as const;
-
 function HeroVideo({ src, startAt, className = "w-full h-auto block", style }: { src: string; startAt?: number; className?: string; style?: React.CSSProperties }) {
   const videoRef = useRef<HTMLVideoElement>(null);
-  const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
     const v = videoRef.current;
-    const canvas = canvasRef.current;
-    if (!v || !canvas) return;
-    const ctx = canvas.getContext("2d");
-    if (!ctx) return;
-
-    // The per-pixel pass below is done on a small offscreen buffer, not the
-    // full display size — at full res (500px+) the getImageData/putImageData
-    // round trip alone can take longer than a frame budget, which makes the
-    // canvas fall behind the video's own (unrelated, real-time) playback
-    // clock and skip visible chunks of the animation. The glow is soft
-    // already, so processing it small and upscaling onto the display canvas
-    // is visually indistinguishable but stays comfortably inside a frame.
-    const PROCESS_MAX = 320;
-    const off = document.createElement("canvas");
-    const offCtx = off.getContext("2d", { willReadFrequently: true });
-    if (!offCtx) return;
-
-    const onLoadedMetadata = () => { if (startAt) v.currentTime = startAt; };
+    if (!v || !startAt) return;
+    const onLoadedMetadata = () => { v.currentTime = startAt; };
     v.addEventListener("loadedmetadata", onLoadedMetadata);
-
-    // Precompute the alpha response curve (dark → transparent, bright glow →
-    // opaque, steep gamma so the glow's soft falloff stays a tight line)
-    // once, instead of calling Math.pow per pixel per frame.
-    const [lr, lg, lb] = HERO_VIDEO_LUM;
-    const alphaLUT = new Uint8ClampedArray(256);
-    for (let i = 0; i < 256; i++) {
-      const a = Math.max(0, i / 255 - 0.06);
-      alphaLUT[i] = Math.min(1, 1.6 * Math.pow(a, 2.6)) * 255;
-    }
-
-    // Precompute the radial edge-fade mask (mirrors the previous CSS
-    // mask-image) once per buffer size instead of per pixel per frame.
-    let mask: Float32Array | null = null;
-    let maskW = 0, maskH = 0;
-    const buildMask = (w: number, h: number) => {
-      mask = new Float32Array(w * h);
-      const cx = w / 2, cy = h / 2, rx = 0.75 * cx, ry = 0.75 * cy;
-      for (let py = 0; py < h; py++) {
-        const ey = (py - cy) / ry;
-        for (let px = 0; px < w; px++) {
-          const ex = (px - cx) / rx;
-          const t = Math.sqrt(ex * ex + ey * ey);
-          mask[py * w + px] = t <= 0.55 ? 1 : t >= 1 ? 0 : 1 - (t - 0.55) / 0.45;
-        }
-      }
-      maskW = w; maskH = h;
-    };
-
-    let raf = 0;
-    let cancelled = false;
-
-    const draw = () => {
-      if (cancelled) return;
-      const rect = canvas.getBoundingClientRect();
-      const dispW = Math.max(1, Math.round(rect.width));
-      const dispH = Math.max(1, Math.round(rect.height));
-      if (canvas.width !== dispW || canvas.height !== dispH) { canvas.width = dispW; canvas.height = dispH; }
-
-      const procScale = Math.min(1, PROCESS_MAX / Math.max(dispW, dispH));
-      const w = Math.max(1, Math.round(dispW * procScale));
-      const h = Math.max(1, Math.round(dispH * procScale));
-      if (off.width !== w || off.height !== h) { off.width = w; off.height = h; }
-      if (maskW !== w || maskH !== h) buildMask(w, h);
-
-      const vw = v.videoWidth, vh = v.videoHeight;
-      if (v.readyState >= 2 && vw && vh) {
-        // If the pixel effect throws for any reason (e.g. a canvas read
-        // restriction in some environment we haven't hit in testing), fall
-        // back to just showing the plain video frame rather than silently
-        // freezing on the last frame that worked — the animation should
-        // always finish playing through, effect or not.
-        try {
-          const scale = Math.max(w / vw, h / vh);
-          const dw = vw * scale, dh = vh * scale;
-          offCtx.drawImage(v, (w - dw) / 2, (h - dh) / 2, dw, dh);
-
-          const frame = offCtx.getImageData(0, 0, w, h);
-          const data = frame.data;
-          const m = mask!;
-          for (let p = 0, n = w * h; p < n; p++) {
-            const idx = p * 4;
-            const r = data[idx], g = data[idx + 1], b = data[idx + 2];
-            const lum = lr * r + lg * g + lb * b;
-            const a = (alphaLUT[lum | 0] / 255) * m[p];
-
-            const lumN = lum / 255;
-            const rs = (lumN + 0.85 * (r / 255 - lumN)) * 0.6;
-            const gs = (lumN + 0.85 * (g / 255 - lumN)) * 0.6;
-            const bs = (lumN + 0.85 * (b / 255 - lumN)) * 0.6;
-
-            data[idx] = rs * 255;
-            data[idx + 1] = gs * 255;
-            data[idx + 2] = bs * 255;
-            data[idx + 3] = a * 255;
-          }
-          offCtx.putImageData(frame, 0, 0);
-
-          ctx.clearRect(0, 0, dispW, dispH);
-          ctx.drawImage(off, 0, 0, dispW, dispH);
-        } catch {
-          const scale = Math.max(dispW / vw, dispH / vh);
-          const dw = vw * scale, dh = vh * scale;
-          ctx.clearRect(0, 0, dispW, dispH);
-          ctx.drawImage(v, (dispW - dw) / 2, (dispH - dh) / 2, dw, dh);
-        }
-      }
-
-      // Autoplay/power-saving policies can pause an off-screen-styled video;
-      // nudge it back into playing so it always reaches its natural end.
-      if (v.paused && !v.ended) v.play().catch(() => {});
-
-      if (!v.ended) raf = requestAnimationFrame(draw);
-    };
-    raf = requestAnimationFrame(draw);
-
-    return () => {
-      cancelled = true;
-      cancelAnimationFrame(raf);
-      v.removeEventListener("loadedmetadata", onLoadedMetadata);
-    };
+    return () => v.removeEventListener("loadedmetadata", onLoadedMetadata);
   }, [src, startAt]);
 
   return (
-    <>
-      <video ref={videoRef} src={src} autoPlay muted playsInline aria-hidden="true"
-        style={{ position: "absolute", inset: 0, width: "100%", height: "100%", opacity: 0, pointerEvents: "none" }} />
-      <canvas ref={canvasRef} className={className} style={style} />
-    </>
+    <video ref={videoRef} src={src} autoPlay muted playsInline aria-hidden="true"
+      className={className} style={style} />
   );
 }
 
@@ -1048,8 +919,8 @@ function HomePage({ setPage }: { setPage: (p: Page) => void }) {
       {/* ── HERO ── */}
       <section className="relative overflow-hidden" style={{ background: INK, clipPath: "polygon(0 0, 100% 0, 100% 100%, 0 96%)" }}>
         <div className="max-w-7xl mx-auto lg:grid lg:grid-cols-2 lg:items-start lg:gap-12 lg:px-6 pt-12 lg:pt-16">
-          <div className="relative w-full lg:order-2 lg:h-[440px]" style={{ aspectRatio: "1376 / 768" }}>
-            <HeroVideo src="/videos/hero-heating.mp4" startAt={0.5} className="w-full h-full block" />
+          <div className="relative w-full lg:order-2 lg:h-[440px]" style={{ aspectRatio: "1920 / 1080" }}>
+            <HeroVideo src="/videos/hero-heating.mp4" className="w-full h-full block object-cover" />
           </div>
 
           <div className="w-full px-6 lg:px-0 pt-14 lg:pt-12 pb-16 lg:pb-20 relative lg:order-1">
