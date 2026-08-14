@@ -210,8 +210,7 @@ function HeroVideo({ src, loopEnd = 3.3, className = "w-full h-auto block", styl
 function Aurora({ color = FIRE }: { color?: string }) {
   return (
     <div className="aurora-wrap" aria-hidden="true">
-      <div className="aurora-band" style={{ background: `linear-gradient(90deg, transparent 0%, ${color}00 8%, ${color}CC 45%, ${color}CC 55%, ${color}00 92%, transparent 100%)`, animationDelay: "0s" }} />
-      <div className="aurora-band" style={{ background: `linear-gradient(90deg, transparent 0%, ${color}00 15%, ${color}66 50%, ${color}00 85%, transparent 100%)`, animationDelay: "-6s", opacity: 0.5 }} />
+      <div className="aurora-band" style={{ background: `linear-gradient(90deg, transparent 0%, ${color}00 4%, ${color}2E 24%, ${color}2E 76%, ${color}00 96%, transparent 100%)`, animationDelay: "0s" }} />
     </div>
   );
 }
@@ -797,8 +796,8 @@ function InquiryForm({ title = "Pojďme to vyřešit", subtitle, dark = false, i
 }
 
 // ── SectionHero ───────────────────────────────────────────────────────────────
-function SectionHero({ eyebrow, title, subtitle, icon, formId, imgId, imgSrc, videoSrc, aurora, imgDim }: {
-  eyebrow: string; title: React.ReactNode; subtitle: React.ReactNode; icon: React.ReactNode; formId: string; imgId?: string; imgSrc?: string; videoSrc?: string; aurora?: boolean; imgDim?: number;
+function SectionHero({ eyebrow, title, subtitle, icon, formId, imgId, imgSrc, videoSrc, aurora, imgDim, sideImage }: {
+  eyebrow: string; title: React.ReactNode; subtitle: React.ReactNode; icon: React.ReactNode; formId: string; imgId?: string; imgSrc?: string; videoSrc?: string; aurora?: boolean; imgDim?: number; sideImage?: string;
 }) {
   const heroImg = imgSrc || (imgId ? `https://images.unsplash.com/${imgId}?w=1400&h=600&fit=crop&auto=format` : undefined);
   return (
@@ -819,28 +818,37 @@ function SectionHero({ eyebrow, title, subtitle, icon, formId, imgId, imgSrc, vi
           {imgDim && <div className="absolute inset-0" style={{ background: INK, opacity: imgDim }} />}
         </div>
       )}
-      <div className="max-w-4xl mx-auto relative z-10">
-        <motion.h1 className="font-bold text-white mb-6 leading-none" style={{ fontFamily: FD, fontSize: "clamp(1.8rem,3.5vw,2.6rem)" }}
-          initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.55, delay: 0.08 }}>
-          {title}
-        </motion.h1>
-        <motion.p className="text-white/75 max-w-xl leading-relaxed mb-8 text-base" style={{ fontFamily: FB }}
-          initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.16 }}>
-          {subtitle}
-        </motion.p>
-        <motion.div className="flex flex-wrap gap-3"
-          initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.24 }}>
-          <StarBorder as="a" href={PHONE_HREF} color={FIRE} speed="4s" thickness={2}>
-            <span className="inline-flex items-center gap-2 text-white font-bold text-base px-8 py-3.5 tracking-wide uppercase" style={{ fontFamily: FD }}>
-              <Phone size={18} />Zavolat
-            </span>
-          </StarBorder>
-          <button onClick={() => scrollTo(formId)}
-            className="inline-flex items-center gap-2 text-white/70 hover:text-white font-semibold uppercase tracking-wide text-sm px-7 py-3.5 border border-white/20 hover:border-white/40 transition-all"
-            style={{ fontFamily: FB }}>
-            Nezávazná poptávka <ArrowRight size={14} />
-          </button>
-        </motion.div>
+      <div className={`mx-auto relative z-10 ${sideImage ? "max-w-5xl flex flex-col lg:flex-row lg:items-center gap-10" : "max-w-4xl"}`}>
+        <div className="flex-1 min-w-0">
+          <motion.h1 className="font-bold text-white mb-6 leading-none" style={{ fontFamily: FD, fontSize: "clamp(1.8rem,3.5vw,2.6rem)" }}
+            initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.55, delay: 0.08 }}>
+            {title}
+          </motion.h1>
+          <motion.p className="text-white/75 max-w-xl leading-relaxed mb-8 text-base" style={{ fontFamily: FB }}
+            initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.16 }}>
+            {subtitle}
+          </motion.p>
+          <motion.div className="flex flex-wrap gap-3"
+            initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.24 }}>
+            <StarBorder as="a" href={PHONE_HREF} color={FIRE} speed="4s" thickness={2}>
+              <span className="inline-flex items-center gap-2 text-white font-bold text-base px-8 py-3.5 tracking-wide uppercase" style={{ fontFamily: FD }}>
+                <Phone size={18} />Zavolat
+              </span>
+            </StarBorder>
+            <button onClick={() => scrollTo(formId)}
+              className="inline-flex items-center gap-2 text-white/70 hover:text-white font-semibold uppercase tracking-wide text-sm px-7 py-3.5 border border-white/20 hover:border-white/40 transition-all"
+              style={{ fontFamily: FB }}>
+              Nezávazná poptávka <ArrowRight size={14} />
+            </button>
+          </motion.div>
+        </div>
+        {sideImage && (
+          <motion.div className="relative w-full aspect-square lg:w-64 lg:h-64 shrink-0 overflow-hidden"
+            style={{ clipPath: NOTCH_LG, border: "1px solid rgba(255,255,255,0.15)" }}
+            initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.2 }}>
+            <img src={sideImage} alt="Martin Macháč" className="w-full h-full object-cover" style={{ objectPosition: "56% 50%" }} draggable={false} />
+          </motion.div>
+        )}
       </div>
     </section>
   );
@@ -1667,26 +1675,21 @@ function KontaktPage() {
       <SectionHero eyebrow="Kontakt" icon={<Phone size={14} />}
         title={<>KOTEL <br />NEJEDE?</>}
         subtitle="Žádný strach, rádi vám to dáme do pořádku."
-        formId="kontakt-form" />
+        formId="kontakt-form" aurora sideImage="/images/realizace/topenivcajku_martin.jpg" />
 
       <section style={{ background: INK }} className="pt-8 md:pt-10 pb-16 md:pb-24 px-6">
-        <div className="max-w-4xl mx-auto flex flex-col lg:flex-row lg:items-center gap-10">
-          <div className="flex-1 min-w-0">
-            <h2 className="font-bold text-white mb-6 leading-none" style={{ fontFamily: FD, fontSize: "clamp(1.6rem,2.5vw,2.2rem)" }}>
-              KDO SE VÁM O TO POSTARÁ?
-            </h2>
-            <p className="text-white/55 leading-relaxed text-base mb-4" style={{ fontFamily: FB }}>
-              Za Topením v cajku stojím já, Martin, se svým týmem zkušených parťáků. V oboru se pohybujeme už řadu let a hlavní je pro nás jediné – aby vám topení doma bezstarostně fungovalo.
-            </p>
-            <p className="text-white/55 leading-relaxed text-base" style={{ fontFamily: FB }}>
-              Když se cokoliv přihodí, jsme na telefonu a rychle zasáhneme.
-              <br />
-              Naším cílem je, abyste měli doma absolutní klid a o topení nemuseli vůbec přemýšlet.
-            </p>
-          </div>
-          <div className="relative w-full aspect-square md:w-64 md:h-64 shrink-0 overflow-hidden" style={{ clipPath: NOTCH_LG, border: "1px solid rgba(255,255,255,0.1)" }}>
-            <img src="/images/realizace/topenivcajku_martin.jpg" alt="Martin Macháč" className="w-full h-full object-cover" style={{ objectPosition: "56% 50%" }} draggable={false} />
-          </div>
+        <div className="max-w-4xl mx-auto">
+          <h2 className="font-bold text-white mb-6 leading-none" style={{ fontFamily: FD, fontSize: "clamp(1.6rem,2.5vw,2.2rem)" }}>
+            KDO SE VÁM O TO POSTARÁ?
+          </h2>
+          <p className="text-white/55 leading-relaxed text-base mb-4" style={{ fontFamily: FB }}>
+            Za Topením v cajku stojím já, Martin, se svým týmem zkušených parťáků. V oboru se pohybujeme už řadu let a hlavní je pro nás jediné – aby vám topení doma bezstarostně fungovalo.
+          </p>
+          <p className="text-white/55 leading-relaxed text-base" style={{ fontFamily: FB }}>
+            Když se cokoliv přihodí, jsme na telefonu a rychle zasáhneme.
+            <br />
+            Naším cílem je, abyste měli doma absolutní klid a o topení nemuseli vůbec přemýšlet.
+          </p>
         </div>
       </section>
 

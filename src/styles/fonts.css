@@ -183,9 +183,9 @@ h1, h2, h3 {
   right: -10%;
   top: -15%;
   height: 130%;
-  filter: blur(50px);
+  filter: blur(70px);
   mix-blend-mode: screen;
-  opacity: 0.85;
+  opacity: 0.45;
   animation: aurora-drift 14s ease-in-out infinite;
 }
 @keyframes aurora-drift {
