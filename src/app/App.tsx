@@ -1723,9 +1723,6 @@ function KontaktPage() {
           </div>
           <div className="relative w-full aspect-square md:w-64 md:h-64 shrink-0 overflow-hidden" style={{ clipPath: NOTCH_LG, border: "1px solid rgba(255,255,255,0.1)" }}>
             <img src="/images/realizace/topenivcajku_martin.jpg" alt="Martin Macháč" className="w-full h-full object-cover" style={{ objectPosition: "56% 50%" }} draggable={false} />
-            <div className="absolute pointer-events-none" style={{ left: "74%", top: "74%", width: "15%", aspectRatio: "1 / 1", transform: "translate(-50%, -50%)" }}>
-              <div className="logo-glow w-full h-full" />
-            </div>
           </div>
         </div>
       </section>
