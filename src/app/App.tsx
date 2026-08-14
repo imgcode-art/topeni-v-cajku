@@ -70,6 +70,7 @@ const FIRE = "#E8623E";
 const SMOKE = "#141414";
 const HERO_GRADIENT = `linear-gradient(155deg, #1E1E1E 0%, ${INK} 65%)`;
 const LOGO_TONE = "rgba(255,255,255,0.55)";
+const HERO_VIDEO_MASK = "radial-gradient(ellipse 75% 75% at center, black 55%, transparent 100%)";
 
 const FD = "'Space Grotesk', sans-serif"; // display (headings, buttons, logo)
 const FB = "'Inter', sans-serif"; // body (paragraphs, labels)
@@ -187,7 +188,7 @@ function HeroVideo({ src, className = "w-full h-auto block", style }: { src: str
     <video
       src={src}
       className={className}
-      style={{ filter: "brightness(0.6) saturate(0.75)", ...style }}
+      style={{ filter: "brightness(0.62) saturate(0.35)", ...style }}
       autoPlay muted playsInline
     />
   );
@@ -915,7 +916,8 @@ function HomePage({ setPage }: { setPage: (p: Page) => void }) {
         <div className="max-w-7xl mx-auto lg:grid lg:grid-cols-2 lg:items-start lg:gap-12 lg:px-6 pt-12 lg:pt-16">
           <div className="relative w-full lg:order-2 lg:h-[440px]" style={{ aspectRatio: "1376 / 768" }}>
             <HeroVideo src="/videos/hero-heating.mp4" className="w-full h-full object-cover block"
-              style={{ maskImage: "radial-gradient(ellipse 75% 75% at center, black 55%, transparent 100%)", WebkitMaskImage: "radial-gradient(ellipse 75% 75% at center, black 55%, transparent 100%)" }} />
+              style={{ maskImage: HERO_VIDEO_MASK, WebkitMaskImage: HERO_VIDEO_MASK }} />
+            <div className="absolute inset-0 pointer-events-none" style={{ background: INK, opacity: 0.15, maskImage: HERO_VIDEO_MASK, WebkitMaskImage: HERO_VIDEO_MASK }} />
           </div>
 
           <div className="w-full px-6 lg:px-0 pt-14 lg:pt-12 pb-16 lg:pb-20 relative lg:order-1">
