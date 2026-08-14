@@ -188,17 +188,24 @@ function VideoCard({ src, duration, poster }: { src: string; duration: string; p
 // background out by turning per-pixel luminance into alpha (dark ⇒
 // transparent, bright glow ⇒ opaque), with a gamma curve on the alpha channel
 // so the glow's soft falloff reads as a tighter line instead of a wide bloom.
+// It also recolors by luminance into a duotone: dim (unlit wireframe) pixels
+// become cool blue, bright (lit pipes/radiators) pixels become a dark rust
+// brown, so the structure and the heating glow read as two distinct tones
+// instead of the footage's native blue→white-hot range.
 function HeroVideoDefs() {
   return (
     <svg width="0" height="0" style={{ position: "absolute" }} aria-hidden="true">
       <defs>
         <filter id="hero-video-key" colorInterpolationFilters="sRGB">
           <feColorMatrix type="matrix" values="
-            1 0 0 0 0
-            0 1 0 0 0
-            0 0 1 0 0
+            0.2126 0.7152 0.0722 0 0
+            0.2126 0.7152 0.0722 0 0
+            0.2126 0.7152 0.0722 0 0
             0.2126 0.7152 0.0722 0 -0.06" />
           <feComponentTransfer>
+            <feFuncR type="table" tableValues="0.149 0.149 0.149 0.156 0.169 0.186 0.205 0.228 0.253 0.280 0.294" />
+            <feFuncG type="table" tableValues="0.275 0.275 0.275 0.269 0.259 0.245 0.229 0.211 0.191 0.169 0.157" />
+            <feFuncB type="table" tableValues="0.424 0.424 0.424 0.409 0.381 0.345 0.302 0.253 0.199 0.141 0.110" />
             <feFuncA type="gamma" amplitude="1.6" exponent="2.6" offset="0" />
           </feComponentTransfer>
         </filter>
@@ -212,7 +219,7 @@ function HeroVideo({ src, className = "w-full h-auto block", style }: { src: str
     <video
       src={src}
       className={className}
-      style={{ filter: "url(#hero-video-key) saturate(0.85) brightness(0.6)", ...style }}
+      style={{ filter: "url(#hero-video-key)", ...style }}
       autoPlay muted playsInline
     />
   );
