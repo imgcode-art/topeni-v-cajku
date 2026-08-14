@@ -71,7 +71,7 @@ const SMOKE = "#141414";
 const HERO_GRADIENT = `linear-gradient(155deg, #1E1E1E 0%, ${INK} 65%)`;
 const LOGO_TONE = "rgba(255,255,255,0.55)";
 
-const FD = "'Poppins', sans-serif"; // display (headings, buttons, logo)
+const FD = "'Space Grotesk', sans-serif"; // display (headings, buttons, logo)
 const FB = "'Inter', sans-serif"; // body (paragraphs, labels)
 
 // Signature notched-corner clip paths (cut top-right corner) — used instead of rounded corners
@@ -280,7 +280,7 @@ function Logo({ textSize = "text-lg", markSize = 30 }: { textSize?: string; mark
   return (
     <span className="flex items-center gap-2">
       <LogoMark size={markSize} />
-      <span className={`font-semibold ${textSize}`} style={{ fontFamily: FD, letterSpacing: "-0.01em", color: "rgba(255,255,255,0.55)" }}>
+      <span className={`font-bold ${textSize}`} style={{ fontFamily: FD, letterSpacing: "-0.01em", color: "rgba(255,255,255,0.92)" }}>
         Topení v cajku
       </span>
     </span>
