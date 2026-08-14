@@ -197,9 +197,9 @@ function HeroVideoDefs() {
             1 0 0 0 0
             0 1 0 0 0
             0 0 1 0 0
-            0.2126 0.7152 0.0722 0 -0.038" />
+            0.2126 0.7152 0.0722 0 -0.06" />
           <feComponentTransfer>
-            <feFuncA type="gamma" amplitude="1.45" exponent="1.9" offset="0" />
+            <feFuncA type="gamma" amplitude="1.6" exponent="2.6" offset="0" />
           </feComponentTransfer>
         </filter>
       </defs>
@@ -207,26 +207,9 @@ function HeroVideoDefs() {
   );
 }
 
-// Plays forward once and pauses at stopAt — the footage keeps "lighting up"
-// well past this point until the whole house outline glows, which is too
-// much. Stopping (not looping/resetting) avoids both the blown-out ending
-// and the jarring jump-cut a hard loop would cause.
-function HeroVideo({ src, stopAt, className = "w-full h-auto block", style }: { src: string; stopAt?: number; className?: string; style?: React.CSSProperties }) {
-  const videoRef = useRef<HTMLVideoElement>(null);
-  useEffect(() => {
-    if (!stopAt) return;
-    const v = videoRef.current;
-    if (!v) return;
-    const onTimeUpdate = () => {
-      if (v.currentTime >= stopAt) v.pause();
-    };
-    v.addEventListener("timeupdate", onTimeUpdate);
-    return () => v.removeEventListener("timeupdate", onTimeUpdate);
-  }, [stopAt]);
-
+function HeroVideo({ src, className = "w-full h-auto block", style }: { src: string; className?: string; style?: React.CSSProperties }) {
   return (
     <video
-      ref={videoRef}
       src={src}
       className={className}
       style={{ filter: "url(#hero-video-key) saturate(0.85) brightness(0.6)", ...style }}
@@ -957,7 +940,7 @@ function HomePage({ setPage }: { setPage: (p: Page) => void }) {
       <section className="relative overflow-hidden" style={{ background: INK, clipPath: "polygon(0 0, 100% 0, 100% 100%, 0 96%)" }}>
         <div className="max-w-7xl mx-auto lg:grid lg:grid-cols-2 lg:items-start lg:gap-12 lg:px-6 pt-12 lg:pt-16">
           <div className="relative w-full lg:order-2 lg:h-[440px]" style={{ aspectRatio: "1376 / 768" }}>
-            <HeroVideo src="/videos/hero-heating.mp4" stopAt={3.1} className="w-full h-full object-cover block"
+            <HeroVideo src="/videos/hero-heating.mp4" className="w-full h-full object-cover block"
               style={{ maskImage: HERO_VIDEO_MASK, WebkitMaskImage: HERO_VIDEO_MASK }} />
           </div>
 
