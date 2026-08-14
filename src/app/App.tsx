@@ -182,25 +182,12 @@ function VideoCard({ src, duration, poster }: { src: string; duration: string; p
 }
 
 // ── HeroVideo ────────────────────────────────────────────────────────────────
-// Loops from the start up to loopEnd (last radiator lit), then jumps back — never plays the full tail.
-function HeroVideo({ src, loopEnd = 3.3, className = "w-full h-auto block", style }: { src: string; loopEnd?: number; className?: string; style?: React.CSSProperties }) {
-  const videoRef = useRef<HTMLVideoElement>(null);
-  useEffect(() => {
-    const v = videoRef.current;
-    if (!v) return;
-    const onTimeUpdate = () => {
-      if (v.currentTime >= loopEnd) v.currentTime = 0;
-    };
-    v.addEventListener("timeupdate", onTimeUpdate);
-    return () => v.removeEventListener("timeupdate", onTimeUpdate);
-  }, [loopEnd]);
-
+function HeroVideo({ src, className = "w-full h-auto block", style }: { src: string; className?: string; style?: React.CSSProperties }) {
   return (
     <video
-      ref={videoRef}
       src={src}
       className={className}
-      style={{ filter: "brightness(0.78) saturate(0.9)", ...style }}
+      style={{ filter: "brightness(0.6) saturate(0.75)", ...style }}
       autoPlay muted playsInline
     />
   );
@@ -359,10 +346,10 @@ function Header({ currentPage, setPage }: { currentPage: Page; setPage: (p: Page
               style={{
                 fontFamily: FB,
                 background: currentPage === item.page ? "rgba(232,98,62,0.15)" : "transparent",
-                color: currentPage === item.page ? FIRE : "rgba(255,255,255,0.55)",
+                color: currentPage === item.page ? FIRE : "#fff",
               }}
-              onMouseEnter={e => { if (currentPage !== item.page) (e.target as HTMLElement).style.color = "#fff"; }}
-              onMouseLeave={e => { if (currentPage !== item.page) (e.target as HTMLElement).style.color = "rgba(255,255,255,0.55)"; }}>
+              onMouseEnter={e => { if (currentPage !== item.page) (e.target as HTMLElement).style.color = FIRE; }}
+              onMouseLeave={e => { if (currentPage !== item.page) (e.target as HTMLElement).style.color = "#fff"; }}>
               {item.label}
             </button>
           ))}
@@ -372,7 +359,7 @@ function Header({ currentPage, setPage }: { currentPage: Page; setPage: (p: Page
         <div className="flex items-center gap-3 shrink-0">
           <div className="hidden sm:block">
             <StarBorder as="a" href={PHONE_HREF} color={FIRE} speed="4s" thickness={2}>
-              <span className="flex items-center gap-2.5 text-white text-sm font-semibold uppercase tracking-widest px-7 py-3.5" style={{ fontFamily: FD }}>
+              <span className="flex items-center gap-2.5 text-sm font-semibold uppercase tracking-widest px-7 py-3.5" style={{ fontFamily: FD, background: FIRE, color: INK }}>
                 <ArrowRight size={15} strokeWidth={2.5} />Zavolat
               </span>
             </StarBorder>
@@ -1452,17 +1439,17 @@ function MaroxPage() {
   ];
 
   const productPhotos = [
-    "/images/realizace/62165-Biocide-AF10-500ml.webp",
-    "/images/realizace/62557-Protector-Filter-Fluid-F9-10L.webp",
-    "/images/realizace/FERNOX_Leak_Sealer_F4_10l_62556_zm.webp",
-    "/images/realizace/22216-large-6.webp",
-    "/images/realizace/E5.webp",
-    "/images/realizace/E8.webp",
-    "/images/realizace/E9.webp",
-    "/images/realizace/E10.webp",
-    "/images/realizace/E11.webp",
-    "/images/realizace/E12.webp",
-    "/images/realizace/E13.webp",
+    "/images/realizace/transparent/62165-Biocide-AF10-500ml.png",
+    "/images/realizace/transparent/62557-Protector-Filter-Fluid-F9-10L.png",
+    "/images/realizace/transparent/FERNOX_Leak_Sealer_F4_10l_62556_zm.png",
+    "/images/realizace/transparent/22216-large-6.png",
+    "/images/realizace/transparent/E5.png",
+    "/images/realizace/transparent/E8.png",
+    "/images/realizace/transparent/E9.png",
+    "/images/realizace/transparent/E10.png",
+    "/images/realizace/transparent/E11.png",
+    "/images/realizace/transparent/E12.png",
+    "/images/realizace/transparent/E13.png",
   ];
 
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
@@ -1487,9 +1474,8 @@ function MaroxPage() {
                 {[...productPhotos, ...productPhotos].map((src, i) => (
                   <button key={i} type="button" onClick={() => setLightboxIndex(i % productPhotos.length)}
                     aria-label="Zobrazit fotku produktu ve větším rozlišení"
-                    className="shrink-0 w-24 md:w-28 aspect-square flex items-center justify-center p-3 mx-3 cursor-pointer transition-transform duration-200 hover:scale-105"
-                    style={{ background: "#d4d4d4", clipPath: NOTCH_SM }}>
-                    <img src={src} alt="Přípravek Fernox / Kamco" className="max-w-full max-h-full object-contain" draggable={false} style={{ mixBlendMode: "multiply" }} />
+                    className="shrink-0 w-24 md:w-28 aspect-square flex items-center justify-center p-3 mx-3 cursor-pointer transition-transform duration-200 hover:scale-105">
+                    <img src={src} alt="Přípravek Fernox / Kamco" className="max-w-full max-h-full object-contain" draggable={false} />
                   </button>
                 ))}
               </div>
