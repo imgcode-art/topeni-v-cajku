@@ -978,7 +978,7 @@ function HomePage({ setPage }: { setPage: (p: Page) => void }) {
         <div className="max-w-7xl mx-auto">
           <Reveal className="flex items-end justify-between mb-12">
             <div>
-              <h2 className="font-bold text-white leading-none" style={{ fontFamily: FD, fontSize: "clamp(1.8rem,3vw,2.6rem)" }}>
+              <h2 className="font-bold text-white leading-none" style={{ fontFamily: FD, fontSize: "clamp(1.6rem,2.5vw,2.2rem)" }}>
                 CO DNES ŘEŠÍTE?
               </h2>
             </div>
@@ -1022,7 +1022,7 @@ function HomePage({ setPage }: { setPage: (p: Page) => void }) {
       <section style={{ background: SMOKE }} className="pt-8 md:pt-10 pb-16 md:pb-24 px-6">
         <div className="max-w-7xl mx-auto">
           <Reveal>
-            <h2 className="font-bold leading-none mb-12 text-white" style={{ fontFamily: FD, fontSize: "clamp(1.8rem,3vw,2.6rem)" }}>
+            <h2 className="font-bold leading-none mb-12 text-white" style={{ fontFamily: FD, fontSize: "clamp(1.6rem,2.5vw,2.2rem)" }}>
               S ČÍM VÁM POMŮŽEME
             </h2>
           </Reveal>
@@ -1054,7 +1054,7 @@ function HomePage({ setPage }: { setPage: (p: Page) => void }) {
       <section style={{ background: INK }} className="py-16 md:py-24 px-6">
         <div className="max-w-4xl mx-auto">
           <Reveal>
-            <h2 className="font-bold text-white leading-none mb-12" style={{ fontFamily: FD, fontSize: "clamp(1.8rem,3vw,2.6rem)" }}>
+            <h2 className="font-bold text-white leading-none mb-12" style={{ fontFamily: FD, fontSize: "clamp(1.6rem,2.5vw,2.2rem)" }}>
               CO ŘÍKAJÍ ZÁKAZNÍCI
             </h2>
           </Reveal>
@@ -1285,7 +1285,7 @@ function CisteniPage() {
       {/* ── BEFORE / AFTER ── */}
       <section style={{ background: INK }} className="pt-8 md:pt-10 pb-16 md:pb-24 px-6">
         <div className="max-w-6xl mx-auto">
-          <h2 className="font-bold text-white leading-none mb-12" style={{ fontFamily: FD, fontSize: "clamp(1.8rem,3vw,2.6rem)" }}>
+          <h2 className="font-bold text-white leading-none mb-12" style={{ fontFamily: FD, fontSize: "clamp(1.6rem,2.5vw,2.2rem)" }}>
             PŘED A PO
           </h2>
           <div className="overflow-hidden" style={{ clipPath: NOTCH_LG, border: "1px solid rgba(255,255,255,0.1)" }}>
@@ -1463,28 +1463,10 @@ function MaroxPage() {
 
   return (
     <div>
-      <section className="relative overflow-hidden pt-16 md:pt-24 pb-8 md:pb-10 px-6" style={{ background: INK }}>
-        <div className="max-w-4xl mx-auto relative z-10">
-                    <h1 className="font-bold text-white leading-none mb-6" style={{ fontFamily: FD, fontSize: "clamp(1.8rem,3.5vw,2.6rem)" }}>
-            FERNOX <span style={{ color: FIRE }}>&</span> KAMCO
-          </h1>
-          <p className="text-white/40 max-w-xl leading-relaxed mb-8 text-base" style={{ fontFamily: FB }}>
-            Přímý prodej přípravků britských značek Fernox a Kamco. <br />Pro soukromé osoby i topenářské firmy.
-          </p>
-          <div className="flex flex-wrap gap-3">
-            <StarBorder as="a" href={PHONE_HREF} color={FIRE} speed="4s" thickness={2}>
-              <span className="inline-flex items-center gap-2 text-white font-bold text-base px-8 py-3.5 tracking-wide uppercase" style={{ fontFamily: FD }}>
-                <Phone size={18} />Zavolat
-              </span>
-            </StarBorder>
-            <button onClick={() => scrollTo("marox-form")}
-              className="inline-flex items-center gap-2 text-white/70 hover:text-white font-semibold uppercase tracking-wide text-sm px-7 py-3.5 border border-white/20 hover:border-white/40 transition-all"
-              style={{ fontFamily: FB }}>
-              Nezávazná poptávka <ArrowRight size={14} />
-            </button>
-          </div>
-        </div>
-      </section>
+      <SectionHero eyebrow="Fernox & Kamco" icon={<FileText size={14} />}
+        title={<>FERNOX <span style={{ color: FIRE }}>&</span> KAMCO</>}
+        subtitle={<>Přímý prodej přípravků britských značek Fernox a Kamco. <br />Pro soukromé osoby i topenářské firmy.</>}
+        formId="marox-form" />
 
       <section style={{ background: INK }} className="pt-8 md:pt-10 pb-16 md:pb-24 px-6">
         <div className="max-w-6xl mx-auto">
@@ -1682,34 +1664,15 @@ function KontaktPage() {
 
   return (
     <div>
-      <section className="relative overflow-hidden pt-16 md:pt-24 lg:pt-28 pb-8 md:pb-10 px-6"
-        style={{ background: INK, clipPath: "polygon(0 0, 100% 0, 100% 100%, 0 96%)" }}>
-        <div className="max-w-4xl mx-auto relative z-10">
-          <h1 className="font-bold text-white mb-6 leading-none" style={{ fontFamily: FD, fontSize: "clamp(1.8rem,3.5vw,2.6rem)" }}>
-            KOTEL <br />NEJEDE?
-          </h1>
-          <p className="text-white/50 max-w-xl leading-relaxed text-base mb-8" style={{ fontFamily: FB }}>
-            Žádný strach, rádi vám to dáme do pořádku.
-          </p>
-          <div className="flex flex-wrap gap-3">
-            <StarBorder as="a" href={PHONE_HREF} color={FIRE} speed="4s" thickness={2}>
-              <span className="inline-flex items-center gap-2 text-white font-bold text-base px-8 py-3.5 tracking-wide uppercase" style={{ fontFamily: FD }}>
-                <Phone size={18} />Zavolat
-              </span>
-            </StarBorder>
-            <button onClick={() => scrollTo("kontakt-form")}
-              className="inline-flex items-center gap-2 text-white/70 hover:text-white font-semibold uppercase tracking-wide text-sm px-7 py-3.5 border border-white/20 hover:border-white/40 transition-all"
-              style={{ fontFamily: FB }}>
-              Nezávazná poptávka <ArrowRight size={14} />
-            </button>
-          </div>
-        </div>
-      </section>
+      <SectionHero eyebrow="Kontakt" icon={<Phone size={14} />}
+        title={<>KOTEL <br />NEJEDE?</>}
+        subtitle="Žádný strach, rádi vám to dáme do pořádku."
+        formId="kontakt-form" />
 
       <section style={{ background: INK }} className="pt-8 md:pt-10 pb-16 md:pb-24 px-6">
         <div className="max-w-4xl mx-auto flex flex-col lg:flex-row lg:items-center gap-10">
           <div className="flex-1 min-w-0">
-            <h2 className="font-bold text-white mb-6 leading-none" style={{ fontFamily: FD, fontSize: "clamp(1.5rem,3vw,2.2rem)" }}>
+            <h2 className="font-bold text-white mb-6 leading-none" style={{ fontFamily: FD, fontSize: "clamp(1.6rem,2.5vw,2.2rem)" }}>
               KDO SE VÁM O TO POSTARÁ?
             </h2>
             <p className="text-white/55 leading-relaxed text-base mb-4" style={{ fontFamily: FB }}>
