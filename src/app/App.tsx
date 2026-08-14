@@ -482,7 +482,7 @@ function Footer({ setPage }: { setPage: (p: Page) => void }) {
         ))}
       </div>
 
-      <div className="border-t border-white/5 max-w-7xl mx-auto px-6 py-5 text-center text-xs text-white/20">
+      <div className="border-t border-white/5 max-w-7xl mx-auto px-6 py-5 text-center text-xs text-white/40">
         <span>© 2026 Topení v cajku</span>
       </div>
       </div>
