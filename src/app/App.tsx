@@ -183,12 +183,36 @@ function VideoCard({ src, duration, poster }: { src: string; duration: string; p
 }
 
 // ── HeroVideo ────────────────────────────────────────────────────────────────
+// The source footage has a solid near-black background. Since browsers can't
+// decode per-pixel alpha from a plain mp4, an SVG filter keys the dark
+// background out by turning per-pixel luminance into alpha (dark ⇒
+// transparent, bright glow ⇒ opaque), with a gamma curve on the alpha channel
+// so the glow's soft falloff reads as a tighter line instead of a wide bloom.
+function HeroVideoDefs() {
+  return (
+    <svg width="0" height="0" style={{ position: "absolute" }} aria-hidden="true">
+      <defs>
+        <filter id="hero-video-key" colorInterpolationFilters="sRGB">
+          <feColorMatrix type="matrix" values="
+            1 0 0 0 0
+            0 1 0 0 0
+            0 0 1 0 0
+            0.2126 0.7152 0.0722 0 -0.032" />
+          <feComponentTransfer>
+            <feFuncA type="gamma" amplitude="1.3" exponent="1.35" offset="0" />
+          </feComponentTransfer>
+        </filter>
+      </defs>
+    </svg>
+  );
+}
+
 function HeroVideo({ src, className = "w-full h-auto block", style }: { src: string; className?: string; style?: React.CSSProperties }) {
   return (
     <video
       src={src}
       className={className}
-      style={{ filter: "brightness(0.62) saturate(0.35)", ...style }}
+      style={{ filter: "url(#hero-video-key) saturate(0.85) brightness(0.6)", ...style }}
       autoPlay muted playsInline
     />
   );
@@ -912,12 +936,12 @@ function HomePage({ setPage }: { setPage: (p: Page) => void }) {
   return (
     <div>
       {/* ── HERO ── */}
+      <HeroVideoDefs />
       <section className="relative overflow-hidden" style={{ background: INK, clipPath: "polygon(0 0, 100% 0, 100% 100%, 0 96%)" }}>
         <div className="max-w-7xl mx-auto lg:grid lg:grid-cols-2 lg:items-start lg:gap-12 lg:px-6 pt-12 lg:pt-16">
           <div className="relative w-full lg:order-2 lg:h-[440px]" style={{ aspectRatio: "1376 / 768" }}>
             <HeroVideo src="/videos/hero-heating.mp4" className="w-full h-full object-cover block"
               style={{ maskImage: HERO_VIDEO_MASK, WebkitMaskImage: HERO_VIDEO_MASK }} />
-            <div className="absolute inset-0 pointer-events-none" style={{ background: INK, opacity: 0.15, maskImage: HERO_VIDEO_MASK, WebkitMaskImage: HERO_VIDEO_MASK }} />
           </div>
 
           <div className="w-full px-6 lg:px-0 pt-14 lg:pt-12 pb-16 lg:pb-20 relative lg:order-1">
