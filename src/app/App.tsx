@@ -1117,7 +1117,7 @@ function HomePage({ setPage }: { setPage: (p: Page) => void }) {
       </section>
 
       <FAQBlock items={HOME_FAQ} title="Nejčastější dotazy" />
-      <InquiryForm id="inquiry-home" subtitle="Popište nám svůj problém nebo požadavek. Ozveme se vám s návrhem řešení" dark tightTop />
+      <InquiryForm id="inquiry-home" subtitle="Popište nám svůj problém nebo požadavek. Ozveme se vám s návrhem řešení." dark tightTop />
     </div>
   );
 }
@@ -1238,7 +1238,7 @@ function ServisPage() {
       </section>
 
       <FAQBlock items={SERVIS_FAQ} title="Časté dotazy o servisu kotlů" />
-      <InquiryForm id="servis-form" subtitle="Popište nám svůj problém nebo požadavek. Ozveme se vám s návrhem řešení" dark tightTop />
+      <InquiryForm id="servis-form" subtitle="Popište nám svůj problém nebo požadavek. Ozveme se vám s návrhem řešení." dark tightTop />
     </div>
   );
 }
@@ -1407,7 +1407,7 @@ function CisteniPage() {
       </div>
 
       <FAQBlock items={CISTENI_FAQ} title="Časté dotazy" />
-      <InquiryForm id="cisteni-form" subtitle="Popište nám svůj problém nebo požadavek. Ozveme se vám s návrhem řešení" dark tightTop />
+      <InquiryForm id="cisteni-form" subtitle="Popište nám svůj problém nebo požadavek. Ozveme se vám s návrhem řešení." dark tightTop />
     </div>
   );
 }
@@ -1460,7 +1460,7 @@ function TepelnaCerpadlaPage() {
       </section>
 
       <FAQBlock items={TC_FAQ} title="Časté dotazy o tepelných čerpadlech" />
-      <InquiryForm id="tc-form" subtitle="Popište nám svůj problém nebo požadavek. Ozveme se vám s návrhem řešení" dark tightTop />
+      <InquiryForm id="tc-form" subtitle="Popište nám svůj problém nebo požadavek. Ozveme se vám s návrhem řešení." dark tightTop />
     </div>
   );
 }
@@ -1547,7 +1547,7 @@ function MaroxPage() {
         </div>
       </section>
 
-      <InquiryForm id="marox-form" subtitle="Popište nám svůj problém nebo požadavek. Ozveme se vám s návrhem řešení" dark />
+      <InquiryForm id="marox-form" subtitle="Popište nám svůj problém nebo požadavek. Ozveme se vám s návrhem řešení." dark />
 
       {lightboxIndex !== null && (
         <Lightbox images={productPhotos} index={lightboxIndex} onClose={() => setLightboxIndex(null)} onNav={navLightbox} />
@@ -1622,7 +1622,7 @@ function ONasPage() {
         </div>
       </section>
 
-      <InquiryForm subtitle="Popište nám svůj problém nebo požadavek. Ozveme se vám s návrhem řešení" dark />
+      <InquiryForm subtitle="Popište nám svůj problém nebo požadavek. Ozveme se vám s návrhem řešení." dark />
     </div>
   );
 }
@@ -1748,7 +1748,7 @@ function KontaktPage() {
               POJĎME TO VYŘEŠIT
             </h2>
             <p className="text-sm mb-8 leading-relaxed" style={{ color: "rgba(255,255,255,0.45)" }}>
-              Popište nám svůj problém nebo požadavek. Ozveme se vám s návrhem řešení
+              Popište nám svůj problém nebo požadavek. Ozveme se vám s návrhem řešení.
             </p>
             <KontaktInlineForm />
           </div>
