@@ -1739,7 +1739,7 @@ function KontaktInlineForm() {
         onChange={(e) => setForm({ ...form, issue: e.target.value })} />
       <StarBorder as="button" type="submit" disabled={busy} color={FIRE} speed="4s" thickness={2} className="w-full" style={{ display: "block", opacity: busy ? 0.6 : 1 }}>
         <span className="block text-white font-bold text-sm py-4 uppercase tracking-wide" style={{ fontFamily: FD }}>
-          {busy ? "Odesílám…" : "Odeslat →"}
+          {busy ? "Odesílám…" : "Odeslat poptávku →"}
         </span>
       </StarBorder>
       {error && (
