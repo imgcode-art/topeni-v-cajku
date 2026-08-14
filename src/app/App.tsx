@@ -776,7 +776,7 @@ function InquiryForm({ title = "Pojďme to vyřešit", subtitle, dark = false, i
 
   return (
     <section id={id} className={tightTop ? "pt-8 md:pt-10 pb-16 md:pb-24 px-6" : "py-16 md:py-24 px-6"} style={{ background: bg, fontFamily: FB }}>
-      <Reveal className="max-w-lg mx-auto">
+      <Reveal className="max-w-xl mx-auto">
         <h2 className="font-bold mb-2" style={{ fontFamily: FD, fontSize: "clamp(1.8rem,3vw,2.6rem)", lineHeight: 1, color: headColor }}>
           {title.toUpperCase()}
         </h2>
