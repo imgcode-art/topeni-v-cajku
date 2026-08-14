@@ -936,7 +936,7 @@ function HomePage({ setPage }: { setPage: (p: Page) => void }) {
               initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-60px" }} transition={{ duration: 0.5, delay: 0.1 }}>
               {DUVERYHODNOST.map((text, i) => (
                 <span key={i} className="flex items-center gap-2 text-white/80 text-sm font-medium" style={{ fontFamily: FB }}>
-                  <Check size={16} style={{ color: FIRE }} strokeWidth={3} />
+                  <span className="shrink-0 rounded-full" style={{ width: "6px", height: "6px", background: FIRE }} />
                   {text}
                 </span>
               ))}
