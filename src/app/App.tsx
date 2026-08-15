@@ -5,7 +5,7 @@ import {
   CheckCircle, ArrowRight, ChevronDown, ChevronLeft, ChevronRight, Clock,
   Star, Award, Wind, Flame, Check,
   Leaf, TrendingDown, AlertCircle, FileText, Users, RefreshCw, Handshake, Heart,
-  Play, Volume2, Percent
+  Play, Volume2, Percent, Download
 } from "lucide-react";
 
 type Page =
@@ -1500,6 +1500,15 @@ function MaroxPage() {
                 ))}
               </div>
             </div>
+          </div>
+
+          <div className="flex justify-center mt-6">
+            <a href="/katalog-produktu.pdf" target="_blank" rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 text-white/70 hover:text-white font-semibold uppercase tracking-wide text-sm px-7 py-3.5 border border-white/20 hover:border-white/40 transition-all"
+              style={{ fontFamily: FB }}>
+              <Download size={16} />
+              Stáhnout katalog produktů (PDF)
+            </a>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
