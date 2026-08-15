@@ -5,7 +5,7 @@ import {
   CheckCircle, ArrowRight, ChevronDown, ChevronLeft, ChevronRight, Clock,
   Star, Award, Wind, Flame, Check,
   Leaf, TrendingDown, AlertCircle, FileText, Users, RefreshCw, Handshake, Heart,
-  Play, Volume2, Percent, Download
+  Play, Volume2, Download
 } from "lucide-react";
 
 type Page =
@@ -1449,30 +1449,16 @@ function TepelnaCerpadlaPage() {
 // ═══════════════════════════════════════════════════════════════════════════════
 
 function MaroxPage() {
-  const products = [
-    { title: "Fernox F1 Filter Fluid+", brand: "Fernox", desc: <>Inhibitor koroze a ochrana topné soustavy. <br />Zabraňuje usazování kalu a rzi — chrání kotel i radiátory.</> },
-    { title: "Fernox F3 Cleaner", brand: "Fernox", desc: <>Čisticí přípravek pro chemicko-mechanické čištění topných systémů. <br />Účinně odstraňuje kal, koroze a usazeniny.</> },
-    { title: "Kamco Cleaner X400", brand: "Kamco", desc: <>Profesionální čisticí přípravek pro silně zanesené systémy. <br />Britská značka s dlouholetou tradicí v oboru.</> },
-    { title: "Kamco Protector F1", brand: "Kamco", desc: <>Inhibitor koroze přidávaný po čištění. <br />Udržuje topnou vodu čistou a chrání systém před zanášením.</> },
-  ];
-
-  const productPhotos = [
-    "/images/realizace/transparent/62165-Biocide-AF10-500ml.png",
-    "/images/realizace/transparent/62557-Protector-Filter-Fluid-F9-10L.png",
-    "/images/realizace/transparent/FERNOX_Leak_Sealer_F4_10l_62556_zm.png",
-    "/images/realizace/transparent/22216-large-6.png",
-    "/images/realizace/transparent/E5.png",
-    "/images/realizace/transparent/E8.png",
-    "/images/realizace/transparent/E9.png",
-    "/images/realizace/transparent/E10.png",
-    "/images/realizace/transparent/E11.png",
-    "/images/realizace/transparent/E12.png",
-    "/images/realizace/transparent/E13.png",
+  const bestsellers = [
+    { src: "/images/produkty/fernox-ds40.jpg", alt: "Fernox DS40 System Cleaner" },
+    { src: "/images/produkty/kamco-fx2.jpg", alt: "Kamco FX2 Power Flush" },
+    { src: "/images/produkty/fernox-protector-f1.jpg", alt: "Fernox Protector F1" },
+    { src: "/images/produkty/fernox-protector-f9.jpg", alt: "Fernox Protector F9" },
   ];
 
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
   const navLightbox = (dir: 1 | -1) => setLightboxIndex((prev) =>
-    prev === null ? null : (prev + dir + productPhotos.length) % productPhotos.length);
+    prev === null ? null : (prev + dir + bestsellers.length) % bestsellers.length);
 
   return (
     <div>
@@ -1483,26 +1469,7 @@ function MaroxPage() {
 
       <section style={{ background: INK }} className="pt-8 md:pt-10 pb-16 md:pb-24 px-6">
         <div className="max-w-6xl mx-auto">
-          <div className="overflow-hidden" style={{ background: INK, clipPath: NOTCH_MD, border: "1px solid rgba(255,255,255,0.1)" }}>
-            <div className="px-6 md:px-8 pt-6 md:pt-8">
-              <p className="font-semibold text-white" style={{ fontFamily: FB, fontSize: "0.95rem" }}>Zprostředkujeme celý sortiment Fernox a Kamco — stačí napsat.</p>
-            </div>
-            <div className="mt-6 overflow-hidden" style={{ maskImage: "linear-gradient(90deg, transparent 0%, black 6%, black 94%, transparent 100%)" }}>
-              <div className={`marquee-track flex items-center w-max py-8 ${lightboxIndex !== null ? "marquee-paused" : ""}`}>
-                {[...productPhotos, ...productPhotos].map((src, i) => (
-                  <button key={i} type="button" onClick={() => setLightboxIndex(i % productPhotos.length)}
-                    aria-label="Zobrazit fotku produktu ve větším rozlišení"
-                    className="relative shrink-0 w-24 md:w-28 aspect-square flex items-center justify-center p-3 mx-3 cursor-pointer transition-transform duration-200 hover:scale-105">
-                    <span className="absolute rounded-full pointer-events-none" aria-hidden="true"
-                      style={{ inset: "10%", background: "radial-gradient(circle, rgba(255,255,255,0.16) 0%, rgba(255,255,255,0.06) 55%, transparent 78%)" }} />
-                    <img src={src} alt="Přípravek Fernox / Kamco" className="relative max-w-full max-h-full object-contain" draggable={false} />
-                  </button>
-                ))}
-              </div>
-            </div>
-          </div>
-
-          <div className="flex justify-center mt-6">
+          <div className="flex justify-center">
             <a href="/katalog-produktu.pdf" target="_blank" rel="noopener noreferrer"
               className="inline-flex items-center gap-2 text-white/70 hover:text-white font-semibold uppercase tracking-wide text-sm px-7 py-3.5 border border-white/20 hover:border-white/40 transition-all"
               style={{ fontFamily: FB }}>
@@ -1511,27 +1478,18 @@ function MaroxPage() {
             </a>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
-            {products.map((p, i) => (
-              <div key={i} className="p-8 transition-all duration-300 hover:-translate-y-1"
-                style={{ background: "rgba(255,255,255,0.04)", clipPath: NOTCH_MD, border: "1px solid rgba(255,255,255,0.1)" }}>
-                <h3 className="font-bold text-white mb-4" style={{ fontFamily: FD, fontSize: "1.3rem" }}>{p.title.toUpperCase()}</h3>
-                <p className="text-sm text-white/55 leading-relaxed mb-5" style={{ fontFamily: FB }}>{p.desc}</p>
-                <button onClick={() => scrollTo("marox-form")}
-                  className="text-xs font-semibold uppercase tracking-wide flex items-center gap-2 hover:gap-3 transition-all"
-                  style={{ color: FIRE, fontFamily: FD }}>
-                  Poptat cenu <ArrowRight size={12} />
-                </button>
-              </div>
+          <h2 className="font-bold text-white mt-12 mb-6 leading-none" style={{ fontFamily: FD, fontSize: "clamp(1.6rem,2.5vw,2.2rem)" }}>
+            NEJPRODÁVANĚJŠÍ PRODUKTY
+          </h2>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            {bestsellers.map((p, i) => (
+              <button key={i} type="button" onClick={() => setLightboxIndex(i)}
+                aria-label="Zobrazit fotku produktu ve větším rozlišení"
+                className="aspect-square overflow-hidden cursor-pointer transition-transform duration-300 hover:-translate-y-1"
+                style={{ clipPath: NOTCH_MD, border: "1px solid rgba(255,255,255,0.1)" }}>
+                <img src={p.src} alt={p.alt} className="w-full h-full object-cover" draggable={false} />
+              </button>
             ))}
-          </div>
-
-          <div className="flex items-center justify-center gap-3 mt-8 px-6 py-4 mx-auto w-fit"
-            style={{ background: "rgba(232,98,62,0.1)", border: "1px solid rgba(232,98,62,0.25)", clipPath: NOTCH_SM }}>
-            <Percent size={18} style={{ color: FIRE }} className="shrink-0" />
-            <p className="text-sm font-semibold text-center text-white" style={{ fontFamily: FB }}>
-              Aktuální ceník na vyžádání. Množstevní slevy pro topenářské firmy.
-            </p>
           </div>
         </div>
       </section>
@@ -1539,7 +1497,7 @@ function MaroxPage() {
       <InquiryForm id="marox-form" subtitle="Popište nám svůj problém nebo požadavek. Ozveme se vám s návrhem řešení." dark />
 
       {lightboxIndex !== null && (
-        <Lightbox images={productPhotos} index={lightboxIndex} onClose={() => setLightboxIndex(null)} onNav={navLightbox} />
+        <Lightbox images={bestsellers.map(p => p.src)} index={lightboxIndex} onClose={() => setLightboxIndex(null)} onNav={navLightbox} />
       )}
     </div>
   );
