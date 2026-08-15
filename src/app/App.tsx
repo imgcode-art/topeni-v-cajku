@@ -1684,17 +1684,12 @@ function KontaktPage() {
         formId="kontakt-form" aurora sideImage="/images/realizace/topenivcajku_martin.jpg" />
 
       <section style={{ background: INK }} className="pt-8 md:pt-10 pb-16 md:pb-24 px-6">
-        <div className="max-w-4xl mx-auto">
+        <div className="max-w-2xl mx-auto">
           <h2 className="font-bold text-white mb-6 leading-none" style={{ fontFamily: FD, fontSize: "clamp(1.6rem,2.5vw,2.2rem)" }}>
             KDO SE VÁM O TO POSTARÁ?
           </h2>
-          <p className="text-white/55 leading-relaxed text-base mb-4" style={{ fontFamily: FB }}>
-            Za Topením v cajku stojím já, Martin, se svým týmem zkušených parťáků. V oboru se pohybujeme už řadu let a hlavní je pro nás jediné – aby vám topení doma bezstarostně fungovalo.
-          </p>
           <p className="text-white/55 leading-relaxed text-base" style={{ fontFamily: FB }}>
-            Když se cokoliv přihodí, jsme na telefonu a rychle zasáhneme.
-            <br />
-            Naším cílem je, abyste měli doma absolutní klid a o topení nemuseli vůbec přemýšlet.
+            Za Topením v cajku stojím já, Martin, se svým týmem zkušených parťáků. V oboru se pohybujeme už řadu let a hlavní je pro nás jediné – aby vám topení doma bezstarostně fungovalo. Když se cokoliv přihodí, jsme na telefonu a rychle zasáhneme.
           </p>
         </div>
       </section>
