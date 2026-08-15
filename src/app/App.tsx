@@ -1470,12 +1470,12 @@ function MaroxPage() {
       <section style={{ background: INK }} className="pt-8 md:pt-10 pb-16 md:pb-24 px-6">
         <div className="max-w-6xl mx-auto">
           <div className="flex justify-center">
-            <a href="/katalog-produktu.pdf" target="_blank" rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 text-white/70 hover:text-white font-semibold uppercase tracking-wide text-sm px-7 py-3.5 border border-white/20 hover:border-white/40 transition-all"
-              style={{ fontFamily: FB }}>
-              <Download size={16} />
-              Stáhnout katalog produktů (PDF)
-            </a>
+            <StarBorder as="a" href="/katalog-produktu.pdf" target="_blank" rel="noopener noreferrer" color={FIRE} speed="4s" thickness={2}>
+              <span className="inline-flex items-center gap-2.5 text-sm font-semibold uppercase tracking-widest px-7 py-3.5" style={{ fontFamily: FD, background: FIRE, color: INK }}>
+                <Download size={16} strokeWidth={2.5} />
+                Stáhnout katalog produktů (PDF)
+              </span>
+            </StarBorder>
           </div>
 
           <h2 className="font-bold text-white mt-12 mb-6 leading-none" style={{ fontFamily: FD, fontSize: "clamp(1.6rem,2.5vw,2.2rem)" }}>
