@@ -5,7 +5,7 @@ import {
   CheckCircle, ArrowRight, ChevronDown, ChevronLeft, ChevronRight, Clock,
   Star, Award, Wind, Flame, Check,
   Leaf, TrendingDown, AlertCircle, FileText, Users, RefreshCw, Handshake, Heart,
-  Play, Volume2, Download
+  Play, Volume2
 } from "lucide-react";
 
 type Page =
@@ -824,7 +824,7 @@ function SectionHero({ eyebrow, title, subtitle, icon, formId, imgId, imgSrc, vi
           {imgDim && <div className="absolute inset-0" style={{ background: INK, opacity: imgDim }} />}
         </div>
       )}
-      <div className={`mx-auto relative z-10 ${sideImage ? "max-w-5xl flex flex-col lg:flex-row lg:items-stretch gap-10" : "max-w-4xl"}`}>
+      <div className={`mx-auto relative z-10 max-w-4xl ${sideImage ? "flex flex-col lg:flex-row lg:items-stretch gap-10" : ""}`}>
         <div className="flex-1 min-w-0">
           <motion.h1 className="font-bold text-white mb-6 leading-none" style={{ fontFamily: FD, fontSize: "clamp(1.8rem,3.5vw,2.6rem)" }}
             initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.55, delay: 0.08 }}>
@@ -1470,12 +1470,13 @@ function MaroxPage() {
       <section style={{ background: INK }} className="pt-8 md:pt-10 pb-16 md:pb-24 px-6">
         <div className="max-w-6xl mx-auto">
           <div className="flex justify-center">
-            <StarBorder as="a" href="/katalog-produktu.pdf" target="_blank" rel="noopener noreferrer" color={FIRE} speed="4s" thickness={2}>
-              <span className="inline-flex items-center gap-2.5 text-sm font-semibold uppercase tracking-widest px-7 py-3.5" style={{ fontFamily: FD, background: FIRE, color: INK }}>
-                <Download size={16} strokeWidth={2.5} />
-                Stáhnout katalog produktů (PDF)
-              </span>
-            </StarBorder>
+            <a href="/katalog-produktu.pdf" target="_blank" rel="noopener noreferrer"
+              className="inline-flex items-center text-sm font-semibold uppercase tracking-widest px-7 py-3.5 border transition-all"
+              style={{ fontFamily: FD, color: FIRE, borderColor: "rgba(232,98,62,0.4)" }}
+              onMouseEnter={e => (e.currentTarget.style.borderColor = FIRE)}
+              onMouseLeave={e => (e.currentTarget.style.borderColor = "rgba(232,98,62,0.4)")}>
+              Stáhnout katalog produktů
+            </a>
           </div>
 
           <h2 className="font-bold text-white mt-12 mb-6 leading-none" style={{ fontFamily: FD, fontSize: "clamp(1.6rem,2.5vw,2.2rem)" }}>
@@ -1485,9 +1486,9 @@ function MaroxPage() {
             {bestsellers.map((p, i) => (
               <button key={i} type="button" onClick={() => setLightboxIndex(i)}
                 aria-label="Zobrazit fotku produktu ve větším rozlišení"
-                className="aspect-square overflow-hidden cursor-pointer transition-transform duration-300 hover:-translate-y-1"
-                style={{ clipPath: NOTCH_MD, border: "1px solid rgba(255,255,255,0.1)" }}>
-                <img src={p.src} alt={p.alt} className="w-full h-full object-cover" draggable={false} />
+                className="aspect-square overflow-hidden cursor-pointer p-4 transition-transform duration-300 hover:-translate-y-1"
+                style={{ background: INK, clipPath: NOTCH_MD, border: "1px solid rgba(255,255,255,0.1)" }}>
+                <img src={p.src} alt={p.alt} className="w-full h-full object-contain" draggable={false} />
               </button>
             ))}
           </div>
