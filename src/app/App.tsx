@@ -795,17 +795,20 @@ function InquiryForm({ title = "Pojďme to vyřešit", subtitle, dark = false, i
 }
 
 // ── SectionHero ───────────────────────────────────────────────────────────────
-function SectionHero({ eyebrow, title, subtitle, icon, formId, imgId, imgSrc, videoSrc, aurora, imgDim, sideImage }: {
-  eyebrow: string; title: React.ReactNode; subtitle: React.ReactNode; icon: React.ReactNode; formId: string; imgId?: string; imgSrc?: string; videoSrc?: string; aurora?: boolean; imgDim?: number; sideImage?: string;
+function SectionHero({ eyebrow, title, subtitle, icon, formId, imgId, imgSrc, videoSrc, aurora, imgDim, sideImage, sideImageDesktop }: {
+  eyebrow: string; title: React.ReactNode; subtitle: React.ReactNode; icon: React.ReactNode; formId: string; imgId?: string; imgSrc?: string; videoSrc?: string; aurora?: boolean; imgDim?: number; sideImage?: string; sideImageDesktop?: string;
 }) {
   const heroImg = imgSrc || (imgId ? `https://images.unsplash.com/${imgId}?w=1400&h=600&fit=crop&auto=format` : undefined);
   return (
     <section className="relative overflow-hidden py-20 md:py-28 lg:py-32 px-6"
       style={{ background: aurora ? INK : HERO_GRADIENT, clipPath: "polygon(0 0, 100% 0, 100% 100%, 0 96%)" }}>
-      {aurora && <div className={sideImage ? "hidden lg:block" : undefined}><Aurora color={FIRE} /></div>}
+      {aurora && !sideImageDesktop && <div className={sideImage ? "hidden lg:block" : undefined}><Aurora color={FIRE} /></div>}
       {sideImage && (
-        <div className="absolute inset-0 lg:hidden">
-          <img src={sideImage} alt="" className="w-full h-full object-cover" style={{ objectPosition: "56% 30%" }} />
+        <div className="absolute inset-0">
+          <img src={sideImage} alt="" className={`w-full h-full object-cover ${sideImageDesktop ? "lg:hidden" : ""}`} style={{ objectPosition: "95% 30%" }} />
+          {sideImageDesktop && (
+            <img src={sideImageDesktop} alt="" className="hidden lg:block absolute inset-0 w-full h-full object-cover" style={{ objectPosition: "50% 20%" }} />
+          )}
           <div className="absolute inset-0" style={{ background: `linear-gradient(180deg, ${INK}66 0%, ${INK}99 55%, ${INK}E0 100%)` }} />
           <div className="absolute inset-0 mix-blend-multiply" style={{ background: `linear-gradient(115deg, ${FIRE}66 0%, transparent 55%)` }} />
         </div>
@@ -824,7 +827,7 @@ function SectionHero({ eyebrow, title, subtitle, icon, formId, imgId, imgSrc, vi
           {imgDim && <div className="absolute inset-0" style={{ background: INK, opacity: imgDim }} />}
         </div>
       )}
-      <div className={`mx-auto relative z-10 max-w-4xl ${sideImage ? "flex flex-col lg:flex-row lg:items-stretch gap-10" : ""}`}>
+      <div className={`mx-auto relative z-10 max-w-4xl ${(sideImage && !sideImageDesktop) ? "flex flex-col lg:flex-row lg:items-stretch gap-10" : ""}`}>
         <div className="flex-1 min-w-0">
           <motion.h1 className="font-bold text-white mb-6 leading-none" style={{ fontFamily: FD, fontSize: "clamp(1.8rem,3.5vw,2.6rem)" }}
             initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.55, delay: 0.08 }}>
@@ -842,17 +845,17 @@ function SectionHero({ eyebrow, title, subtitle, icon, formId, imgId, imgSrc, vi
               </span>
             </StarBorder>
             <button onClick={() => scrollTo(formId)}
-              className="inline-flex items-center gap-2 text-white/70 hover:text-white font-semibold uppercase tracking-wide text-sm px-7 py-3.5 border border-white/20 hover:border-white/40 transition-all"
+              className="inline-flex items-center justify-center gap-2 h-[54px] text-white/70 hover:text-white font-semibold uppercase tracking-wide text-sm px-6 border border-white/20 hover:border-white/40 transition-all"
               style={{ fontFamily: FB }}>
               Nezávazná poptávka
             </button>
           </motion.div>
         </div>
-        {sideImage && (
+        {sideImage && !sideImageDesktop && (
           <motion.div className="hidden lg:block relative lg:w-72 lg:self-stretch shrink-0 overflow-hidden"
             style={{ clipPath: NOTCH_LG, border: "1px solid rgba(255,255,255,0.15)" }}
             initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.2 }}>
-            <img src={sideImage} alt="Martin Macháč" className="w-full h-full object-cover" style={{ objectPosition: "56% 30%" }} draggable={false} />
+            <img src={sideImage} alt="Martin Macháč" className="w-full h-full object-cover" style={{ objectPosition: "68% 30%" }} draggable={false} />
           </motion.div>
         )}
       </div>
@@ -943,7 +946,7 @@ function HomePage({ setPage }: { setPage: (p: Page) => void }) {
             </motion.h1>
             <motion.h2 className="font-normal leading-relaxed mt-4 text-base md:text-lg" style={{ fontFamily: FB, color: "rgba(255,255,255,0.65)" }}
               initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-60px" }} transition={{ duration: 0.55, delay: 0.08, ease: [0.22, 1, 0.36, 1] }}>
-              Provádíme kompletní servis a montáž plynových kotlů, tepelných čerpadel a důkladné čištění topných systémů
+              Provádíme kompletní servis a montáž plynových kotlů, <br />tepelných čerpadel a důkladné čištění topných systémů
             </motion.h2>
             <motion.div className="flex flex-col md:flex-row md:flex-wrap gap-2 md:gap-x-8 md:gap-y-3 mt-6"
               initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-60px" }} transition={{ duration: 0.5, delay: 0.1 }}>
@@ -1486,9 +1489,9 @@ function MaroxPage() {
             {bestsellers.map((p, i) => (
               <button key={i} type="button" onClick={() => setLightboxIndex(i)}
                 aria-label="Zobrazit fotku produktu ve větším rozlišení"
-                className="aspect-square overflow-hidden cursor-pointer p-4 transition-transform duration-300 hover:-translate-y-1"
+                className="aspect-square overflow-hidden cursor-pointer p-4 flex items-center justify-center transition-transform duration-300 hover:-translate-y-1"
                 style={{ background: INK, clipPath: NOTCH_MD, border: "1px solid rgba(255,255,255,0.1)" }}>
-                <img src={p.src} alt={p.alt} className="w-full h-full object-contain" draggable={false} />
+                <img src={p.src} alt={p.alt} className="max-w-full max-h-full object-contain" draggable={false} />
               </button>
             ))}
           </div>
@@ -1648,8 +1651,8 @@ function KontaktPage() {
     <div>
       <SectionHero eyebrow="Kontakt" icon={<Phone size={14} />}
         title="KOTEL NEJEDE?"
-        subtitle="Žádný strach, rádi vám to dáme do pořádku."
-        formId="kontakt-form" aurora sideImage="/images/realizace/topenivcajku_martin.jpg" />
+        subtitle={<>Žádný strach.<br />Rádi vám to dáme do pořádku.</>}
+        formId="kontakt-form" aurora sideImage="/images/realizace/topenivcajku_martin.jpg" sideImageDesktop="/images/realizace/martin-v-kotelne.png" />
 
       <section style={{ background: INK }} className="pt-8 md:pt-10 pb-16 md:pb-24 px-6">
         <div className="max-w-2xl mx-auto">
