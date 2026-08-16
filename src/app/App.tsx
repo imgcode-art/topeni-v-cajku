@@ -391,11 +391,11 @@ function Header({ currentPage, setPage }: { currentPage: Page; setPage: (p: Page
               transition={{ duration: 0.25 }}
               onClick={() => setOpen(false)} />
             <motion.div
-              className="lg:hidden fixed top-[68px] right-4 z-50 w-[min(300px,calc(100vw-2rem))] overflow-hidden rounded-[28px]"
-              style={{ background: SMOKE, border: "1px solid rgba(255,255,255,0.1)", boxShadow: "0 24px 60px -12px rgba(0,0,0,0.6)", transformOrigin: "top right" }}
-              initial={{ opacity: 0, scale: 0.85, y: -12 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.85, y: -12 }}
+              className="lg:hidden fixed top-[68px] left-0 right-0 z-50 overflow-hidden rounded-b-[28px]"
+              style={{ background: SMOKE, borderBottom: "1px solid rgba(255,255,255,0.1)", boxShadow: "0 24px 60px -12px rgba(0,0,0,0.6)", transformOrigin: "top" }}
+              initial={{ opacity: 0, y: -12 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -12 }}
               transition={{ type: "spring", stiffness: 380, damping: 28 }}>
               <div className="p-3">
                 {nav.map((item, i) => (
@@ -403,7 +403,7 @@ function Header({ currentPage, setPage }: { currentPage: Page; setPage: (p: Page
                     initial={{ opacity: 0, x: 12 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: 0.05 + i * 0.04, duration: 0.25 }}
-                    className="flex items-center justify-between w-full text-left px-4 py-3 text-sm font-medium rounded-2xl transition-colors"
+                    className="flex items-center justify-between w-full text-left px-4 py-3.5 text-base font-medium rounded-2xl transition-colors"
                     style={{
                       fontFamily: FB,
                       color: currentPage === item.page ? "#fff" : "rgba(255,255,255,0.65)",
@@ -416,7 +416,7 @@ function Header({ currentPage, setPage }: { currentPage: Page; setPage: (p: Page
               </div>
               <div className="p-3 pt-0">
                 <StarBorder as="a" href={PHONE_HREF} color={FIRE} speed="4s" thickness={2} className="w-full" style={{ display: "block" }}>
-                  <span className="flex items-center justify-center gap-2.5 text-white py-3.5 uppercase tracking-widest font-semibold text-sm" style={{ fontFamily: FD }}>
+                  <span className="flex items-center justify-center gap-2.5 text-white py-3.5 uppercase tracking-widest font-semibold text-base" style={{ fontFamily: FD }}>
                     Zavolat
                   </span>
                 </StarBorder>
