@@ -862,11 +862,6 @@ function SectionHero({ eyebrow, title, subtitle, icon, formId, imgId, imgSrc, vi
         )}
       </div>
     </section>
-    {sideImageDesktop && (
-      <div className="lg:hidden">
-        <img src={sideImage} alt="Martin Macháč" className="w-full h-auto block" />
-      </div>
-    )}
     </>
   );
 }
@@ -1667,6 +1662,9 @@ function KontaktPage() {
           <h2 className="font-bold text-white mb-6 leading-none" style={{ fontFamily: FD, fontSize: "clamp(1.6rem,2.5vw,2.2rem)" }}>
             KDO SE VÁM O TO POSTARÁ?
           </h2>
+          <div className="lg:hidden -mx-6 my-10">
+            <img src="/images/realizace/topenivcajku_martin.jpg" alt="Martin Macháč" className="w-full h-auto block" />
+          </div>
           <p className="text-white/55 leading-relaxed text-base" style={{ fontFamily: FB }}>
             Za Topením v cajku stojím já, Martin, se svým týmem zkušených parťáků. V oboru se pohybujeme už řadu let a hlavní je pro nás jediné – aby vám topení doma bezstarostně fungovalo. Když se cokoliv přihodí, jsme na telefonu a rychle zasáhneme.
           </p>
