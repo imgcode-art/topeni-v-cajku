@@ -1471,7 +1471,7 @@ function MaroxPage() {
       <SectionHero eyebrow="Fernox & Kamco" icon={<FileText size={14} />}
         title={<>FERNOX <span style={{ color: FIRE }}>&</span> KAMCO</>}
         subtitle={<>Přímý prodej přípravků britských značek Fernox a Kamco. <br />Pro soukromé osoby i topenářské firmy.</>}
-        formId="marox-form" aurora />
+        formId="marox-form" imgSrc="/images/realizace/produkty-kamco-fernox.png" />
 
       <section style={{ background: INK }} className="pt-8 md:pt-10 pb-16 md:pb-24 px-6">
         <div className="max-w-6xl mx-auto">
@@ -1655,7 +1655,7 @@ function KontaktPage() {
       <SectionHero eyebrow="Kontakt" icon={<Phone size={14} />}
         title="KOTEL NEJEDE?"
         subtitle={<>Žádný strach.<br />Rádi vám to dáme do pořádku.</>}
-        formId="kontakt-form" aurora sideImage="/images/realizace/topenivcajku_martin.jpg" sideImageDesktop="/images/realizace/martin-v-kotelne.png" />
+        formId="kontakt-form" sideImage="/images/realizace/topenivcajku_martin.jpg" sideImageDesktop="/images/realizace/martin-v-kotelne.png" />
 
       <section style={{ background: INK }} className="pt-8 md:pt-10 pb-16 md:pb-24 px-6">
         <div className="max-w-2xl mx-auto">
