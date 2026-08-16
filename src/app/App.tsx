@@ -800,14 +800,16 @@ function SectionHero({ eyebrow, title, subtitle, icon, formId, imgId, imgSrc, vi
 }) {
   const heroImg = imgSrc || (imgId ? `https://images.unsplash.com/${imgId}?w=1400&h=600&fit=crop&auto=format` : undefined);
   return (
+    <>
     <section className="relative overflow-hidden py-20 md:py-28 lg:py-32 px-6"
       style={{ background: aurora ? INK : HERO_GRADIENT, clipPath: "polygon(0 0, 100% 0, 100% 100%, 0 96%)" }}>
-      {aurora && !sideImageDesktop && <div className={sideImage ? "hidden lg:block" : undefined}><Aurora color={FIRE} /></div>}
+      {aurora && <div className={sideImageDesktop ? "lg:hidden" : (sideImage ? "hidden lg:block" : undefined)}><Aurora color={FIRE} /></div>}
       {sideImage && (
-        <div className="absolute inset-0">
-          <img src={sideImage} alt="" className={`w-full h-full object-cover ${sideImageDesktop ? "lg:hidden" : ""}`} style={{ objectPosition: "95% 30%" }} />
-          {sideImageDesktop && (
-            <img src={sideImageDesktop} alt="" className="hidden lg:block absolute inset-0 w-full h-full object-cover" style={{ objectPosition: "50% 20%" }} />
+        <div className={`absolute inset-0 ${sideImageDesktop ? "hidden lg:block" : ""}`}>
+          {sideImageDesktop ? (
+            <img src={sideImageDesktop} alt="" className="absolute inset-0 w-full h-full object-cover" style={{ objectPosition: "50% 20%" }} />
+          ) : (
+            <img src={sideImage} alt="" className="w-full h-full object-cover" style={{ objectPosition: "95% 30%" }} />
           )}
           <div className="absolute inset-0" style={{ background: `linear-gradient(180deg, ${INK}66 0%, ${INK}99 55%, ${INK}E0 100%)` }} />
           <div className="absolute inset-0 mix-blend-multiply" style={{ background: `linear-gradient(115deg, ${FIRE}66 0%, transparent 55%)` }} />
@@ -860,6 +862,12 @@ function SectionHero({ eyebrow, title, subtitle, icon, formId, imgId, imgSrc, vi
         )}
       </div>
     </section>
+    {sideImageDesktop && (
+      <div className="lg:hidden">
+        <img src={sideImage} alt="Martin Macháč" className="w-full h-auto block" />
+      </div>
+    )}
+    </>
   );
 }
 
