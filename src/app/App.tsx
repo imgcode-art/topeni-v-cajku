@@ -438,11 +438,11 @@ function Footer({ setPage }: { setPage: (p: Page) => void }) {
       <div style={{ background: INK }}>
       <div className="max-w-7xl mx-auto px-6 py-12 grid grid-cols-2 md:grid-cols-3 gap-x-12 gap-y-10 md:gap-8">
         <div className="col-span-2 md:col-span-1">
-          <button onClick={() => go("home")} className="appearance-none mb-4 inline-block outline-none" style={{ WebkitTapHighlightColor: "transparent", boxShadow: "none" }}>
+          <button onClick={() => go("home")} className="appearance-none mb-2 inline-block outline-none" style={{ WebkitTapHighlightColor: "transparent", boxShadow: "none" }}>
             <Logo textSize="text-sm" markSize={24} />
           </button>
           <p className="text-xs text-white/55 leading-relaxed">
-            Váš spolehlivý topenář.
+            Váš spolehlivý topenář
           </p>
         </div>
         {[
@@ -1132,7 +1132,7 @@ function ServisPage() {
   return (
     <div>
       <SectionHero eyebrow="Plynový kotel" icon={<Wrench size={14} />}
-        title={<>PLYNOVÝ <br />KOTEL</>}
+        title="PLYNOVÝ KOTEL"
         subtitle={<>Revize, opravy, záruční i pozáruční servis, nové montáže. <br />Hlavní značky: Baxi a De Dietrich.</>}
         formId="servis-form" imgSrc="/images/realizace/kotelna1.png" />
 
@@ -1262,7 +1262,7 @@ function CisteniPage() {
   return (
     <div>
       <SectionHero eyebrow="Čištění systému" icon={<Droplets size={14} />}
-        title={<>ČIŠTĚNÍ <br />SYSTÉMU</>}
+        title="ČIŠTĚNÍ SYSTÉMU"
         subtitle={<>Kal a koroze v potrubí kradou teplo a ničí váš kotel. <br />Profesionálním proplachem obnovíme efektivitu a ušetříme vám 15–30 %.</>}
         formId="cisteni-form" imgSrc="/images/realizace/cisteni_topeni.png" />
 
@@ -1411,7 +1411,7 @@ function TepelnaCerpadlaPage() {
   return (
     <div>
       <SectionHero eyebrow="Tepelné čerpadlo" icon={<Wind size={14} />}
-        title={<>TEPELNÉ <br />ČERPADLO</>}
+        title="TEPELNÉ ČERPADLO"
         subtitle={<>Přejít na tepelné čerpadlo dnes dává smysl ekonomicky i ekologicky. <br />Pomůžeme vybrat správný typ a zajistíme instalaci.</>}
         formId="tc-form" imgSrc="/images/realizace/heat-pump-hero.jpg" imgDim={0.55} />
 
@@ -1646,7 +1646,7 @@ function KontaktPage() {
   return (
     <div>
       <SectionHero eyebrow="Kontakt" icon={<Phone size={14} />}
-        title={<>KOTEL <br />NEJEDE?</>}
+        title="KOTEL NEJEDE?"
         subtitle="Žádný strach, rádi vám to dáme do pořádku."
         formId="kontakt-form" aurora sideImage="/images/realizace/topenivcajku_martin.jpg" />
 
