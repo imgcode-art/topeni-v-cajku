@@ -839,7 +839,7 @@ function SectionHero({ eyebrow, title, subtitle, icon, formId, imgId, imgSrc, vi
             initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.16 }}>
             {subtitle}
           </motion.p>
-          <motion.div className="flex flex-wrap gap-3"
+          <motion.div className="flex flex-wrap justify-end lg:justify-start gap-3"
             initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.24 }}>
             <StarBorder as="a" href={PHONE_HREF} color={FIRE} speed="4s" thickness={2}>
               <span className="inline-flex items-center gap-2 text-white font-bold text-base px-8 py-3.5 tracking-wide uppercase" style={{ fontFamily: FD }}>
@@ -955,7 +955,7 @@ function HomePage({ setPage }: { setPage: (p: Page) => void }) {
                 </span>
               ))}
             </motion.div>
-            <motion.div className="flex flex-wrap items-center gap-6 mt-8"
+            <motion.div className="flex flex-wrap justify-end lg:justify-start items-center gap-6 mt-8"
               initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-60px" }} transition={{ duration: 0.5, delay: 0.15 }}>
               <StarBorder as="a" href={PHONE_HREF} color={FIRE} speed="4s" thickness={2}>
                 <span className="inline-flex items-center gap-2 text-white font-bold text-base px-8 py-3.5 tracking-wide uppercase" style={{ fontFamily: FD }}>
