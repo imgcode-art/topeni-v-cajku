@@ -1264,7 +1264,7 @@ function CisteniPage() {
       <SectionHero eyebrow="Čištění systému" icon={<Droplets size={14} />}
         title="ČIŠTĚNÍ SYSTÉMU"
         subtitle={<>Kal a koroze v potrubí kradou teplo a ničí váš kotel. <br />Profesionálním proplachem obnovíme efektivitu a ušetříme vám 15–30 %.</>}
-        formId="cisteni-form" imgSrc="/images/realizace/cisteni_topeni.png" />
+        formId="cisteni-form" imgSrc="/images/realizace/chemicke-cisteni-topeni.png" />
 
       <section style={{ background: INK }} className="pt-12 md:pt-16 pb-8 md:pb-10 px-6">
         <div className="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-4">
@@ -1685,7 +1685,7 @@ function KontaktPage() {
             <p className="text-sm text-white/50 leading-relaxed" style={{ fontFamily: FB }}>
               <span className="text-white font-semibold">Martin Macháč</span> · IČO 09606475
               <br />
-              Jsme vám k dispozici v Jihomoravském kraji, Po–Pá od 8:00 do 16:00
+              Jsme vám k dispozici v Jihomoravském kraji, po–pá od 8:00 do 16:00
             </p>
           </div>
 
