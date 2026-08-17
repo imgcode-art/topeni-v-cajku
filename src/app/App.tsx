@@ -1210,7 +1210,7 @@ function ServisPage() {
         </div>
       </section>
 
-      <FAQBlock items={SERVIS_FAQ} title="Časté dotazy o servisu kotlů" />
+      <FAQBlock items={SERVIS_FAQ} title="Časté dotazy" />
       <InquiryForm id="servis-form" subtitle="Popište nám svůj problém nebo požadavek. Ozveme se vám s návrhem řešení." dark tightTop />
     </div>
   );
@@ -1432,7 +1432,7 @@ function TepelnaCerpadlaPage() {
         </div>
       </section>
 
-      <FAQBlock items={TC_FAQ} title="Časté dotazy o tepelných čerpadlech" />
+      <FAQBlock items={TC_FAQ} title="Časté dotazy" />
       <InquiryForm id="tc-form" subtitle="Popište nám svůj problém nebo požadavek. Ozveme se vám s návrhem řešení." dark tightTop />
     </div>
   );
