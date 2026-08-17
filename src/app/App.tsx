@@ -1475,7 +1475,7 @@ function MaroxPage() {
           </div>
 
           <h2 className="font-bold text-white mt-12 mb-6 leading-none" style={{ fontFamily: FD, fontSize: "clamp(1.6rem,2.5vw,2.2rem)" }}>
-            NEJPRODÁVANĚJŠÍ PRODUKTY
+            DOPORUČUJEME
           </h2>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             {bestsellers.map((p, i) => (
