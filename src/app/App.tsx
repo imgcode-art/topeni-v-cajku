@@ -949,7 +949,7 @@ function HomePage({ setPage }: { setPage: (p: Page) => void }) {
             </motion.h1>
             <motion.h2 className="font-normal leading-relaxed mt-4 text-base md:text-lg" style={{ fontFamily: FB, color: "rgba(255,255,255,0.65)" }}
               initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-60px" }} transition={{ duration: 0.55, delay: 0.08, ease: [0.22, 1, 0.36, 1] }}>
-              Provádíme servis a montáž plynových kotlů, tepelných čerpadel a čištění topných systémů
+              Provádíme servis a montáž plynových kotlů,<br className="hidden lg:block" /> tepelných čerpadel a čištění topných systémů
             </motion.h2>
             <motion.div className="flex flex-col md:flex-row md:flex-wrap gap-2 md:gap-x-8 md:gap-y-3 mt-6"
               initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-60px" }} transition={{ duration: 0.5, delay: 0.1 }}>
@@ -1649,7 +1649,7 @@ function KontaktPage() {
       <SectionHero eyebrow="Kontakt" icon={<Phone size={14} />}
         title="KOTEL NEJEDE?"
         subtitle={<>Žádný strach.<br />Rádi vám to dáme do pořádku.</>}
-        formId="kontakt-form" sideImage="/images/realizace/topenivcajku_martin.jpg" sideImageDesktop="/images/realizace/martin-v-kotelne.png" />
+        formId="kontakt-form" sideImage="/images/realizace/topenivcajku_martin.jpg" sideImageDesktop="/images/realizace/martin-kotelna-desktop.png" />
 
       <section style={{ background: INK }} className="pt-8 md:pt-10 pb-16 md:pb-24 px-6">
         <div className="max-w-2xl mx-auto">
@@ -1666,7 +1666,7 @@ function KontaktPage() {
       </section>
 
       <section id="kontakt-form" style={{ background: SMOKE }} className="pt-16 md:pt-24 pb-16 md:pb-24 px-6">
-        <div className="max-w-xl mx-auto flex flex-col gap-12">
+        <div className="max-w-xl mx-auto flex flex-col gap-16">
           <div className="p-8" style={{ background: "rgba(255,255,255,0.04)", clipPath: NOTCH_MD, border: "1px solid rgba(255,255,255,0.1)" }}>
             <div className="flex flex-wrap gap-3 mb-6">
               <a href={PHONE_HREF}
@@ -1685,7 +1685,7 @@ function KontaktPage() {
             <p className="text-sm text-white/50 leading-relaxed" style={{ fontFamily: FB }}>
               <span className="text-white font-semibold">Martin Macháč</span> · IČO 09606475
               <br />
-              Jsme vám k dispozici v Brně a Jihomoravském kraji, Po–Pá od 8:00 do 16:00.
+              Jsme vám k dispozici v Jihomoravském kraji, Po–Pá od 8:00 do 16:00
             </p>
           </div>
 
