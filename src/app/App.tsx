@@ -900,7 +900,7 @@ function HomePage({ setPage }: { setPage: (p: Page) => void }) {
       desc: "Radiátory hřejí nerovnoměrně, spotřeba plynu roste.",
       cta: "Zjistit více",
       action: () => go("cisteni"),
-      img: "/images/realizace/uspora.jpg",
+      img: "/images/realizace/topenivcajku1.png",
     },
     {
       icon: <Leaf size={20} />,
@@ -909,7 +909,7 @@ function HomePage({ setPage }: { setPage: (p: Page) => void }) {
       desc: "Uvažuji o tepelném čerpadle nebo novém kotli.",
       cta: "Poradit se",
       action: () => go("tepelna-cerpadla"),
-      img: "/images/realizace/modernizace.jpg",
+      img: "/images/realizace/topenivcajku2.png",
     },
     {
       icon: <AlertCircle size={20} />,
@@ -918,7 +918,7 @@ function HomePage({ setPage }: { setPage: (p: Page) => void }) {
       desc: "Chybový kód, výpadek topení, kotel se zastavil.",
       cta: "Zavolat",
       action: () => (window.location.href = PHONE_HREF),
-      img: "/images/realizace/porucha.jpg",
+      img: "/images/realizace/topenivcajku3.png",
     },
   ];
 
