@@ -939,7 +939,7 @@ function HomePage({ setPage }: { setPage: (p: Page) => void }) {
       <section className="relative overflow-hidden" style={{ background: INK, clipPath: "polygon(0 0, 100% 0, 100% 100%, 0 96%)" }}>
         <div className="max-w-7xl mx-auto lg:grid lg:grid-cols-2 lg:items-start lg:gap-12 lg:px-6 pt-12 lg:pt-16">
           <div className="relative w-full lg:order-2 lg:h-[440px]" style={{ aspectRatio: "1920 / 1080" }}>
-            <HeroVideo src="/videos/hero-heating.mp4" className="w-full h-full block object-cover" />
+            <HeroVideo src="/videos/hero-heating-brno.mp4" className="w-full h-full block object-cover" />
           </div>
 
           <div className="w-full px-6 lg:px-0 pt-14 lg:pt-12 pb-16 lg:pb-20 relative lg:order-1">
