@@ -846,11 +846,6 @@ function SectionHero({ eyebrow, title, subtitle, icon, formId, imgId, imgSrc, vi
                 <Phone size={18} />Zavolat
               </span>
             </StarBorder>
-            <button onClick={() => scrollTo(formId)}
-              className="inline-flex items-center justify-center gap-2 h-[54px] text-white/70 hover:text-white font-semibold uppercase tracking-wide text-sm px-6 border border-white/20 hover:border-white/40 transition-all"
-              style={{ fontFamily: FB }}>
-              Nezávazná poptávka
-            </button>
           </motion.div>
         </div>
         {sideImage && !sideImageDesktop && (
@@ -928,7 +923,7 @@ function HomePage({ setPage }: { setPage: (p: Page) => void }) {
   ];
 
   const testimonials = [
-    { name: "Pavel Kovář", text: "Martin přijel den po zavolání, závadu diagnostikoval za půl hodiny a kotel byl funkční ještě týž den. Cena odpovídala tomu, co říkal telefonicky.", stars: 5 },
+    { name: "Pavel Kovář", text: "Martin přijel den po zavolání, závadu diagnostikoval za půl hodiny a kotel byl funkční ještě ten den.", stars: 5 },
     { name: "Jana Musilová", text: "Po chemickém čištění se spotřeba plynu snížila o víc než čtvrtinu. Doporučuji všem, kdo mají starší systém.", stars: 5 },
     { name: "Radek Svoboda", text: "Tepelné čerpadlo funguje výborně. Martin nám celý projekt perfektně zorganizoval a výsledek předčil očekávání.", stars: 5 },
   ];
@@ -949,7 +944,7 @@ function HomePage({ setPage }: { setPage: (p: Page) => void }) {
             </motion.h1>
             <motion.h2 className="font-normal leading-relaxed mt-4 text-base md:text-lg" style={{ fontFamily: FB, color: "rgba(255,255,255,0.65)" }}
               initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-60px" }} transition={{ duration: 0.55, delay: 0.08, ease: [0.22, 1, 0.36, 1] }}>
-              Provádíme kompletní servis a montáž plynových kotlů, <br />tepelných čerpadel a důkladné čištění topných systémů
+              Provádíme servis a montáž plynových kotlů, tepelných čerpadel a čištění topných systémů
             </motion.h2>
             <motion.div className="flex flex-col md:flex-row md:flex-wrap gap-2 md:gap-x-8 md:gap-y-3 mt-6"
               initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-60px" }} transition={{ duration: 0.5, delay: 0.1 }}>
@@ -967,11 +962,6 @@ function HomePage({ setPage }: { setPage: (p: Page) => void }) {
                   <Phone size={18} />Zavolat
                 </span>
               </StarBorder>
-              <button onClick={() => scrollTo("inquiry-home")}
-                className="inline-flex items-center gap-2 text-white/70 hover:text-white font-semibold uppercase tracking-wide text-sm px-7 py-3.5 border border-white/20 hover:border-white/40 transition-all"
-                style={{ fontFamily: FB }}>
-                Nezávazná poptávka
-              </button>
             </motion.div>
           </div>
         </div>
@@ -998,7 +988,7 @@ function HomePage({ setPage }: { setPage: (p: Page) => void }) {
           <Reveal className="flex items-end justify-between mb-12">
             <div>
               <h2 className="font-bold text-white leading-none" style={{ fontFamily: FD, fontSize: "clamp(1.6rem,2.5vw,2.2rem)" }}>
-                CO DNES ŘEŠÍTE?
+                JAKOU SITUACI ŘEŠÍTE?
               </h2>
             </div>
           </Reveal>
@@ -1042,7 +1032,7 @@ function HomePage({ setPage }: { setPage: (p: Page) => void }) {
         <div className="max-w-7xl mx-auto">
           <Reveal>
             <h2 className="font-bold leading-none mb-12 text-white" style={{ fontFamily: FD, fontSize: "clamp(1.6rem,2.5vw,2.2rem)" }}>
-              S ČÍM VÁM POMŮŽEME
+              POMŮŽEME VÁM
             </h2>
           </Reveal>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -1074,7 +1064,7 @@ function HomePage({ setPage }: { setPage: (p: Page) => void }) {
         <div className="max-w-4xl mx-auto">
           <Reveal>
             <h2 className="font-bold text-white leading-none mb-12" style={{ fontFamily: FD, fontSize: "clamp(1.6rem,2.5vw,2.2rem)" }}>
-              CO ŘÍKAJÍ ZÁKAZNÍCI
+              ŘÍKAJÍ O NÁS
             </h2>
           </Reveal>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -1100,7 +1090,6 @@ function HomePage({ setPage }: { setPage: (p: Page) => void }) {
         </div>
       </section>
 
-      <FAQBlock items={HOME_FAQ} title="Nejčastější dotazy" />
       <InquiryForm id="inquiry-home" subtitle="Popište nám svůj problém nebo požadavek. Ozveme se vám s návrhem řešení." dark tightTop />
     </div>
   );
