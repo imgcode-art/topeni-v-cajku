@@ -1066,7 +1066,7 @@ function HomePage({ setPage }: { setPage: (p: Page) => void }) {
 
       {/* ── TESTIMONIALS ── */}
       <section style={{ background: INK }} className="py-16 md:py-24 px-6">
-        <div className="max-w-6xl mx-auto">
+        <div className="max-w-7xl mx-auto">
           <Reveal>
             <h2 className="font-bold text-white leading-none mb-12" style={{ fontFamily: FD, fontSize: "clamp(1.6rem,2.5vw,2.2rem)" }}>
               ŘÍKAJÍ O NÁS
