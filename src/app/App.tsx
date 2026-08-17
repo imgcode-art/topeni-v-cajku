@@ -809,7 +809,7 @@ function SectionHero({ eyebrow, title, subtitle, icon, formId, imgId, imgSrc, vi
           {sideImageDesktop ? (
             <>
               <img src={sideImageDesktop} alt="" className="absolute inset-0 w-full h-full object-cover" style={{ objectPosition: "50% 20%" }} />
-              <div className="absolute inset-0" style={{ background: `linear-gradient(90deg, ${INK}CC 0%, ${INK}80 30%, transparent 60%)` }} />
+              <div className="absolute inset-0" style={{ background: `linear-gradient(90deg, ${INK}A6 0%, ${INK}4D 22%, transparent 45%)` }} />
             </>
           ) : (
             <>
