@@ -369,8 +369,8 @@ function Header({ currentPage, setPage }: { currentPage: Page; setPage: (p: Page
         <div className="flex items-center gap-3 shrink-0">
           <div className="hidden sm:flex sm:items-center">
             <StarBorder as="a" href={PHONE_HREF} color={FIRE} speed="4s" thickness={2}>
-              <span className="flex items-center gap-2.5 text-sm font-semibold uppercase tracking-widest px-7 py-3.5" style={{ fontFamily: FD, background: FIRE, color: INK }}>
-                Zavolat
+              <span className="inline-flex items-center gap-2 text-white font-bold text-base px-8 py-3.5 tracking-wide uppercase" style={{ fontFamily: FD }}>
+                <Phone size={18} />Zavolat
               </span>
             </StarBorder>
           </div>
@@ -416,8 +416,8 @@ function Header({ currentPage, setPage }: { currentPage: Page; setPage: (p: Page
               </div>
               <div className="p-3 pt-0">
                 <StarBorder as="a" href={PHONE_HREF} color={FIRE} speed="4s" thickness={2} className="w-full" style={{ display: "block" }}>
-                  <span className="flex items-center justify-center gap-2.5 text-white py-3.5 uppercase tracking-widest font-semibold text-base" style={{ fontFamily: FD }}>
-                    Zavolat
+                  <span className="flex items-center justify-center gap-2 text-white font-bold text-base py-3.5 uppercase tracking-wide" style={{ fontFamily: FD }}>
+                    <Phone size={18} />Zavolat
                   </span>
                 </StarBorder>
               </div>
