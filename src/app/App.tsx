@@ -809,7 +809,7 @@ function SectionHero({ eyebrow, title, subtitle, icon, formId, imgId, imgSrc, vi
           {sideImageDesktop ? (
             <>
               <img src={sideImageDesktop} alt="" className="absolute inset-0 w-full h-full object-cover" style={{ objectPosition: "50% 20%" }} />
-              <div className="absolute inset-0" style={{ background: `linear-gradient(90deg, ${INK}A6 0%, ${INK}4D 22%, transparent 45%)` }} />
+              <div className="absolute inset-0" style={{ background: `linear-gradient(90deg, ${INK}80 0%, ${INK}33 18%, transparent 38%)` }} />
             </>
           ) : (
             <>
@@ -829,8 +829,8 @@ function SectionHero({ eyebrow, title, subtitle, icon, formId, imgId, imgSrc, vi
       {!aurora && !videoSrc && !sideImage && heroImg && (
         <div className="absolute inset-0">
           <img src={heroImg} alt="" className="w-full h-full object-cover" />
-          <div className="absolute inset-0" style={{ background: `linear-gradient(180deg, ${INK}66 0%, ${INK}99 55%, ${INK}E0 100%)` }} />
-          <div className="absolute inset-0 mix-blend-multiply" style={{ background: `linear-gradient(115deg, ${FIRE}66 0%, transparent 55%)` }} />
+          <div className="absolute inset-0" style={{ background: `linear-gradient(180deg, ${INK}4D 0%, ${INK}80 55%, ${INK}B3 100%)` }} />
+          <div className="absolute inset-0 mix-blend-multiply" style={{ background: `linear-gradient(115deg, ${FIRE}40 0%, transparent 55%)` }} />
           {imgDim && <div className="absolute inset-0" style={{ background: INK, opacity: imgDim }} />}
         </div>
       )}
