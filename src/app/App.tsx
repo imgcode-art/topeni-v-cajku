@@ -1066,7 +1066,7 @@ function HomePage({ setPage }: { setPage: (p: Page) => void }) {
 
       {/* ── TESTIMONIALS ── */}
       <section style={{ background: INK }} className="py-16 md:py-24 px-6">
-        <div className="max-w-4xl mx-auto">
+        <div className="max-w-6xl mx-auto">
           <Reveal>
             <h2 className="font-bold text-white leading-none mb-12" style={{ fontFamily: FD, fontSize: "clamp(1.6rem,2.5vw,2.2rem)" }}>
               ŘÍKAJÍ O NÁS
@@ -1079,16 +1079,16 @@ function HomePage({ setPage }: { setPage: (p: Page) => void }) {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-40px" }}
                 transition={{ duration: 0.5, delay: i * 0.1, ease: [0.22, 1, 0.36, 1] }}
-                className="relative p-7 pt-9" style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.1)", clipPath: NOTCH_LG }}>
-                <div className="flex flex-col items-start mb-4">
-                  <div className="flex gap-0.5 mb-1">
+                className="relative p-8 pt-10" style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.1)", clipPath: NOTCH_LG }}>
+                <div className="flex flex-col items-start mb-5">
+                  <div className="flex gap-1 mb-2">
                     {Array.from({ length: t.stars }).map((_, j) => (
-                      <Star key={j} size={13} style={{ color: FIRE }} className="fill-current" />
+                      <Star key={j} size={17} style={{ color: FIRE }} className="fill-current" />
                     ))}
                   </div>
-                  <div className="text-xs font-semibold text-white uppercase tracking-normal" style={{ fontFamily: FD }}>{t.name}</div>
+                  <div className="text-sm font-semibold text-white uppercase tracking-normal" style={{ fontFamily: FD }}>{t.name}</div>
                 </div>
-                <p className="text-sm text-white/55 leading-relaxed" style={{ fontFamily: FB }}>"{t.text}"</p>
+                <p className="text-base text-white/55 leading-relaxed" style={{ fontFamily: FB }}>"{t.text}"</p>
               </motion.div>
             ))}
           </div>
