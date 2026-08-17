@@ -1412,7 +1412,7 @@ function TepelnaCerpadlaPage() {
 
       <section style={{ background: INK }} className="py-16 md:py-24 px-6">
         <div className="max-w-6xl mx-auto">
-                    <h2 className="font-bold leading-none mb-12 text-white" style={{ fontFamily: FD, fontSize: "clamp(1.6rem,2.5vw,2.2rem)" }}>JAKÉ ČERPADLO VYBRAT</h2>
+                    <h2 className="font-bold leading-none mb-12 text-white" style={{ fontFamily: FD, fontSize: "clamp(1.6rem,2.5vw,2.2rem)" }}>VÝBĚR ČERPADLA</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             {types.map((t, i) => (
               <div key={i} className="p-8 transition-all duration-300 hover:-translate-y-1"
