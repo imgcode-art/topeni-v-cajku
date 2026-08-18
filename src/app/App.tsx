@@ -1222,7 +1222,7 @@ function ServisPage() {
 }
 
 // ── BeforeAfterSlider ────────────────────────────────────────────────────────
-function BeforeAfterSlider({ before, after, alt, objectPosition = "50% 42%" }: {
+function BeforeAfterSlider({ before, after, alt, objectPosition = "50% 38%" }: {
   before: string; after: string; alt: string; objectPosition?: string;
 }) {
   const [pos, setPos] = useState(50);
@@ -1250,13 +1250,13 @@ function BeforeAfterSlider({ before, after, alt, objectPosition = "50% 42%" }: {
 
   return (
     <div ref={containerRef}
-      className="relative aspect-[4/3] sm:aspect-[16/10] overflow-hidden select-none touch-none"
+      className="relative aspect-[16/9] sm:aspect-[2.4/1] overflow-hidden select-none touch-none"
       onPointerDown={(e) => { dragging.current = true; updateFromClientX(e.clientX); }}>
       <img src={after} alt={`${alt} — po čištění`} draggable={false}
-        className="absolute inset-0 w-full h-full object-cover" style={{ objectPosition, transform: "scale(1.35)" }} />
+        className="absolute inset-0 w-full h-full object-cover" style={{ objectPosition, transform: "scale(1.5)" }} />
       <img src={before} alt={`${alt} — před čištěním`} draggable={false}
         className="absolute inset-0 w-full h-full object-cover"
-        style={{ objectPosition, transform: "scale(1.35)", clipPath: `inset(0 ${100 - pos}% 0 0)` }} />
+        style={{ objectPosition, transform: "scale(1.5)", clipPath: `inset(0 ${100 - pos}% 0 0)` }} />
 
       <span className="absolute bottom-4 left-4 px-3 py-1.5 text-xs font-bold uppercase tracking-widest text-white rounded-full pointer-events-none"
         style={{ fontFamily: FD, background: "rgba(0,0,0,0.55)", backdropFilter: "blur(4px)" }}>Před</span>
