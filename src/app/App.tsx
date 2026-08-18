@@ -5,7 +5,7 @@ import {
   CheckCircle, ArrowRight, ChevronDown, ChevronLeft, ChevronRight, Clock,
   Star, Award, Wind, Flame, Check,
   Leaf, TrendingDown, AlertCircle, FileText, Users, RefreshCw, Handshake, Heart,
-  Play, Volume2
+  Play, Volume2, ChevronsLeftRight
 } from "lucide-react";
 
 type Page =
@@ -1221,6 +1221,59 @@ function ServisPage() {
   );
 }
 
+// ── BeforeAfterSlider ────────────────────────────────────────────────────────
+function BeforeAfterSlider({ before, after, alt, objectPosition = "50% 42%" }: {
+  before: string; after: string; alt: string; objectPosition?: string;
+}) {
+  const [pos, setPos] = useState(50);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const dragging = useRef(false);
+
+  const updateFromClientX = (clientX: number) => {
+    const el = containerRef.current;
+    if (!el) return;
+    const rect = el.getBoundingClientRect();
+    const pct = ((clientX - rect.left) / rect.width) * 100;
+    setPos(Math.min(96, Math.max(4, pct)));
+  };
+
+  useEffect(() => {
+    const onMove = (e: PointerEvent) => { if (dragging.current) updateFromClientX(e.clientX); };
+    const onUp = () => { dragging.current = false; };
+    window.addEventListener("pointermove", onMove);
+    window.addEventListener("pointerup", onUp);
+    return () => {
+      window.removeEventListener("pointermove", onMove);
+      window.removeEventListener("pointerup", onUp);
+    };
+  }, []);
+
+  return (
+    <div ref={containerRef}
+      className="relative aspect-[4/3] sm:aspect-[16/10] overflow-hidden select-none touch-none"
+      onPointerDown={(e) => { dragging.current = true; updateFromClientX(e.clientX); }}>
+      <img src={after} alt={`${alt} — po čištění`} draggable={false}
+        className="absolute inset-0 w-full h-full object-cover" style={{ objectPosition, transform: "scale(1.35)" }} />
+      <img src={before} alt={`${alt} — před čištěním`} draggable={false}
+        className="absolute inset-0 w-full h-full object-cover"
+        style={{ objectPosition, transform: "scale(1.35)", clipPath: `inset(0 ${100 - pos}% 0 0)` }} />
+
+      <span className="absolute bottom-4 left-4 px-3 py-1.5 text-xs font-bold uppercase tracking-widest text-white rounded-full pointer-events-none"
+        style={{ fontFamily: FD, background: "rgba(0,0,0,0.55)", backdropFilter: "blur(4px)" }}>Před</span>
+      <span className="absolute bottom-4 right-4 px-3 py-1.5 text-xs font-bold uppercase tracking-widest text-white rounded-full pointer-events-none"
+        style={{ fontFamily: FD, background: "rgba(232,98,62,0.85)" }}>Po</span>
+
+      <div className="absolute top-0 bottom-0 pointer-events-none" style={{ left: `${pos}%`, width: 0 }}>
+        <div className="absolute top-0 bottom-0" style={{ left: -1, width: 2, background: "rgba(255,255,255,0.9)" }} />
+        <div className="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 flex items-center justify-center rounded-full"
+          style={{ width: 44, height: 44, background: "#fff", boxShadow: "0 4px 16px rgba(0,0,0,0.4)" }}>
+          <ChevronsLeftRight size={20} style={{ color: INK }} />
+        </div>
+      </div>
+    </div>
+  );
+}
+
 // ═══════════════════════════════════════════════════════════════════════════════
 // PAGE: CISTENI
 // ═══════════════════════════════════════════════════════════════════════════════
@@ -1302,16 +1355,9 @@ function CisteniPage() {
             PŘED A PO
           </h2>
           <div className="overflow-hidden" style={{ clipPath: NOTCH_LG, border: "1px solid rgba(255,255,255,0.1)" }}>
-            <div className="grid grid-cols-1 sm:grid-cols-2">
-              <div className="relative aspect-[4/3] overflow-hidden">
-                <img src={flowMeterPair.before} alt={`${flowMeterPair.label} — před čištěním`} className="w-full h-full object-cover" />
-              </div>
-              <div className="relative aspect-[4/3] overflow-hidden">
-                <img src={flowMeterPair.after} alt={`${flowMeterPair.label} — po čištění`} className="w-full h-full object-cover" style={{ transform: "scale(1.15)", transformOrigin: "80% center" }} />
-              </div>
-            </div>
+            <BeforeAfterSlider before={flowMeterPair.before} after={flowMeterPair.after} alt={flowMeterPair.label} />
             <div className="px-6 py-5" style={{ background: "rgba(255,255,255,0.03)" }}>
-              <p className="text-sm text-white/50" style={{ fontFamily: FB }}>{flowMeterPair.label}</p>
+              <p className="text-sm text-white/50" style={{ fontFamily: FB }}>{flowMeterPair.label} — přetáhněte posuvník</p>
             </div>
           </div>
         </div>
