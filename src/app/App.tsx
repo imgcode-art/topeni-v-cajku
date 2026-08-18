@@ -910,7 +910,7 @@ function HomePage({ setPage }: { setPage: (p: Page) => void }) {
     {
       icon: <Leaf size={20} />,
       tag: "Modernizace",
-      title: "Chci nový zdroj tepla",
+      title: "Nový zdroj tepla",
       desc: "Uvažuji o tepelném čerpadle nebo novém kotli.",
       cta: "Poradit se",
       action: () => go("tepelna-cerpadla"),
