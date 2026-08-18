@@ -1309,7 +1309,7 @@ function CisteniPage() {
     "Systém nebyl čištěn déle než 5 let",
   ];
 
-  const flowMeterPair = { before: "/images/realizace/prutokomery-pred.png", after: "/images/realizace/prutokomery-po.png", label: "Průtokoměry podlahového topení — kalná voda vs. čirá voda po vyčištění" };
+  const flowMeterPair = { before: "/images/realizace/prutokomery-pred.png", after: "/images/realizace/prutokomery-po.png", label: "Průtokoměry podlahového topení: kalná vs. čirá voda po vyčištění" };
   const sludgePair = { before: "/images/realizace/7.webp", after: "/images/realizace/1.webp", label: "Vnitřek kotle a rozvody" };
 
   return (
@@ -1357,7 +1357,7 @@ function CisteniPage() {
           <div className="overflow-hidden" style={{ clipPath: NOTCH_LG, border: "1px solid rgba(255,255,255,0.1)" }}>
             <BeforeAfterSlider before={flowMeterPair.before} after={flowMeterPair.after} alt={flowMeterPair.label} />
             <div className="px-6 py-5" style={{ background: "rgba(255,255,255,0.03)" }}>
-              <p className="text-sm text-white/50" style={{ fontFamily: FB }}>{flowMeterPair.label} — přetáhněte posuvník</p>
+              <p className="text-sm text-white/50" style={{ fontFamily: FB }}>{flowMeterPair.label} (přetáhněte posuvník)</p>
             </div>
           </div>
         </div>
