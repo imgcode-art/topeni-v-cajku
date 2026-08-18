@@ -1222,7 +1222,7 @@ function ServisPage() {
 }
 
 // ── BeforeAfterSlider ────────────────────────────────────────────────────────
-function BeforeAfterSlider({ before, after, alt, objectPosition = "50% 38%" }: {
+function BeforeAfterSlider({ before, after, alt, objectPosition = "50% 12%" }: {
   before: string; after: string; alt: string; objectPosition?: string;
 }) {
   const [pos, setPos] = useState(50);
@@ -1253,10 +1253,10 @@ function BeforeAfterSlider({ before, after, alt, objectPosition = "50% 38%" }: {
       className="relative aspect-[16/9] sm:aspect-[2.4/1] overflow-hidden select-none touch-none"
       onPointerDown={(e) => { dragging.current = true; updateFromClientX(e.clientX); }}>
       <img src={after} alt={`${alt} — po čištění`} draggable={false}
-        className="absolute inset-0 w-full h-full object-cover" style={{ objectPosition, transform: "scale(1.5)" }} />
+        className="absolute inset-0 w-full h-full object-cover" style={{ objectPosition }} />
       <img src={before} alt={`${alt} — před čištěním`} draggable={false}
         className="absolute inset-0 w-full h-full object-cover"
-        style={{ objectPosition, transform: "scale(1.5)", clipPath: `inset(0 ${100 - pos}% 0 0)` }} />
+        style={{ objectPosition, clipPath: `inset(0 ${100 - pos}% 0 0)` }} />
 
       <span className="absolute bottom-4 left-4 px-3 py-1.5 text-xs font-bold uppercase tracking-widest text-white rounded-full pointer-events-none"
         style={{ fontFamily: FD, background: "rgba(0,0,0,0.55)", backdropFilter: "blur(4px)" }}>Před</span>
@@ -1309,7 +1309,7 @@ function CisteniPage() {
     "Systém nebyl čištěn déle než 5 let",
   ];
 
-  const flowMeterPair = { before: "/images/realizace/prutokomery_podlahoveho_topeni2.jpeg", after: "/images/realizace/prutokomery_podlahoveho_topeni1.jpeg", label: "Průtokoměry podlahového topení — kalná voda vs. čirá voda po vyčištění" };
+  const flowMeterPair = { before: "/images/realizace/prutokomery_podlahoveho_topeni2.jpg", after: "/images/realizace/prutokomery_podlahoveho_topeni1.jpg", label: "Průtokoměry podlahového topení — kalná voda vs. čirá voda po vyčištění" };
   const sludgePair = { before: "/images/realizace/7.webp", after: "/images/realizace/1.webp", label: "Vnitřek kotle a rozvody" };
 
   return (
