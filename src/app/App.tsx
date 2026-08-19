@@ -975,12 +975,15 @@ function HomePage({ setPage }: { setPage: (p: Page) => void }) {
       <section style={{ background: INK }} className="py-10 md:py-14 px-6">
         <div className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-3 gap-4">
           {statistiky.map((s, i) => (
-            <motion.div key={i} className="text-center px-4 py-6"
+            <motion.div key={i} className="relative text-center px-4 py-6 overflow-hidden"
               style={{ background: "rgba(255,255,255,0.04)", clipPath: NOTCH_MD, border: "1px solid rgba(255,255,255,0.1)" }}
               initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-40px" }}
-              transition={{ duration: 0.5, delay: i * 0.1 }}>
-              <Counter value={s.hodnota} className="font-bold break-words" style={{ fontFamily: FD, fontSize: "clamp(1.6rem,5vw,2.8rem)", lineHeight: 1, color: FIRE }} />
-              <div className="text-white/50 text-xs mt-2 uppercase tracking-wide font-semibold" style={{ fontFamily: FB }}>{s.popisek}</div>
+              transition={{ duration: 0.5, delay: i * 0.1 }}
+              whileHover={{ y: -5, transition: { duration: 0.2 } }}>
+              <div className="absolute -right-8 -top-8 rounded-full pointer-events-none"
+                style={{ width: 120, height: 120, background: `radial-gradient(circle, ${FIRE}26 0%, transparent 70%)` }} />
+              <Counter value={s.hodnota} className="font-bold break-words relative z-10" style={{ fontFamily: FD, fontSize: "clamp(1.6rem,5vw,2.8rem)", lineHeight: 1, color: FIRE }} />
+              <div className="text-white/50 text-xs mt-2 uppercase tracking-wide font-semibold relative z-10" style={{ fontFamily: FB }}>{s.popisek}</div>
             </motion.div>
           ))}
         </div>
