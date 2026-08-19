@@ -935,40 +935,39 @@ function HomePage({ setPage }: { setPage: (p: Page) => void }) {
 
   return (
     <div>
-      {/* ── HERO ── */}
-      <section className="relative overflow-hidden" style={{ background: INK, clipPath: "polygon(0 0, 100% 0, 100% 100%, 0 96%)" }}>
-        <div className="max-w-7xl mx-auto lg:grid lg:grid-cols-2 lg:items-start lg:gap-12 lg:px-6 pt-12 lg:pt-16">
-          <div className="relative w-full lg:order-2 lg:h-[440px]" style={{ aspectRatio: "1920 / 1080" }}>
-            <HeroVideo src="/videos/hero-heating-brno.mp4" className="w-full h-full block object-cover" />
-          </div>
-
-          <div className="w-full px-6 lg:px-0 pt-14 lg:pt-12 pb-16 lg:pb-20 relative lg:order-1">
-            <motion.h1 className="font-bold text-white uppercase leading-tight" style={{ fontFamily: FD, fontSize: "clamp(1.8rem,3.5vw,2.6rem)" }}
-              initial={{ opacity: 0, y: 34 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-60px" }} transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}>
-              Teplo domova, <br />na které je spoleh
-            </motion.h1>
-            <motion.h2 className="font-normal leading-relaxed mt-4 text-base md:text-lg" style={{ fontFamily: FB, color: "rgba(255,255,255,0.65)" }}
-              initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-60px" }} transition={{ duration: 0.55, delay: 0.08, ease: [0.22, 1, 0.36, 1] }}>
-              Provádíme servis a montáž plynových kotlů,<br className="hidden lg:block" /> tepelných čerpadel a čištění topných systémů
-            </motion.h2>
-            <motion.div className="flex flex-col md:flex-row md:flex-wrap gap-2 md:gap-x-8 md:gap-y-3 mt-6"
-              initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-60px" }} transition={{ duration: 0.5, delay: 0.1 }}>
-              {DUVERYHODNOST.map((text, i) => (
-                <span key={i} className="flex items-center gap-2 text-white/80 text-sm font-medium" style={{ fontFamily: FB }}>
-                  <span className="shrink-0 rounded-full" style={{ width: "6px", height: "6px", background: FIRE }} />
-                  {text}
-                </span>
-              ))}
-            </motion.div>
-            <motion.div className="flex flex-wrap justify-end lg:justify-start items-center gap-6 mt-8"
-              initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-60px" }} transition={{ duration: 0.5, delay: 0.15 }}>
-              <StarBorder as="a" href={PHONE_HREF} color={FIRE} speed="4s" thickness={2}>
-                <span className="inline-flex items-center gap-2 text-white font-bold text-base px-8 py-3.5 tracking-wide uppercase" style={{ fontFamily: FD }}>
-                  <Phone size={18} />Zavolat
-                </span>
-              </StarBorder>
-            </motion.div>
-          </div>
+      {/* ── HERO (full-bleed video preview) ── */}
+      <section className="relative overflow-hidden py-20 md:py-28 lg:py-36 px-6" style={{ background: INK, clipPath: "polygon(0 0, 100% 0, 100% 100%, 0 96%)" }}>
+        <div className="absolute inset-0">
+          <HeroVideo src="/videos/hero-heating-brno.mp4" className="w-full h-full block object-cover" />
+          <div className="absolute inset-0" style={{ background: `linear-gradient(180deg, ${INK}73 0%, ${INK}A6 55%, ${INK}D9 100%)` }} />
+          <div className="absolute inset-0 mix-blend-multiply" style={{ background: `linear-gradient(115deg, ${FIRE}33 0%, transparent 55%)` }} />
+        </div>
+        <div className="max-w-4xl mx-auto relative z-10">
+          <motion.h1 className="font-bold text-white uppercase leading-tight" style={{ fontFamily: FD, fontSize: "clamp(1.8rem,3.5vw,2.6rem)" }}
+            initial={{ opacity: 0, y: 34 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}>
+            Teplo domova, <br />na které je spoleh
+          </motion.h1>
+          <motion.h2 className="font-normal leading-relaxed mt-4 text-base md:text-lg max-w-xl" style={{ fontFamily: FB, color: "rgba(255,255,255,0.75)" }}
+            initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.55, delay: 0.08, ease: [0.22, 1, 0.36, 1] }}>
+            Provádíme servis a montáž plynových kotlů, tepelných čerpadel a čištění topných systémů
+          </motion.h2>
+          <motion.div className="flex flex-col md:flex-row md:flex-wrap gap-2 md:gap-x-8 md:gap-y-3 mt-6"
+            initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.1 }}>
+            {DUVERYHODNOST.map((text, i) => (
+              <span key={i} className="flex items-center gap-2 text-white/80 text-sm font-medium" style={{ fontFamily: FB }}>
+                <span className="shrink-0 rounded-full" style={{ width: "6px", height: "6px", background: FIRE }} />
+                {text}
+              </span>
+            ))}
+          </motion.div>
+          <motion.div className="flex flex-wrap items-center gap-6 mt-8"
+            initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.15 }}>
+            <StarBorder as="a" href={PHONE_HREF} color={FIRE} speed="4s" thickness={2}>
+              <span className="inline-flex items-center gap-2 text-white font-bold text-base px-8 py-3.5 tracking-wide uppercase" style={{ fontFamily: FD }}>
+                <Phone size={18} />Zavolat
+              </span>
+            </StarBorder>
+          </motion.div>
         </div>
       </section>
 
