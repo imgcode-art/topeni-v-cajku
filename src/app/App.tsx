@@ -193,6 +193,23 @@ function HeroVideo({ src, startAt, className = "w-full h-auto block", style }: {
     return () => v.removeEventListener("loadedmetadata", onLoadedMetadata);
   }, [src, startAt]);
 
+  // After the computer sleeps/wakes (or the tab comes back from the
+  // background), browsers sometimes drop the decoded frame of a video
+  // that already finished playing, leaving it blank. Restart it.
+  useEffect(() => {
+    const v = videoRef.current;
+    if (!v) return;
+    const onVisible = () => {
+      if (document.visibilityState === "visible") v.play().catch(() => {});
+    };
+    document.addEventListener("visibilitychange", onVisible);
+    window.addEventListener("pageshow", onVisible);
+    return () => {
+      document.removeEventListener("visibilitychange", onVisible);
+      window.removeEventListener("pageshow", onVisible);
+    };
+  }, []);
+
   return (
     <video ref={videoRef} src={src} autoPlay muted playsInline aria-hidden="true"
       className={className} style={style} />
