@@ -84,7 +84,6 @@ function scrollTo(id: string) {
 }
 function navTo(page: Page, setPage: (p: Page) => void) {
   setPage(page);
-  window.scrollTo({ top: 0, behavior: "smooth" });
 }
 
 // ── Reveal ───────────────────────────────────────────────────────────────────
@@ -1879,14 +1878,14 @@ export default function App() {
     if (window.location.pathname !== path) {
       window.history.pushState({ page }, "", path);
     }
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    window.scrollTo(0, 0);
   };
 
   // Sync state when the user uses the browser's Back/Forward buttons.
   useEffect(() => {
     const onPopState = () => {
       setCurrentPage(pageFromPath(window.location.pathname));
-      window.scrollTo({ top: 0, behavior: "smooth" });
+      window.scrollTo(0, 0);
     };
     window.addEventListener("popstate", onPopState);
     return () => window.removeEventListener("popstate", onPopState);
