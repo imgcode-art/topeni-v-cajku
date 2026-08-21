@@ -105,7 +105,10 @@ function Reveal({ children, delay = 0, className, y = 22 }: { children: React.Re
 function Counter({ value, className, style }: { value: string; className?: string; style?: React.CSSProperties }) {
   const ref = useRef<HTMLSpanElement>(null);
   const inView = useInView(ref, { once: true, margin: "-60px" });
-  const [display, setDisplay] = useState(value.replace(/[0-9]/g, "0"));
+  const [display, setDisplay] = useState(() => {
+    const match = value.match(/^(\d+)(.*)$/);
+    return match ? "0" + match[2] : value;
+  });
 
   useEffect(() => {
     if (!inView) return;
