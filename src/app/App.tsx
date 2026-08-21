@@ -1356,7 +1356,7 @@ function CisteniPage() {
 
       <section style={{ background: INK }} className="pt-8 md:pt-10 pb-8 md:pb-10 px-6">
         <div className="max-w-4xl mx-auto">
-                    <h2 className="font-bold leading-none mb-12 text-white" style={{ fontFamily: FD, fontSize: "clamp(1.6rem,2.5vw,2.2rem)" }}>POTŘEBUJE VÁŠE TOPENÍ ČIŠTĚNÍ?</h2>
+                    <h2 className="font-bold leading-none mb-12 text-white" style={{ fontFamily: FD, fontSize: "clamp(1.6rem,2.5vw,2.2rem)" }}>KDY ČISTIT TOPENÍ?</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
             {signs.map((s, i) => (
               <div key={i} className="flex items-center gap-4 p-5" style={{ background: "rgba(255,255,255,0.04)", clipPath: NOTCH_SM, border: "1px solid rgba(255,255,255,0.08)" }}>
