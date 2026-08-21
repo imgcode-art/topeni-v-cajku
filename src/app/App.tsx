@@ -817,7 +817,7 @@ function SectionHero({ eyebrow, title, subtitle, icon, formId, imgId, imgSrc, vi
   const heroImg = imgSrc || (imgId ? `https://images.unsplash.com/${imgId}?w=1400&h=600&fit=crop&auto=format` : undefined);
   return (
     <>
-    <section className="relative overflow-hidden py-20 md:py-28 lg:py-32 px-6 lg:px-10"
+    <section className="relative overflow-hidden py-20 md:py-28 lg:py-32"
       style={{ background: aurora ? INK : HERO_GRADIENT, clipPath: "polygon(0 0, 100% 0, 100% 100%, 0 96%)" }}>
       {aurora && <div className={sideImageDesktop ? "lg:hidden" : (sideImage ? "hidden lg:block" : undefined)}><Aurora color={FIRE} /></div>}
       {sideImage && (
@@ -850,8 +850,8 @@ function SectionHero({ eyebrow, title, subtitle, icon, formId, imgId, imgSrc, vi
           {imgDim && <div className="absolute inset-0" style={{ background: INK, opacity: imgDim }} />}
         </div>
       )}
-      <div className={`mx-auto relative z-10 max-w-7xl ${(sideImage && !sideImageDesktop) ? "flex flex-col lg:flex-row lg:items-stretch gap-10" : ""}`}>
-        <div className="flex-1 min-w-0 max-w-2xl">
+      <div className={`mx-auto relative z-10 max-w-7xl px-6 lg:px-10 ${(sideImage && !sideImageDesktop) ? "flex flex-col lg:flex-row lg:items-stretch gap-10" : ""}`}>
+        <div className="flex-1 min-w-0 max-w-2xl pl-[42px]">
           <motion.h1 className="font-bold text-white mb-6 leading-none" style={{ fontFamily: FD, fontSize: "clamp(1.8rem,3.5vw,2.6rem)" }}
             initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.55, delay: 0.08 }}>
             {title}
@@ -952,14 +952,14 @@ function HomePage({ setPage }: { setPage: (p: Page) => void }) {
   return (
     <div>
       {/* ── HERO (full-bleed video preview) ── */}
-      <section className="relative overflow-hidden py-20 md:py-28 lg:py-36 px-6 lg:px-10" style={{ background: INK, clipPath: "polygon(0 0, 100% 0, 100% 100%, 0 96%)" }}>
+      <section className="relative overflow-hidden py-20 md:py-28 lg:py-36" style={{ background: INK, clipPath: "polygon(0 0, 100% 0, 100% 100%, 0 96%)" }}>
         <div className="absolute inset-0">
-          <HeroVideo src="/videos/hero-heating-brno.mp4" className="w-full h-full block object-cover" />
+          <img src="/images/realizace/hero-topeni.jpg" alt="" className="w-full h-full block object-cover" />
           <div className="absolute inset-0" style={{ background: `linear-gradient(180deg, ${INK}73 0%, ${INK}A6 55%, ${INK}D9 100%)` }} />
           <div className="absolute inset-0 mix-blend-multiply" style={{ background: `linear-gradient(115deg, ${FIRE}33 0%, transparent 55%)` }} />
         </div>
-        <div className="max-w-7xl mx-auto relative z-10">
-          <div className="max-w-2xl">
+        <div className="max-w-7xl mx-auto relative z-10 px-6 lg:px-10">
+          <div className="max-w-2xl pl-[42px]">
           <motion.h1 className="font-bold text-white uppercase leading-tight" style={{ fontFamily: FD, fontSize: "clamp(1.8rem,3.5vw,2.6rem)" }}
             initial={{ opacity: 0, y: 34 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}>
             Teplo domova, <br />na které je spoleh
