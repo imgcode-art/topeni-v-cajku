@@ -959,8 +959,8 @@ function HomePage({ setPage }: { setPage: (p: Page) => void }) {
       tag: "Porucha",
       title: "Kotel nefunguje",
       desc: "Chybový kód, výpadek topení, kotel se zastavil.",
-      cta: "Zavolat",
-      action: () => (window.location.href = PHONE_HREF),
+      cta: "Kontaktovat",
+      action: () => go("kontakt"),
       img: "/images/realizace/topenivcajku3.png",
     },
   ];
@@ -1042,10 +1042,10 @@ function HomePage({ setPage }: { setPage: (p: Page) => void }) {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 items-stretch">
             {situations.map((s, i) => (
               <motion.button key={i} onClick={s.action}
-                initial={{ opacity: 0, y: 24 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-40px" }}
-                transition={{ duration: 0.5, delay: i * 0.1, ease: [0.22, 1, 0.36, 1] }}
+                initial={{ opacity: 0, x: i === 0 ? -60 : i === 2 ? 60 : 0, y: i === 1 ? 40 : 0 }}
+                whileInView={{ opacity: 1, x: 0, y: 0 }}
+                viewport={{ once: true, amount: 0.4 }}
+                transition={{ duration: 0.9, delay: i * 0.5, ease: [0.22, 1, 0.36, 1] }}
                 whileHover={{ y: -6, transition: { duration: 0.2 } }}
                 whileTap={{ scale: 0.98 }}
                 className="group relative text-left flex flex-col p-7 pt-8"
@@ -1089,17 +1089,19 @@ function HomePage({ setPage }: { setPage: (p: Page) => void }) {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-40px" }}
                 transition={{ duration: 0.5, delay: (i % 2) * 0.1, ease: [0.22, 1, 0.36, 1] }}
-                whileHover={{ y: -5, transition: { duration: 0.2 } }}
+                whileHover={{ y: -5, boxShadow: `0 16px 45px -8px ${FIRE}66`, transition: { duration: 0.25 } }}
                 whileTap={{ scale: 0.98 }}
-                className="group relative w-full flex items-start gap-5 p-7 text-left"
-                style={{ background: "rgba(255,255,255,0.04)", clipPath: NOTCH_MD, border: "1px solid rgba(255,255,255,0.1)" }}>
-                <div className="flex-1 min-w-0">
-                  <h3 className="font-bold text-white leading-tight mb-1.5" style={{ fontFamily: FD, fontSize: "clamp(1.2rem,2.5vw,1.5rem)" }}>
-                    {s.title.toUpperCase()}
-                  </h3>
-                  <p className="text-sm text-white/50 leading-relaxed">{s.desc}</p>
+                className="group relative w-full text-left">
+                <div className="relative flex items-start gap-5 p-7 h-full"
+                  style={{ background: "rgba(255,255,255,0.04)", clipPath: NOTCH_MD, border: "1px solid rgba(255,255,255,0.1)" }}>
+                  <div className="flex-1 min-w-0">
+                    <h3 className="font-bold text-white leading-tight mb-1.5" style={{ fontFamily: FD, fontSize: "clamp(1.2rem,2.5vw,1.5rem)" }}>
+                      {s.title.toUpperCase()}
+                    </h3>
+                    <p className="text-sm text-white/50 leading-relaxed">{s.desc}</p>
+                  </div>
+                  <ArrowRight size={18} className="absolute top-7 right-7 shrink-0 text-white/20 group-hover:text-[#E8623E] group-hover:translate-x-1 transition-all" />
                 </div>
-                <ArrowRight size={18} className="absolute top-7 right-7 shrink-0 text-white/20 group-hover:text-[#E8623E] group-hover:translate-x-1 transition-all" />
               </motion.button>
             ))}
           </div>
@@ -1121,16 +1123,19 @@ function HomePage({ setPage }: { setPage: (p: Page) => void }) {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-40px" }}
                 transition={{ duration: 0.5, delay: i * 0.1, ease: [0.22, 1, 0.36, 1] }}
-                className="relative p-8 pt-10" style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.1)", clipPath: NOTCH_LG }}>
-                <div className="flex flex-col items-start mb-5">
-                  <div className="flex gap-1 mb-2">
-                    {Array.from({ length: t.stars }).map((_, j) => (
-                      <Star key={j} size={17} style={{ color: FIRE }} className="fill-current" />
-                    ))}
+                whileHover={{ y: -5, boxShadow: `0 16px 45px -8px ${FIRE}66`, transition: { duration: 0.25 } }}
+                className="relative">
+                <div className="p-8 pt-10 h-full" style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.1)", clipPath: NOTCH_LG }}>
+                  <div className="flex flex-col items-start mb-5">
+                    <div className="flex gap-1 mb-2">
+                      {Array.from({ length: t.stars }).map((_, j) => (
+                        <Star key={j} size={17} style={{ color: FIRE }} className="fill-current" />
+                      ))}
+                    </div>
+                    <div className="text-sm font-semibold text-white uppercase tracking-normal" style={{ fontFamily: FD }}>{t.name}</div>
                   </div>
-                  <div className="text-sm font-semibold text-white uppercase tracking-normal" style={{ fontFamily: FD }}>{t.name}</div>
+                  <p className="text-base text-white/55 leading-relaxed" style={{ fontFamily: FB }}>"{t.text}"</p>
                 </div>
-                <p className="text-base text-white/55 leading-relaxed" style={{ fontFamily: FB }}>"{t.text}"</p>
               </motion.div>
             ))}
           </div>
