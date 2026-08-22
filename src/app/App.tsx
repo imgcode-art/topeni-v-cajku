@@ -859,7 +859,7 @@ function SectionHero({ eyebrow, title, subtitle, icon, formId, imgId, imgSrc, vi
             initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.55, delay: 0.08 }}>
             {title}
           </motion.h1>
-          <motion.p className="text-white/75 max-w-xl leading-relaxed mb-8 text-base" style={{ fontFamily: FB }}
+          <motion.p className="text-white max-w-xl leading-relaxed mb-8 text-base" style={{ fontFamily: FB }}
             initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.16 }}>
             {subtitle}
           </motion.p>
@@ -967,7 +967,7 @@ function HomePage({ setPage }: { setPage: (p: Page) => void }) {
             initial={{ opacity: 0, y: 34 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}>
             Teplo domova, <br />na které je spoleh
           </motion.h1>
-          <motion.h2 className="font-normal leading-relaxed mt-4 text-base md:text-lg max-w-xl" style={{ fontFamily: FB, color: "rgba(255,255,255,0.75)" }}
+          <motion.h2 className="font-normal leading-relaxed mt-4 text-base md:text-lg max-w-xl text-white" style={{ fontFamily: FB }}
             initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.55, delay: 0.08, ease: [0.22, 1, 0.36, 1] }}>
             Provádíme servis a montáž plynových kotlů, tepelných čerpadel a čištění topných systémů
           </motion.h2>
