@@ -327,12 +327,31 @@ function CustomCursor() {
   return (
     <div className="hidden lg:block fixed inset-0 z-[100] pointer-events-none"
       style={{ opacity: visible ? 1 : 0, transition: "opacity 0.2s" }}>
+      {/* small dot — tracks the pointer precisely */}
       <motion.div
-        className="absolute rounded-full flex items-center justify-center top-0 left-0"
-        style={{ width: 18, height: 18, marginLeft: -9, marginTop: -9, background: "rgba(255,255,255,0.75)", border: "1px solid rgba(0,0,0,0.06)" }}
-        animate={{ x: pos.x, y: pos.y, scale: pointer ? 1.2 : 1 }}
-        transition={{ type: "spring", stiffness: 600, damping: 45, mass: 0.3 }}>
-        <div className="rounded-full" style={{ width: 5, height: 5, background: INK, opacity: 0.7 }} />
+        className="absolute rounded-full top-0 left-0"
+        style={{ width: 8, height: 8, marginLeft: -4, marginTop: -4, background: "#fff" }}
+        animate={{ x: pos.x, y: pos.y, opacity: pointer ? 0 : 1 }}
+        transition={{ type: "spring", stiffness: 900, damping: 50, mass: 0.2 }} />
+      {/* larger circle — trails behind, morphs into a thin dashed ring on hover */}
+      <motion.div
+        className="absolute rounded-full top-0 left-0 flex items-center justify-center"
+        style={{
+          width: pointer ? 40 : 26,
+          height: pointer ? 40 : 26,
+          marginLeft: pointer ? -20 : -13,
+          marginTop: pointer ? -20 : -13,
+          background: pointer ? "transparent" : "rgba(120,120,120,0.55)",
+          border: pointer ? "1px dashed rgba(255,255,255,0.55)" : "none",
+        }}
+        animate={{ x: pos.x, y: pos.y, rotate: pointer ? 360 : 0 }}
+        transition={{
+          x: { type: "spring", stiffness: 160, damping: 20, mass: 0.6 },
+          y: { type: "spring", stiffness: 160, damping: 20, mass: 0.6 },
+          width: { duration: 0.25 }, height: { duration: 0.25 }, marginLeft: { duration: 0.25 }, marginTop: { duration: 0.25 },
+          rotate: pointer ? { duration: 6, repeat: Infinity, ease: "linear" } : { duration: 0 },
+        }}>
+        {pointer && <div className="rounded-full" style={{ width: 12, height: 12, background: "rgba(150,150,150,0.85)" }} />}
       </motion.div>
     </div>
   );
