@@ -104,7 +104,9 @@ function Reveal({ children, delay = 0, className, y = 22 }: { children: React.Re
 // ── Counter ──────────────────────────────────────────────────────────────────
 function Counter({ value, className, style }: { value: string; className?: string; style?: React.CSSProperties }) {
   const ref = useRef<HTMLSpanElement>(null);
-  const inView = useInView(ref, { once: true, margin: "-60px" });
+  const inViewDetected = useInView(ref, { once: true, margin: "-60px" });
+  const isMobile = useIsMobile();
+  const inView = isMobile || inViewDetected;
   const [display, setDisplay] = useState(() => {
     const match = value.match(/^(\d+)(.*)$/);
     return match ? "0" + match[2] : value;
@@ -919,8 +921,21 @@ const HOME_FAQ: FAQItem[] = [
 // Body důvěryhodnosti pod hlavním nadpisem hero sekce.
 const DUVERYHODNOST = ["Férové jednání", "Spolehlivost", "Ochota"];
 
+function useIsMobile() {
+  const [isMobile, setIsMobile] = useState(false);
+  useEffect(() => {
+    const mq = window.matchMedia("(max-width: 767px)");
+    setIsMobile(mq.matches);
+    const handler = (e: MediaQueryListEvent) => setIsMobile(e.matches);
+    mq.addEventListener("change", handler);
+    return () => mq.removeEventListener("change", handler);
+  }, []);
+  return isMobile;
+}
+
 function HomePage({ setPage }: { setPage: (p: Page) => void }) {
   const go = (page: Page) => navTo(page, setPage);
+  const isMobile = useIsMobile();
 
   const services = [
     { icon: <Droplets size={18} />, title: "Chemicko-mechanické čištění", desc: "Profesionální proplach systému — úspora 15–30 % na energiích. Přípravky Fernox a Kamco.", page: "cisteni" as Page },
@@ -988,7 +1003,7 @@ function HomePage({ setPage }: { setPage: (p: Page) => void }) {
           </motion.h1>
           <motion.h2 className="font-normal leading-relaxed mt-4 text-base md:text-lg max-w-xl text-white" style={{ fontFamily: FB }}
             initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.55, delay: 0.08, ease: [0.22, 1, 0.36, 1] }}>
-            Provádíme servis a montáž plynových kotlů, tepelných čerpadel a čištění topných systémů
+            Zima v obýváku nikomu nesvědčí. Dáme vaše topení do cajku
           </motion.h2>
           <motion.div className="flex flex-col md:flex-row md:flex-wrap gap-2 md:gap-x-8 md:gap-y-3 mt-6"
             initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.1 }}>
@@ -1042,10 +1057,10 @@ function HomePage({ setPage }: { setPage: (p: Page) => void }) {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 items-stretch">
             {situations.map((s, i) => (
               <motion.button key={i} onClick={s.action}
-                initial={{ opacity: 0, x: i === 0 ? -60 : i === 2 ? 60 : 0, y: i === 1 ? 40 : 0 }}
+                initial={isMobile ? { opacity: 0, y: 16 } : { opacity: 0, x: i === 0 ? -60 : i === 2 ? 60 : 0, y: i === 1 ? 40 : 0 }}
                 whileInView={{ opacity: 1, x: 0, y: 0 }}
                 viewport={{ once: true, amount: 0.4 }}
-                transition={{ duration: 0.9, delay: i * 0.5, ease: [0.22, 1, 0.36, 1] }}
+                transition={isMobile ? { duration: 0.4, delay: i * 0.1, ease: [0.22, 1, 0.36, 1] } : { duration: 0.9, delay: i * 0.5, ease: [0.22, 1, 0.36, 1] }}
                 whileHover={{ y: -6, transition: { duration: 0.2 } }}
                 whileTap={{ scale: 0.98 }}
                 className="group relative text-left flex flex-col p-7 pt-8"
@@ -1091,7 +1106,7 @@ function HomePage({ setPage }: { setPage: (p: Page) => void }) {
                 transition={{ duration: 0.5, delay: (i % 2) * 0.1, ease: [0.22, 1, 0.36, 1] }}
                 whileHover={{ y: -5, transition: { duration: 0.25 } }}
                 whileTap={{ scale: 0.98 }}
-                className="group relative w-full text-left filter drop-shadow-none hover:drop-shadow-[0_0_20px_rgba(232,98,62,0.5)] transition-[filter] duration-300">
+                className="group relative w-full text-left filter drop-shadow-[0_0_30px_rgba(232,98,62,0.85)] md:drop-shadow-none md:hover:drop-shadow-[0_0_20px_rgba(232,98,62,0.5)] transition-[filter] duration-300">
                 <div className="relative flex items-start gap-5 p-7 h-full"
                   style={{ background: "rgba(255,255,255,0.04)", clipPath: NOTCH_MD, border: "1px solid rgba(255,255,255,0.1)" }}>
                   <div className="flex-1 min-w-0">
@@ -1124,8 +1139,8 @@ function HomePage({ setPage }: { setPage: (p: Page) => void }) {
                 viewport={{ once: true, margin: "-40px" }}
                 transition={{ duration: 0.5, delay: i * 0.1, ease: [0.22, 1, 0.36, 1] }}
                 whileHover={{ y: -5, transition: { duration: 0.25 } }}
-                className="relative filter drop-shadow-none hover:drop-shadow-[0_0_20px_rgba(232,98,62,0.5)] transition-[filter] duration-300">
-                <div className="p-8 pt-10 h-full" style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.1)", clipPath: NOTCH_LG }}>
+                className="relative filter drop-shadow-[0_0_30px_rgba(232,98,62,0.85)] md:drop-shadow-none md:hover:drop-shadow-[0_0_20px_rgba(232,98,62,0.5)] transition-[filter] duration-300">
+                <div className="p-8 pt-10 h-full" style={{ background: `linear-gradient(to bottom left, rgba(232,98,62,0.16) 0%, #0a0a0a 50%, #050505 100%)`, border: "1px solid rgba(255,255,255,0.1)", clipPath: NOTCH_LG }}>
                   <div className="flex flex-col items-start mb-5">
                     <div className="flex gap-1 mb-2">
                       {Array.from({ length: t.stars }).map((_, j) => (
