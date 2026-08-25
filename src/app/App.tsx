@@ -1059,7 +1059,7 @@ function HomePage({ setPage }: { setPage: (p: Page) => void }) {
               <motion.button key={i} onClick={s.action}
                 initial={isMobile ? { opacity: 0, y: 16 } : { opacity: 0, x: i === 0 ? -60 : i === 2 ? 60 : 0, y: i === 1 ? 40 : 0 }}
                 whileInView={{ opacity: 1, x: 0, y: 0 }}
-                viewport={{ once: true, amount: 0.4 }}
+                viewport={isMobile ? { once: true, amount: 0.1 } : { once: true, amount: 0.4 }}
                 transition={isMobile ? { duration: 0.4, delay: i * 0.1, ease: [0.22, 1, 0.36, 1] } : { duration: 0.9, delay: i * 0.5, ease: [0.22, 1, 0.36, 1] }}
                 whileHover={{ y: -6, transition: { duration: 0.2 } }}
                 whileTap={{ scale: 0.98 }}
