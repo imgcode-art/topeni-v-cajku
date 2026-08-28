@@ -1915,19 +1915,17 @@ function buildPageSchema(page: Page): object | null {
 // header already carries a persistent "Zavolat" button.
 function MobileCallBar() {
   return (
-    <a href={PHONE_HREF}
-      className="sm:hidden fixed bottom-0 left-0 right-0 z-[45] flex items-center justify-center gap-2 text-white font-bold uppercase tracking-wide"
+    <div className="sm:hidden fixed bottom-0 left-0 right-0 z-[45] px-4 pt-3"
       style={{
-        fontFamily: FD,
-        fontSize: "1rem",
-        background: FIRE,
-        paddingTop: "14px",
-        paddingBottom: "calc(14px + env(safe-area-inset-bottom))",
-        boxShadow: "0 -8px 24px -4px rgba(0,0,0,0.45)",
+        background: `linear-gradient(180deg, transparent 0%, ${INK}D9 35%, ${INK} 100%)`,
+        paddingBottom: "calc(12px + env(safe-area-inset-bottom))",
       }}>
-      <Phone size={18} />
-      Zavolat
-    </a>
+      <StarBorder as="a" href={PHONE_HREF} color={FIRE} speed="4s" thickness={2} className="w-full" style={{ display: "block" }}>
+        <span className="flex items-center justify-center gap-2 text-white font-bold text-base py-3.5 uppercase tracking-wide" style={{ fontFamily: FD }}>
+          <Phone size={18} />Zavolat
+        </span>
+      </StarBorder>
+    </div>
   );
 }
 
@@ -1990,7 +1988,7 @@ export default function App() {
     }
   };
   return (
-    <div className="min-h-screen flex flex-col pb-[calc(62px+env(safe-area-inset-bottom))] sm:pb-0" style={{ background: INK }}>
+    <div className="min-h-screen flex flex-col pb-[calc(84px+env(safe-area-inset-bottom))] sm:pb-0" style={{ background: INK }}>
       <CustomCursor />
       <Header currentPage={currentPage} setPage={setPage} />
       <main className="flex-1">{renderPage()}</main>
