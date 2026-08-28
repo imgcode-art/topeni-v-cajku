@@ -454,13 +454,6 @@ function Header({ currentPage, setPage }: { currentPage: Page; setPage: (p: Page
                   </motion.button>
                 ))}
               </div>
-              <div className="p-3 pt-0">
-                <StarBorder as="a" href={PHONE_HREF} color={FIRE} speed="4s" thickness={2} className="w-full" style={{ display: "block" }}>
-                  <span className="flex items-center justify-center gap-2 text-white font-bold text-base py-3.5 uppercase tracking-wide" style={{ fontFamily: FD }}>
-                    <Phone size={18} />Zavolat
-                  </span>
-                </StarBorder>
-              </div>
             </motion.div>
           </>
         )}

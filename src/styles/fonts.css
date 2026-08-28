@@ -172,6 +172,9 @@ h1, h2, h3 {
 
 .call-bar-button {
   -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  user-select: none;
   outline: none;
   box-shadow: 0 0 22px -2px rgba(232,98,62,0.6);
 }
