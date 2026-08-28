@@ -884,7 +884,7 @@ function SectionHero({ eyebrow, title, subtitle, icon, formId, imgId, imgSrc, vi
             initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.16 }}>
             {subtitle}
           </motion.p>
-          <motion.div className="flex flex-wrap justify-end lg:justify-start gap-3"
+          <motion.div className="hidden sm:flex flex-wrap justify-end lg:justify-start gap-3"
             initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.24 }}>
             <StarBorder as="a" href={PHONE_HREF} color={FIRE} speed="4s" thickness={2}>
               <span className="inline-flex items-center gap-2 text-white font-bold text-base px-8 py-3.5 tracking-wide uppercase" style={{ fontFamily: FD }}>
@@ -1014,7 +1014,7 @@ function HomePage({ setPage }: { setPage: (p: Page) => void }) {
               </span>
             ))}
           </motion.div>
-          <motion.div className="flex flex-wrap items-center gap-6 mt-8"
+          <motion.div className="hidden sm:flex flex-wrap items-center gap-6 mt-8"
             initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.15 }}>
             <StarBorder as="a" href={PHONE_HREF} color={FIRE} speed="4s" thickness={2}>
               <span className="inline-flex items-center gap-2 text-white font-bold text-base px-8 py-3.5 tracking-wide uppercase" style={{ fontFamily: FD }}>
@@ -1909,6 +1909,28 @@ function buildPageSchema(page: Page): object | null {
   return { "@context": "https://schema.org", "@graph": graph };
 }
 
+// ── MobileCallBar ───────────────────────────────────────────────────────────
+// Fixed CTA bar pinned to the bottom of the screen on phones, so a call is
+// always one tap away while scrolling. Hidden from sm (640px) up, where the
+// header already carries a persistent "Zavolat" button.
+function MobileCallBar() {
+  return (
+    <a href={PHONE_HREF}
+      className="sm:hidden fixed bottom-0 left-0 right-0 z-[45] flex items-center justify-center gap-2 text-white font-bold uppercase tracking-wide"
+      style={{
+        fontFamily: FD,
+        fontSize: "1rem",
+        background: FIRE,
+        paddingTop: "14px",
+        paddingBottom: "calc(14px + env(safe-area-inset-bottom))",
+        boxShadow: "0 -8px 24px -4px rgba(0,0,0,0.45)",
+      }}>
+      <Phone size={18} />
+      Zavolat
+    </a>
+  );
+}
+
 // ═══════════════════════════════════════════════════════════════════════════════
 // APP ROOT
 // ═══════════════════════════════════════════════════════════════════════════════
@@ -1968,11 +1990,12 @@ export default function App() {
     }
   };
   return (
-    <div className="min-h-screen flex flex-col" style={{ background: INK }}>
+    <div className="min-h-screen flex flex-col pb-[calc(62px+env(safe-area-inset-bottom))] sm:pb-0" style={{ background: INK }}>
       <CustomCursor />
       <Header currentPage={currentPage} setPage={setPage} />
       <main className="flex-1">{renderPage()}</main>
       <Footer setPage={setPage} />
+      <MobileCallBar />
     </div>
   );
 }
