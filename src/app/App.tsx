@@ -1920,7 +1920,7 @@ function MobileCallBar() {
         background: `linear-gradient(180deg, transparent 0%, ${INK}D9 35%, ${INK} 100%)`,
         paddingBottom: "calc(12px + env(safe-area-inset-bottom))",
       }}>
-      <StarBorder as="a" href={PHONE_HREF} color={FIRE} speed="4s" thickness={2} className="w-full" style={{ display: "block" }}>
+      <StarBorder as="a" href={PHONE_HREF} color={FIRE} speed="4s" thickness={2} className="w-full call-bar-button" style={{ display: "block" }}>
         <span className="flex items-center justify-center gap-2 text-white font-bold text-base py-3.5 uppercase tracking-wide" style={{ fontFamily: FD }}>
           <Phone size={18} />Zavolat
         </span>
