@@ -443,10 +443,10 @@ function Header({ currentPage, setPage }: { currentPage: Page; setPage: (p: Page
                     initial={{ opacity: 0, x: 12 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: 0.05 + i * 0.04, duration: 0.25 }}
-                    className="flex items-center justify-between w-full text-left px-4 py-3.5 text-base font-medium rounded-2xl transition-colors"
+                    className="flex items-center justify-between w-full text-left px-4 py-3.5 text-base font-semibold rounded-2xl transition-colors"
                     style={{
                       fontFamily: FB,
-                      color: currentPage === item.page ? "#fff" : "rgba(255,255,255,0.65)",
+                      color: currentPage === item.page ? "#fff" : "rgba(255,255,255,0.85)",
                       background: currentPage === item.page ? "rgba(232,98,62,0.18)" : "transparent",
                     }}>
                     {item.label}
@@ -996,7 +996,7 @@ function HomePage({ setPage }: { setPage: (p: Page) => void }) {
           </motion.h1>
           <motion.h2 className="font-normal leading-relaxed mt-4 text-base md:text-lg max-w-xl text-white" style={{ fontFamily: FB }}
             initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.55, delay: 0.08, ease: [0.22, 1, 0.36, 1] }}>
-            Zima v obýváku nikomu nesvědčí. Dáme vaše topení do cajku
+            Zima v obýváku nikomu nesvědčí. <br /><span className="font-bold">Dáme vaše topení do cajku</span>
           </motion.h2>
           <motion.div className="flex flex-col md:flex-row md:flex-wrap gap-2 md:gap-x-8 md:gap-y-3 mt-6"
             initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.1 }}>
@@ -1342,10 +1342,10 @@ const CISTENI_FAQ: FAQItem[] = [
 
 function CisteniPage() {
   const benefits = [
-    { val: "15–30%", title: "Úspora energie", desc: "Čistý systém přenáší teplo efektivněji — kotel nepracuje zbytečně." },
+    { val: "15–30 %", title: "Úspora energie", desc: "Čistý systém přenáší teplo efektivněji — kotel nepracuje zbytečně." },
     { val: "+5 let", title: "Životnost kotle", desc: "Kal ničí výměník kotle. Čistý systém = kotel vydrží o roky déle." },
-    { val: "100%", title: "Rovnoměrné topení", desc: "Konec studených radiátorů. Celý systém hřeje tak, jak má." },
     { val: "Méně", title: "Poruch a oprav", desc: "Zanešený systém způsobuje poruchy čerpadla a výměníku." },
+    { val: "100 %", title: "Rovnoměrné topení", desc: "Konec studených radiátorů. Celý systém hřeje tak, jak má." },
   ];
 
   const processSteps = [
