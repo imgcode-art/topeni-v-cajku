@@ -598,9 +598,9 @@ function Footer({ setPage }: { setPage: (p: Page) => void }) {
         ))}
       </div>
 
-      <div className="border-t border-white/5 max-w-7xl mx-auto px-6 py-5 flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-6 text-center text-xs text-white/40">
-        <span>© 2026 Topení v cajku</span>
-        <span className="flex items-center gap-4">
+      <div className="border-t border-white/5 max-w-7xl mx-auto px-6 py-5 grid grid-cols-2 gap-x-12 gap-y-2 md:flex md:flex-row md:items-center md:justify-center md:gap-6 text-xs text-white/40">
+        <span className="text-left md:text-center">© 2026 Topení v cajku</span>
+        <span className="flex flex-col md:flex-row items-start md:items-center gap-1 md:gap-4 text-left md:text-center">
           <button onClick={() => go("gdpr")} className="text-xs font-normal hover:text-white transition-colors">Ochrana osobních údajů</button>
           <button onClick={openCookieSettings} className="text-xs font-normal hover:text-white transition-colors">Nastavení cookies</button>
         </span>
