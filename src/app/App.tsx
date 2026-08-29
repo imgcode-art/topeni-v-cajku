@@ -1913,7 +1913,7 @@ function LegalHero({ title }: { title: React.ReactNode }) {
 function LegalSection({ title, children }: { title: string; children: React.ReactNode }) {
   return (
     <div>
-      <h2 className="font-bold text-white mb-3" style={{ fontFamily: FD, fontSize: "1.2rem" }}>{title}</h2>
+      <h2 className="font-bold text-white mb-4" style={{ fontFamily: FD, fontSize: "1.35rem" }}>{title}</h2>
       <div className="text-sm text-white/60 leading-relaxed space-y-3" style={{ fontFamily: FB }}>{children}</div>
     </div>
   );
@@ -1923,8 +1923,8 @@ function GdprPage() {
   return (
     <div>
       <LegalHero title={<>OCHRANA <br />OSOBNÍCH ÚDAJŮ</>} />
-      <section style={{ background: INK }} className="py-16 md:py-24 px-6">
-        <div className="max-w-3xl mx-auto space-y-10">
+      <section style={{ background: INK }} className="pt-16 md:pt-24 pb-8 md:pb-10 px-6">
+        <div className="max-w-3xl mx-auto space-y-16">
           <p className="text-sm text-white/50 leading-relaxed" style={{ fontFamily: FB }}>
             Ochranu vašich osobních údajů bereme vážně a zpracováváme je v souladu s nařízením GDPR (EU) 2016/679 a zákonem č. 110/2019 Sb., o zpracování osobních údajů.
           </p>
@@ -1948,7 +1948,11 @@ function GdprPage() {
           <LegalSection title="4. Komu údaje předáváme">
             <p>Poptávkové a kontaktní formuláře na webu technicky zajišťuje externí služba Web3Forms, která nám doručuje jejich obsah e-mailem. Vaše údaje jinak nepředáváme žádným dalším třetím stranám ani je nepoužíváme k jiným účelům, než pro které byly poskytnuty.</p>
           </LegalSection>
+        </div>
+      </section>
 
+      <section style={{ background: SMOKE }} className="pt-16 md:pt-24 pb-16 md:pb-24 px-6">
+        <div className="max-w-3xl mx-auto space-y-16">
           <LegalSection title="5. Jak dlouho údaje uchováváme">
             <p>Údaje z poptávek uchováváme po dobu nezbytnou k vyřízení vašeho požadavku a případně po dobu trvání smluvního vztahu, nejdéle však 3 roky od posledního kontaktu, pokud zákon nevyžaduje delší dobu (např. u účetních dokladů).</p>
           </LegalSection>
@@ -1984,8 +1988,8 @@ function CookiesPage() {
   return (
     <div>
       <LegalHero title={<>ZÁSADY <br />POUŽÍVÁNÍ COOKIES</>} />
-      <section style={{ background: INK }} className="py-16 md:py-24 px-6">
-        <div className="max-w-3xl mx-auto space-y-10">
+      <section style={{ background: INK }} className="pt-16 md:pt-24 pb-8 md:pb-10 px-6">
+        <div className="max-w-3xl mx-auto space-y-16">
           <LegalSection title="Co jsou cookies">
             <p>Cookies jsou malé textové soubory, které si při návštěvě webu ukládá váš prohlížeč. Pomáhají webu zapamatovat si vaše nastavení a chování mezi jednotlivými návštěvami.</p>
           </LegalSection>
@@ -1997,7 +2001,11 @@ function CookiesPage() {
           <LegalSection title="Nezbytně nutné cookies">
             <p>Zajišťují základní funkčnost webu — například zapamatování vaší volby v liště souhlasu s cookies. Bez nich by web nefungoval správně, a proto je nelze v nastavení vypnout.</p>
           </LegalSection>
+        </div>
+      </section>
 
+      <section style={{ background: SMOKE }} className="pt-16 md:pt-24 pb-16 md:pb-24 px-6">
+        <div className="max-w-3xl mx-auto space-y-16">
           <LegalSection title="Analytické a marketingové cookies">
             <p>V tuto chvíli web žádné analytické ani marketingové cookies aktivně nepoužívá. Pokud v budoucnu doplníme nástroj pro měření návštěvnosti (např. Google Analytics) nebo marketingový nástroj, spustí se až po vašem výslovném souhlasu v liště cookies — a tuto stránku zároveň aktualizujeme o jejich konkrétní seznam.</p>
           </LegalSection>
