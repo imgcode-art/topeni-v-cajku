@@ -10,7 +10,7 @@ import {
 
 type Page =
   | "home" | "servis" | "cisteni" | "tepelna-cerpadla"
-  | "marox" | "o-nas" | "kontakt";
+  | "marox" | "o-nas" | "kontakt" | "gdpr" | "cookies";
 
 // URL <-> Page mapping, so every page has a real, bookmarkable, back/forward-able address.
 const PAGE_PATHS: Record<Page, string> = {
@@ -21,6 +21,8 @@ const PAGE_PATHS: Record<Page, string> = {
   "marox": "/fernox-kamco",
   "o-nas": "/o-nas",
   "kontakt": "/kontakt",
+  "gdpr": "/ochrana-osobnich-udaju",
+  "cookies": "/zasady-cookies",
 };
 function pageFromPath(pathname: string): Page {
   const match = (Object.keys(PAGE_PATHS) as Page[]).find((p) => PAGE_PATHS[p] === pathname);
@@ -57,10 +59,21 @@ const PAGE_META: Record<Page, { title: string; description: string }> = {
     title: "Kontakt | Topení v cajku",
     description: "Kontaktujte nás pro rychlé řešení problémů s topením — telefon, e-mail nebo poptávkový formulář. Brno a Jihomoravský kraj.",
   },
+  "gdpr": {
+    title: "Ochrana osobních údajů | Topení v cajku",
+    description: "Zásady zpracování osobních údajů webu Topení v cajku — jaké údaje zpracováváme, proč, a jaká máte práva.",
+  },
+  "cookies": {
+    title: "Zásady cookies | Topení v cajku",
+    description: "Jaké cookies web Topení v cajku používá a jak si můžete nastavení kdykoliv upravit.",
+  },
 };
 
 const PHONE = "608 888 325";
 const PHONE_HREF = "tel:+420608888325";
+const EMAIL = "martinmachac24@seznam.cz";
+const OPERATOR_NAME = "Martin Macháč";
+const IC = "09606475";
 const WEB3FORMS_KEY = "4040abc3-6d29-433c-a981-b0c339e2a2d4";
 
 // Palette — black, white, accent orange
@@ -84,6 +97,80 @@ function scrollTo(id: string) {
 }
 function navTo(page: Page, setPage: (p: Page) => void) {
   setPage(page);
+}
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// COOKIE CONSENT
+// ═══════════════════════════════════════════════════════════════════════════════
+// Consent is stored in localStorage so the choice survives reloads/return visits.
+// Nothing beyond strictly necessary functionality runs before the user decides —
+// analytics/marketing scripts are only injected from applyConsent() below, and
+// only once real consent is on record.
+
+interface ConsentChoice { analytics: boolean; marketing: boolean }
+const CONSENT_STORAGE_KEY = "cookie_consent";
+const OPEN_COOKIE_SETTINGS_EVENT = "open-cookie-settings";
+
+function getStoredConsent(): ConsentChoice | null {
+  try {
+    const raw = localStorage.getItem(CONSENT_STORAGE_KEY);
+    if (!raw) return null;
+    const parsed = JSON.parse(raw);
+    return { analytics: !!parsed.analytics, marketing: !!parsed.marketing };
+  } catch {
+    return null;
+  }
+}
+
+function storeConsent(choice: ConsentChoice) {
+  try {
+    localStorage.setItem(CONSENT_STORAGE_KEY, JSON.stringify({ ...choice, ts: Date.now() }));
+  } catch {
+    // localStorage nedostupné (např. striktní soukromý režim) — souhlas se prostě zeptáme znovu příště.
+  }
+}
+
+// Otevře lištu nastavení cookies odkudkoliv na webu (patička, stránka Zásady cookies…),
+// aniž by na sobě musely mít komponenty vzájemnou referenci.
+function openCookieSettings() {
+  window.dispatchEvent(new Event(OPEN_COOKIE_SETTINGS_EVENT));
+}
+
+// Až budete mít Google Analytics 4 založený, doplňte sem měřicí ID (tvar "G-XXXXXXXXXX").
+// Do té doby zůstává prázdné a žádný analytický skript se nikdy nenačte, i kdyby uživatel
+// souhlas udělil — jakmile ID doplníte, začne se načítat automaticky pro nové i vracející se
+// souhlasy (při návratu na web se souhlasem "analytika: ano" v localStorage).
+const GA_MEASUREMENT_ID = "";
+
+function loadScriptOnce(src: string, id: string) {
+  if (document.getElementById(id)) return;
+  const script = document.createElement("script");
+  script.id = id;
+  script.async = true;
+  script.src = src;
+  document.head.appendChild(script);
+}
+
+function loadAnalytics() {
+  if (!GA_MEASUREMENT_ID) return;
+  loadScriptOnce(`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`, "ga-script");
+  const w = window as any;
+  w.dataLayer = w.dataLayer || [];
+  function gtag(...args: any[]) { w.dataLayer.push(args); }
+  w.gtag = gtag;
+  gtag("js", new Date());
+  gtag("config", GA_MEASUREMENT_ID, { anonymize_ip: true });
+}
+
+// Sem by v budoucnu přibyly další marketingové nástroje (např. Meta Pixel) —
+// zatím žádné web nepoužívá, funkce je připravená stejným způsobem jako loadAnalytics().
+function loadMarketing() {
+  // Zatím žádné marketingové skripty.
+}
+
+function applyConsent(choice: ConsentChoice) {
+  if (choice.analytics) loadAnalytics();
+  if (choice.marketing) loadMarketing();
 }
 
 // ── Reveal ───────────────────────────────────────────────────────────────────
@@ -511,8 +598,12 @@ function Footer({ setPage }: { setPage: (p: Page) => void }) {
         ))}
       </div>
 
-      <div className="border-t border-white/5 max-w-7xl mx-auto px-6 py-5 text-center text-xs text-white/40">
+      <div className="border-t border-white/5 max-w-7xl mx-auto px-6 py-5 flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-6 text-center text-xs text-white/40">
         <span>© 2026 Topení v cajku</span>
+        <span className="flex items-center gap-4">
+          <button onClick={() => go("gdpr")} className="hover:text-white transition-colors">Ochrana osobních údajů</button>
+          <button onClick={openCookieSettings} className="hover:text-white transition-colors">Nastavení cookies</button>
+        </span>
       </div>
       </div>
     </footer>
@@ -1743,8 +1834,6 @@ function KontaktInlineForm() {
 }
 
 function KontaktPage() {
-  const EMAIL = "martinmachac24@seznam.cz";
-
   return (
     <div>
       <SectionHero eyebrow="Kontakt" icon={<Phone size={14} />}
@@ -1799,6 +1888,132 @@ function KontaktPage() {
             </p>
             <KontaktInlineForm />
           </div>
+        </div>
+      </section>
+    </div>
+  );
+}
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// PAGE: GDPR / COOKIES
+// ═══════════════════════════════════════════════════════════════════════════════
+
+function LegalHero({ title }: { title: React.ReactNode }) {
+  return (
+    <section style={{ background: HERO_GRADIENT }} className="py-16 md:py-24 px-6">
+      <div className="max-w-3xl mx-auto">
+        <h1 className="font-bold text-white leading-tight" style={{ fontFamily: FD, fontSize: "clamp(1.6rem,3vw,2.3rem)" }}>
+          {title}
+        </h1>
+      </div>
+    </section>
+  );
+}
+
+function LegalSection({ title, children }: { title: string; children: React.ReactNode }) {
+  return (
+    <div>
+      <h2 className="font-bold text-white mb-3" style={{ fontFamily: FD, fontSize: "1.2rem" }}>{title}</h2>
+      <div className="text-sm text-white/60 leading-relaxed space-y-3" style={{ fontFamily: FB }}>{children}</div>
+    </div>
+  );
+}
+
+function GdprPage() {
+  return (
+    <div>
+      <LegalHero title={<>OCHRANA <br />OSOBNÍCH ÚDAJŮ</>} />
+      <section style={{ background: INK }} className="py-16 md:py-24 px-6">
+        <div className="max-w-3xl mx-auto space-y-10">
+          <p className="text-sm text-white/50 leading-relaxed" style={{ fontFamily: FB }}>
+            Ochranu vašich osobních údajů bereme vážně a zpracováváme je v souladu s nařízením GDPR (EU) 2016/679 a zákonem č. 110/2019 Sb., o zpracování osobních údajů.
+          </p>
+
+          <LegalSection title="1. Kdo je správcem údajů">
+            <p>Správcem osobních údajů je {OPERATOR_NAME}, IČO {IC}, s místem podnikání v Jihomoravském kraji (dále jen „správce“).</p>
+            <p>Kontakt: {PHONE}, {EMAIL}.</p>
+          </LegalSection>
+
+          <LegalSection title="2. Jaké údaje zpracováváme a proč">
+            <p>Přes poptávkový formulář a kontaktní formulář od vás získáváme jméno, telefonní číslo a popis vaší poptávky/problému. Tyto údaje potřebujeme, abychom se vám mohli ozvat a připravit nabídku nebo termín zásahu.</p>
+            <p>Pokud nás kontaktujete telefonicky nebo e-mailem přímo, zpracováváme údaje, které nám sami sdělíte v rámci komunikace (telefonní číslo, e-mailová adresa, obsah zprávy).</p>
+            <p>Pokud v nastavení cookies udělíte souhlas s analytickými cookies, zpracováváme také anonymizovaná data o návštěvnosti webu (viz <em>Zásady cookies</em>).</p>
+          </LegalSection>
+
+          <LegalSection title="3. Právní základ zpracování">
+            <p>Údaje z poptávkového a kontaktního formuláře zpracováváme na základě vašeho souhlasu uděleného odesláním formuláře a za účelem jednání o uzavření smlouvy na vaši žádost (čl. 6 odst. 1 písm. b) GDPR).</p>
+            <p>Analytické cookies zpracováváme pouze na základě vašeho souhlasu (čl. 6 odst. 1 písm. a) GDPR), který můžete kdykoliv odvolat.</p>
+          </LegalSection>
+
+          <LegalSection title="4. Komu údaje předáváme">
+            <p>Poptávkové a kontaktní formuláře na webu technicky zajišťuje externí služba Web3Forms, která nám doručuje jejich obsah e-mailem. Vaše údaje jinak nepředáváme žádným dalším třetím stranám ani je nepoužíváme k jiným účelům, než pro které byly poskytnuty.</p>
+          </LegalSection>
+
+          <LegalSection title="5. Jak dlouho údaje uchováváme">
+            <p>Údaje z poptávek uchováváme po dobu nezbytnou k vyřízení vašeho požadavku a případně po dobu trvání smluvního vztahu, nejdéle však 3 roky od posledního kontaktu, pokud zákon nevyžaduje delší dobu (např. u účetních dokladů).</p>
+          </LegalSection>
+
+          <LegalSection title="6. Cookies">
+            <p>Podrobnosti o tom, jaké cookies web používá a jak si jejich nastavení upravit, najdete v <em>Zásadách cookies</em>.</p>
+          </LegalSection>
+
+          <LegalSection title="7. Vaše práva">
+            <p>V souvislosti se zpracováním osobních údajů máte právo:</p>
+            <ul className="list-disc pl-5 space-y-1.5">
+              <li>na přístup ke svým osobním údajům,</li>
+              <li>na opravu nepřesných nebo neúplných údajů,</li>
+              <li>na výmaz údajů („právo být zapomenut“),</li>
+              <li>na omezení zpracování,</li>
+              <li>na přenositelnost údajů,</li>
+              <li>vznést námitku proti zpracování,</li>
+              <li>kdykoliv odvolat udělený souhlas, aniž by to mělo vliv na zákonnost zpracování založeného na souhlasu uděleném před jeho odvoláním,</li>
+              <li>podat stížnost u Úřadu pro ochranu osobních údajů (uoou.cz), pokud se domníváte, že zpracování porušuje GDPR.</li>
+            </ul>
+          </LegalSection>
+
+          <LegalSection title="8. Uplatnění práv a kontakt">
+            <p>Pro uplatnění kteréhokoliv z výše uvedených práv nás kontaktujte telefonicky na {PHONE} nebo e-mailem na {EMAIL}. Na váš požadavek zareagujeme bez zbytečného odkladu, nejpozději do 30 dnů.</p>
+          </LegalSection>
+        </div>
+      </section>
+    </div>
+  );
+}
+
+function CookiesPage() {
+  return (
+    <div>
+      <LegalHero title={<>ZÁSADY <br />POUŽÍVÁNÍ COOKIES</>} />
+      <section style={{ background: INK }} className="py-16 md:py-24 px-6">
+        <div className="max-w-3xl mx-auto space-y-10">
+          <LegalSection title="Co jsou cookies">
+            <p>Cookies jsou malé textové soubory, které si při návštěvě webu ukládá váš prohlížeč. Pomáhají webu zapamatovat si vaše nastavení a chování mezi jednotlivými návštěvami.</p>
+          </LegalSection>
+
+          <LegalSection title="K čemu je tento web používá">
+            <p>Web {SITE_URL.replace("https://", "")} používá pouze cookies popsané níže. Bez vašeho souhlasu se nespouští žádný analytický ani marketingový skript.</p>
+          </LegalSection>
+
+          <LegalSection title="Nezbytně nutné cookies">
+            <p>Zajišťují základní funkčnost webu — například zapamatování vaší volby v liště souhlasu s cookies. Bez nich by web nefungoval správně, a proto je nelze v nastavení vypnout.</p>
+          </LegalSection>
+
+          <LegalSection title="Analytické a marketingové cookies">
+            <p>V tuto chvíli web žádné analytické ani marketingové cookies aktivně nepoužívá. Pokud v budoucnu doplníme nástroj pro měření návštěvnosti (např. Google Analytics) nebo marketingový nástroj, spustí se až po vašem výslovném souhlasu v liště cookies — a tuto stránku zároveň aktualizujeme o jejich konkrétní seznam.</p>
+          </LegalSection>
+
+          <LegalSection title="Správa cookies v prohlížeči">
+            <p>Cookies můžete kdykoliv smazat nebo jejich ukládání zablokovat přímo v nastavení svého prohlížeče (obvykle v sekci Soukromí a zabezpečení / Cookies). Upozorňujeme, že zablokování i nezbytných cookies může omezit funkčnost webu.</p>
+          </LegalSection>
+
+          <LegalSection title="Změna nastavení souhlasu">
+            <p>Své rozhodnutí o cookies můžete kdykoliv změnit pomocí tlačítka níže.</p>
+            <button onClick={openCookieSettings}
+              className="inline-flex items-center gap-2 mt-2 px-5 py-3 text-sm font-bold text-white uppercase tracking-wide"
+              style={{ fontFamily: FD, background: FIRE, clipPath: NOTCH_SM }}>
+              Změnit nastavení cookies
+            </button>
+          </LegalSection>
         </div>
       </section>
     </div>
@@ -1902,6 +2117,158 @@ function buildPageSchema(page: Page): object | null {
   return { "@context": "https://schema.org", "@graph": graph };
 }
 
+// ── CookieConsent ────────────────────────────────────────────────────────────
+function CookieToggle({ checked, onChange, disabled }: { checked: boolean; onChange?: () => void; disabled?: boolean }) {
+  return (
+    <button type="button" role="switch" aria-checked={checked} disabled={disabled} onClick={onChange}
+      className="relative shrink-0 w-11 h-6 rounded-full transition-colors disabled:opacity-40"
+      style={{ background: checked ? FIRE : "rgba(255,255,255,0.15)" }}>
+      <span className="absolute top-0.5 left-0.5 w-5 h-5 rounded-full bg-white transition-transform duration-200"
+        style={{ transform: checked ? "translateX(20px)" : "translateX(0)" }} />
+    </button>
+  );
+}
+
+function CookieConsent({ onNavigate }: { onNavigate: (page: Page) => void }) {
+  const [showBanner, setShowBanner] = useState(false);
+  const [settingsOpen, setSettingsOpen] = useState(false);
+  const [draft, setDraft] = useState<ConsentChoice>({ analytics: false, marketing: false });
+
+  useEffect(() => {
+    const stored = getStoredConsent();
+    if (stored) {
+      applyConsent(stored);
+      setDraft(stored);
+    } else {
+      setShowBanner(true);
+    }
+    const openSettings = () => {
+      setDraft(getStoredConsent() || { analytics: false, marketing: false });
+      setSettingsOpen(true);
+    };
+    window.addEventListener(OPEN_COOKIE_SETTINGS_EVENT, openSettings);
+    return () => window.removeEventListener(OPEN_COOKIE_SETTINGS_EVENT, openSettings);
+  }, []);
+
+  const finish = (choice: ConsentChoice) => {
+    storeConsent(choice);
+    applyConsent(choice);
+    setShowBanner(false);
+    setSettingsOpen(false);
+  };
+
+  const acceptAll = () => finish({ analytics: true, marketing: true });
+  const rejectAll = () => finish({ analytics: false, marketing: false });
+
+  const goToCookiesPage = () => {
+    setShowBanner(false);
+    setSettingsOpen(false);
+    onNavigate("cookies");
+  };
+
+  return (
+    <>
+      <AnimatePresence>
+        {showBanner && !settingsOpen && (
+          <motion.div
+            initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 30 }}
+            transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+            className="fixed bottom-0 left-0 right-0 z-[80] px-4 sm:px-6"
+            style={{ paddingBottom: "calc(16px + env(safe-area-inset-bottom))" }}>
+            <div className="max-w-3xl mx-auto mt-4 p-5 sm:p-6 flex flex-col sm:flex-row sm:items-center gap-4"
+              style={{ background: SMOKE, clipPath: NOTCH_MD, border: "1px solid rgba(255,255,255,0.12)", boxShadow: "0 20px 50px -12px rgba(0,0,0,0.65)" }}>
+              <p className="text-sm text-white/70 leading-relaxed flex-1" style={{ fontFamily: FB }}>
+                Používáme cookies, aby web fungoval spolehlivě. Nezbytné běží vždy, o analytických a marketingových rozhodnete vy. Víc v{" "}
+                <button onClick={goToCookiesPage} className="underline hover:text-white transition-colors" style={{ color: FIRE }}>
+                  zásadách cookies
+                </button>.
+              </p>
+              <div className="flex flex-col sm:flex-row gap-2 shrink-0">
+                <button onClick={() => setSettingsOpen(true)}
+                  className="px-5 py-3 text-sm font-semibold text-white/80 hover:text-white transition-colors text-center"
+                  style={{ fontFamily: FD, border: "1px solid rgba(255,255,255,0.15)", clipPath: NOTCH_SM }}>
+                  Nastavení
+                </button>
+                <button onClick={rejectAll}
+                  className="px-5 py-3 text-sm font-semibold text-white/80 hover:text-white transition-colors text-center"
+                  style={{ fontFamily: FD, border: "1px solid rgba(255,255,255,0.15)", clipPath: NOTCH_SM }}>
+                  Odmítnout vše
+                </button>
+                <button onClick={acceptAll}
+                  className="px-5 py-3 text-sm font-bold text-white uppercase tracking-wide text-center"
+                  style={{ fontFamily: FD, background: FIRE, clipPath: NOTCH_SM }}>
+                  Přijmout vše
+                </button>
+              </div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      <AnimatePresence>
+        {settingsOpen && (
+          <motion.div
+            initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.2 }}
+            className="fixed inset-0 z-[85] flex items-end sm:items-center justify-center p-0 sm:p-4"
+            style={{ background: "rgba(0,0,0,0.6)", backdropFilter: "blur(3px)" }}
+            onClick={() => setSettingsOpen(false)}>
+            <motion.div
+              initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 24 }}
+              transition={{ type: "spring", stiffness: 380, damping: 32 }}
+              onClick={(e) => e.stopPropagation()}
+              className="w-full sm:max-w-md max-h-[90vh] overflow-y-auto p-6 sm:p-7"
+              style={{ background: SMOKE, clipPath: NOTCH_LG, border: "1px solid rgba(255,255,255,0.12)" }}>
+              <div className="flex items-start justify-between gap-4 mb-6">
+                <h3 className="font-bold text-white text-lg leading-tight" style={{ fontFamily: FD }}>NASTAVENÍ COOKIES</h3>
+                <button onClick={() => setSettingsOpen(false)} aria-label="Zavřít" className="shrink-0 text-white/50 hover:text-white transition-colors">
+                  <X size={20} />
+                </button>
+              </div>
+
+              <div className="space-y-5 mb-7">
+                <div className="flex items-start justify-between gap-4">
+                  <div>
+                    <div className="text-sm font-semibold text-white mb-1" style={{ fontFamily: FD }}>Nezbytné</div>
+                    <p className="text-xs text-white/50 leading-relaxed" style={{ fontFamily: FB }}>Technické cookies pro chod webu a zapamatování vašeho souhlasu. Nelze vypnout.</p>
+                  </div>
+                  <CookieToggle checked disabled />
+                </div>
+                <div className="flex items-start justify-between gap-4">
+                  <div>
+                    <div className="text-sm font-semibold text-white mb-1" style={{ fontFamily: FD }}>Analytické</div>
+                    <p className="text-xs text-white/50 leading-relaxed" style={{ fontFamily: FB }}>Pomáhají nám pochopit, jak web používáte, abychom ho mohli vylepšovat.</p>
+                  </div>
+                  <CookieToggle checked={draft.analytics} onChange={() => setDraft(d => ({ ...d, analytics: !d.analytics }))} />
+                </div>
+                <div className="flex items-start justify-between gap-4">
+                  <div>
+                    <div className="text-sm font-semibold text-white mb-1" style={{ fontFamily: FD }}>Marketingové</div>
+                    <p className="text-xs text-white/50 leading-relaxed" style={{ fontFamily: FB }}>Slouží k cílení a měření účinnosti reklamy.</p>
+                  </div>
+                  <CookieToggle checked={draft.marketing} onChange={() => setDraft(d => ({ ...d, marketing: !d.marketing }))} />
+                </div>
+              </div>
+
+              <div className="flex flex-col gap-2">
+                <button onClick={() => finish(draft)}
+                  className="w-full px-5 py-3.5 text-sm font-bold text-white uppercase tracking-wide"
+                  style={{ fontFamily: FD, background: FIRE, clipPath: NOTCH_SM }}>
+                  Uložit nastavení
+                </button>
+                <button onClick={acceptAll}
+                  className="w-full px-5 py-3 text-sm font-semibold text-white/70 hover:text-white transition-colors"
+                  style={{ fontFamily: FD }}>
+                  Přijmout vše
+                </button>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </>
+  );
+}
+
 // ── MobileCallBar ───────────────────────────────────────────────────────────
 // Fixed CTA bar pinned to the bottom of the screen on phones, so a call is
 // always one tap away while scrolling. Hidden from sm (640px) up, where the
@@ -1977,6 +2344,8 @@ export default function App() {
       case "marox": return <MaroxPage />;
       case "o-nas": return <ONasPage />;
       case "kontakt": return <KontaktPage />;
+      case "gdpr": return <GdprPage />;
+      case "cookies": return <CookiesPage />;
       default: return <HomePage setPage={setPage} />;
     }
   };
@@ -1987,6 +2356,7 @@ export default function App() {
       <main className="flex-1">{renderPage()}</main>
       <Footer setPage={setPage} />
       <MobileCallBar />
+      <CookieConsent onNavigate={setPage} />
     </div>
   );
 }
