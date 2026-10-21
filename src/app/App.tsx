@@ -1081,18 +1081,22 @@ function HomePage({ setPage }: { setPage: (p: Page) => void }) {
         </div>
         <div className="max-w-7xl mx-auto relative z-10 px-6 lg:px-10">
           <div className="max-w-2xl pl-[42px]">
+          <motion.p className="text-xs font-semibold uppercase tracking-wide mb-4" style={{ fontFamily: FB, color: FIRE }}
+            initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}>
+            Topenář · Brno a Jihomoravský kraj
+          </motion.p>
           <motion.h1 className="font-bold text-white uppercase leading-tight" style={{ fontFamily: FD, fontSize: "clamp(1.8rem,3.5vw,2.6rem)" }}
             initial={{ opacity: 0, y: 34 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}>
             Teplo domova, <br />na které je spoleh
           </motion.h1>
-          <motion.h2 className="font-normal leading-relaxed mt-4 text-base md:text-lg max-w-xl text-white" style={{ fontFamily: FB }}
+          <motion.p className="font-normal leading-relaxed mt-4 text-base md:text-lg max-w-xl text-white/75" style={{ fontFamily: FB }}
             initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.55, delay: 0.08, ease: [0.22, 1, 0.36, 1] }}>
-            Zima v obýváku nikomu nesvědčí. <br /><span className="font-bold">Dáme vaše topení do cajku</span>
-          </motion.h2>
+            Zima v obýváku nikomu nesvědčí. <br />Dáme vaše topení do cajku.
+          </motion.p>
           <motion.div className="flex flex-col md:flex-row md:flex-wrap gap-2 md:gap-x-8 md:gap-y-3 mt-6"
             initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.1 }}>
             {DUVERYHODNOST.map((text, i) => (
-              <span key={i} className="flex items-center gap-2 text-white/80 text-sm font-medium" style={{ fontFamily: FB }}>
+              <span key={i} className="flex items-center gap-2 text-white/90 text-sm font-medium" style={{ fontFamily: FB }}>
                 <span className="shrink-0 rounded-full" style={{ width: "6px", height: "6px", background: FIRE }} />
                 {text}
               </span>
@@ -1143,8 +1147,8 @@ function HomePage({ setPage }: { setPage: (p: Page) => void }) {
               <motion.button key={i} onClick={s.action}
                 initial={isMobile ? { opacity: 0, y: 16 } : { opacity: 0, x: i === 0 ? -60 : i === 2 ? 60 : 0, y: i === 1 ? 40 : 0 }}
                 whileInView={{ opacity: 1, x: 0, y: 0 }}
-                viewport={isMobile ? { once: true, amount: 0.1 } : { once: true, amount: 0.4 }}
-                transition={isMobile ? { duration: 0.4, delay: i * 0.1, ease: [0.22, 1, 0.36, 1] } : { duration: 0.9, delay: i * 0.5, ease: [0.22, 1, 0.36, 1] }}
+                viewport={isMobile ? { once: true, amount: 0.1 } : { once: true, amount: 0.2 }}
+                transition={isMobile ? { duration: 0.4, delay: i * 0.1, ease: [0.22, 1, 0.36, 1] } : { duration: 0.6, delay: i * 0.12, ease: [0.22, 1, 0.36, 1] }}
                 whileHover={{ y: -6, transition: { duration: 0.2 } }}
                 whileTap={{ scale: 0.98 }}
                 className="group relative text-left flex flex-col p-7 pt-8"
@@ -1205,6 +1209,45 @@ function HomePage({ setPage }: { setPage: (p: Page) => void }) {
               </motion.button>
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* ── KDO K VÁM PŘIJEDE ── */}
+      <section style={{ background: INK }} className="pt-16 md:pt-24 px-6">
+        <div className="max-w-7xl mx-auto">
+          <Reveal>
+            <h2 className="font-bold text-white leading-none mb-12" style={{ fontFamily: FD, fontSize: "clamp(1.6rem,2.5vw,2.2rem)" }}>
+              KDO K VÁM PŘIJEDE
+            </h2>
+          </Reveal>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16 items-center">
+          <Reveal>
+            <div className="relative aspect-[4/3] overflow-hidden" style={{ clipPath: NOTCH_LG }}>
+              <img src="/images/realizace/topenivcajku_martin.jpg" alt="Martin Macháč v kotelně" draggable={false}
+                className="w-full h-full object-cover" />
+              <div className="absolute inset-0 mix-blend-multiply" style={{ background: `linear-gradient(to top right, ${FIRE}33 0%, transparent 55%)` }} />
+            </div>
+          </Reveal>
+          <Reveal delay={0.1}>
+            <h3 className="font-bold text-xl text-white mb-3 leading-tight" style={{ fontFamily: FD }}>Martin Macháč</h3>
+            <p className="text-base text-white/55 leading-relaxed mb-8" style={{ fontFamily: FB }}>
+              Topenářství se věnuji přes 9 let. Specializuji se na servis a diagnostiku plynových kotlů a na moderní systémy vytápění.
+            </p>
+            <ul className="space-y-3 mb-8">
+              {["Revizní technik plynových zařízení", "Oprávnění k montáži tepelných čerpadel", "Přípravky Fernox a Kamco pro čištění soustav"].map((c, i) => (
+                <li key={i} className="flex items-center gap-3 text-sm text-white/80 font-medium" style={{ fontFamily: FB }}>
+                  <span className="shrink-0 rounded-full" style={{ width: "6px", height: "6px", background: FIRE }} />
+                  {c}
+                </li>
+              ))}
+            </ul>
+            <button onClick={() => go("o-nas")}
+              className="group inline-flex items-center gap-2 text-sm font-semibold hover:gap-3 transition-all"
+              style={{ color: FIRE, fontFamily: FD }}>
+              Více o mně <ArrowRight size={14} />
+            </button>
+          </Reveal>
+        </div>
         </div>
       </section>
 
