@@ -1066,8 +1066,7 @@ function HomePage({ setPage }: { setPage: (p: Page) => void }) {
             <motion.div key={i} className="relative text-center px-4 py-6 overflow-hidden"
               style={{ background: "rgba(255,255,255,0.04)", clipPath: NOTCH_MD, border: "1px solid rgba(255,255,255,0.1)" }}
               initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-40px" }}
-              transition={{ duration: 0.5, delay: i * 0.1 }}
-              whileHover={{ y: -5, transition: { duration: 0.2 } }}>
+              transition={{ duration: 0.5, delay: i * 0.1 }}>
               <div className="absolute -right-8 -top-8 rounded-full pointer-events-none"
                 style={{ width: 120, height: 120, background: `radial-gradient(circle, ${FIRE}26 0%, transparent 70%)` }} />
               <Counter value={s.hodnota} className="font-bold break-words relative z-10" style={{ fontFamily: FD, fontSize: "clamp(1.6rem,5vw,2.8rem)", lineHeight: 1, color: FIRE }} />
@@ -1211,7 +1210,6 @@ function HomePage({ setPage }: { setPage: (p: Page) => void }) {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-40px" }}
                 transition={{ duration: 0.5, delay: i * 0.1, ease: [0.22, 1, 0.36, 1] }}
-                whileHover={{ y: -6, transition: { duration: 0.2 } }}
                 className="relative p-8 pt-10"
                 style={{ background: `linear-gradient(to bottom left, rgba(232,98,62,0.32) 0%, #1A1A1A 50%, #151515 100%)`, clipPath: NOTCH_LG, border: "1px solid rgba(255,255,255,0.08)" }}>
                 <div className="flex flex-col items-start mb-5">
@@ -1275,7 +1273,7 @@ function ServisPage() {
                     <h2 className="font-bold leading-none mb-12 text-white" style={{ fontFamily: FD, fontSize: "clamp(1.6rem,2.5vw,2.2rem)" }}>SLUŽBY</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {cards.map((c, i) => (
-              <div key={i} className="p-8 transition-all duration-300 hover:-translate-y-1"
+              <div key={i} className="p-8"
                 style={{ background: "rgba(255,255,255,0.04)", clipPath: NOTCH_MD, border: "1px solid rgba(255,255,255,0.1)" }}>
                 <h3 className="font-bold text-white mb-3" style={{ fontFamily: FD, fontSize: "1.4rem" }}>{c.title.toUpperCase()}</h3>
                 <p className="text-sm text-white/75 leading-relaxed mb-4" style={{ fontFamily: FB }}>{c.desc}</p>
@@ -1600,7 +1598,7 @@ function TepelnaCerpadlaPage() {
                     <h2 className="font-bold leading-none mb-12 text-white" style={{ fontFamily: FD, fontSize: "clamp(1.6rem,2.5vw,2.2rem)" }}>VÝBĚR ČERPADLA</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             {types.map((t, i) => (
-              <div key={i} className="p-8 transition-all duration-300 hover:-translate-y-1"
+              <div key={i} className="p-8"
                 style={t.highlight
                   ? { background: "rgba(255,255,255,0.04)", clipPath: NOTCH_MD, border: `1.5px solid ${FIRE}`, boxShadow: "0 16px 32px -20px rgba(232,98,62,0.35)" }
                   : { background: "rgba(255,255,255,0.04)", clipPath: NOTCH_MD, border: "1px solid rgba(255,255,255,0.1)" }}>
@@ -1739,7 +1737,7 @@ function ONasPage() {
               { icon: <Award size={20} />, title: "Kvalita řemesla", desc: "Pracujeme pečlivě a čistě. Za svou prací si stojíme a nestydíme se pod ni podepsat." },
               { icon: <Clock size={20} />, title: "Spolehlivost", desc: "Přijdeme v domluvený čas. Když to nejde, zavoláme dopředu." },
             ].map((v, i) => (
-              <div key={i} className="p-8 transition-all duration-300 hover:-translate-y-1"
+              <div key={i} className="p-8"
                 style={{ background: "rgba(255,255,255,0.04)", clipPath: NOTCH_MD, border: "1px solid rgba(255,255,255,0.1)" }}>
                 <div className="w-11 h-11 flex items-center justify-center mb-4" style={{ background: SMOKE, color: FIRE, clipPath: NOTCH_SM }}>{v.icon}</div>
                 <h3 className="font-bold text-white mb-3" style={{ fontFamily: FD, fontSize: "1.3rem" }}>{v.title.toUpperCase()}</h3>
