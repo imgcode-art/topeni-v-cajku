@@ -987,7 +987,7 @@ function HomePage({ setPage }: { setPage: (p: Page) => void }) {
       desc: "Radiátory hřejí nerovnoměrně, spotřeba plynu roste.",
       cta: "Zjistit více",
       action: () => go("cisteni"),
-      img: "/images/realizace/topenivcajku1.png",
+      img: "/images/realizace/topenivcajku1.webp",
     },
     {
       icon: <Leaf size={20} />,
@@ -996,7 +996,7 @@ function HomePage({ setPage }: { setPage: (p: Page) => void }) {
       desc: "Uvažuji o tepelném čerpadle nebo novém kotli.",
       cta: "Poradit se",
       action: () => go("tepelna-cerpadla"),
-      img: "/images/realizace/topenivcajku2.png",
+      img: "/images/realizace/topenivcajku2.webp",
     },
     {
       icon: <AlertCircle size={20} />,
@@ -1005,7 +1005,7 @@ function HomePage({ setPage }: { setPage: (p: Page) => void }) {
       desc: "Chybový kód, výpadek topení, kotel se zastavil.",
       cta: "Kontaktovat",
       action: () => go("kontakt"),
-      img: "/images/realizace/topenivcajku3.png",
+      img: "/images/realizace/topenivcajku3.webp",
     },
   ];
 
@@ -1168,7 +1168,7 @@ function HomePage({ setPage }: { setPage: (p: Page) => void }) {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16 items-center">
           <Reveal>
             <div className="relative aspect-[4/3] overflow-hidden" style={{ clipPath: NOTCH_LG }}>
-              <img src="/images/realizace/topenivcajku_martin.jpg" alt="Martin Macháč v kotelně" draggable={false}
+              <img src="/images/realizace/topenivcajku_martin.webp" alt="Martin Macháč v kotelně" draggable={false}
                 className="w-full h-full object-cover" />
               <div className="absolute inset-0 mix-blend-multiply" style={{ background: `linear-gradient(to top right, ${FIRE}33 0%, transparent 55%)` }} />
             </div>
@@ -1268,7 +1268,7 @@ function ServisPage() {
       <SectionHero eyebrow="Plynový kotel" icon={<Wrench size={14} />}
         title="PLYNOVÝ KOTEL"
         subtitle={<>Revize, opravy, záruční i pozáruční servis, nové montáže. <br />Hlavní značky: Baxi a De Dietrich.</>}
-        formId="servis-form" imgSrc="/images/realizace/kotelna1.png" />
+        formId="servis-form" imgSrc="/images/realizace/kotelna1.webp" />
 
       <section style={{ background: INK }} className="py-16 md:py-24 px-6">
         <div className="max-w-6xl mx-auto">
@@ -1443,7 +1443,7 @@ function CisteniPage() {
     "Systém nebyl čištěn déle než 5 let",
   ];
 
-  const flowMeterPair = { before: "/images/realizace/prutokomery-pred.png", after: "/images/realizace/prutokomery-po.png", label: "Průtokoměry podlahového topení: kalná vs. čirá voda po vyčištění" };
+  const flowMeterPair = { before: "/images/realizace/prutokomery-pred.webp", after: "/images/realizace/prutokomery-po.webp", label: "Průtokoměry podlahového topení: kalná vs. čirá voda po vyčištění" };
   const sludgePair = { before: "/images/realizace/7.webp", after: "/images/realizace/1.webp", label: "Vnitřek kotle a rozvody" };
 
   return (
@@ -1451,7 +1451,7 @@ function CisteniPage() {
       <SectionHero eyebrow="Čištění systému" icon={<Droplets size={14} />}
         title="ČIŠTĚNÍ SYSTÉMU"
         subtitle={<>Kal a koroze v potrubí kradou teplo a ničí váš kotel. <br />Profesionálním proplachem obnovíme efektivitu a ušetříme vám 15–30 %.</>}
-        formId="cisteni-form" imgSrc="/images/realizace/chemicke-cisteni-topeni.png" />
+        formId="cisteni-form" imgSrc="/images/realizace/chemicke-cisteni-topeni.webp" />
 
       <section style={{ background: INK }} className="pt-12 md:pt-16 pb-8 md:pb-10 px-6">
         <div className="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-4">
@@ -1593,7 +1593,7 @@ function TepelnaCerpadlaPage() {
       <SectionHero eyebrow="Tepelné čerpadlo" icon={<Wind size={14} />}
         title="TEPELNÉ ČERPADLO"
         subtitle={<>Přejít na tepelné čerpadlo dnes dává smysl ekonomicky i ekologicky. <br />Pomůžeme vybrat správný typ a zajistíme instalaci.</>}
-        formId="tc-form" imgSrc="/images/realizace/heat-pump-hero.jpg" imgDim={0.55} />
+        formId="tc-form" imgSrc="/images/realizace/heat-pump-hero.webp" imgDim={0.55} />
 
       <section style={{ background: INK }} className="py-16 md:py-24 px-6">
         <div className="max-w-6xl mx-auto">
@@ -1645,7 +1645,7 @@ function MaroxPage() {
       <SectionHero eyebrow="Fernox & Kamco" icon={<FileText size={14} />}
         title={<>FERNOX <span style={{ color: FIRE }}>&</span> KAMCO</>}
         subtitle={<>Přímý prodej přípravků britských značek Fernox a Kamco. <br />Pro soukromé osoby i topenářské firmy.</>}
-        formId="marox-form" imgSrc="/images/realizace/produkty-kamco-fernox.png" />
+        formId="marox-form" imgSrc="/images/realizace/produkty-kamco-fernox.webp" />
 
       <section style={{ background: INK }} className="pt-8 md:pt-10 pb-16 md:pb-24 px-6">
         <div className="max-w-6xl mx-auto">
@@ -1827,7 +1827,7 @@ function KontaktPage() {
       <SectionHero eyebrow="Kontakt" icon={<Phone size={14} />}
         title="KOTEL NEJEDE?"
         subtitle={<>Žádný strach.<br />Rádi vám to dáme do pořádku.</>}
-        formId="kontakt-form" sideImage="/images/realizace/topenivcajku_martin.jpg" sideImageDesktop="/images/realizace/martin-kotelna-desktop.png" />
+        formId="kontakt-form" sideImage="/images/realizace/topenivcajku_martin.webp" sideImageDesktop="/images/realizace/martin-kotelna-desktop.webp" />
 
       <section style={{ background: INK }} className="pt-8 md:pt-10 pb-16 md:pb-24 px-6">
         <div className="max-w-2xl mx-auto">
@@ -1835,7 +1835,7 @@ function KontaktPage() {
             KDO SE VÁM O TO POSTARÁ?
           </h2>
           <div className="lg:hidden -mx-6 my-10">
-            <img src="/images/realizace/martin-kotelna-mobil.png" alt="Martin Macháč" className="w-full h-auto block" />
+            <img src="/images/realizace/martin-kotelna-mobil.webp" alt="Martin Macháč" className="w-full h-auto block" />
           </div>
           <p className="text-white/75 leading-relaxed text-base" style={{ fontFamily: FB }}>
             Za Topením v cajku stojím já, Martin, se svým týmem zkušených parťáků. V oboru se pohybujeme už řadu let a hlavní je pro nás jediné – aby vám topení doma bezstarostně fungovalo. Když se cokoliv přihodí, jsme na telefonu a rychle zasáhneme.
