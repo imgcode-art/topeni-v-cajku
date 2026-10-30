@@ -77,11 +77,11 @@ const IC = "09606475";
 const WEB3FORMS_KEY = "4040abc3-6d29-433c-a981-b0c339e2a2d4";
 
 // Palette — black, white, accent orange
-const INK = "#0A0A0A";
+const INK = "#1A1A1A";
 const CREAM = "#FFFFFF";
 const FIRE = "#E8623E";
-const SMOKE = "#141414";
-const HERO_GRADIENT = `linear-gradient(155deg, #1E1E1E 0%, ${INK} 65%)`;
+const SMOKE = "#242424";
+const HERO_GRADIENT = `linear-gradient(155deg, #2E2E2E 0%, ${INK} 65%)`;
 const LOGO_TONE = "rgba(255,255,255,0.55)";
 
 const FD = "'Space Grotesk', sans-serif"; // display (headings, buttons, logo)
@@ -245,7 +245,7 @@ function VideoCard({ src, duration, poster }: { src: string; duration: string; p
         />
         {!started && (
           <>
-            <div className="absolute inset-0" style={{ background: `linear-gradient(180deg, ${INK}1a 0%, ${INK}99 100%)` }} />
+            <div className="absolute inset-0" style={{ background: `linear-gradient(180deg, ${INK}10 0%, ${INK}66 100%)` }} />
             <div className="absolute top-3 right-3 flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs text-white"
               style={{ background: "rgba(0,0,0,0.5)", fontFamily: FB }}>
               <Volume2 size={12} />
@@ -391,61 +391,6 @@ function Logo({ textSize = "text-lg", markSize = 30 }: { textSize?: string; mark
   );
 }
 
-// ── CustomCursor ─────────────────────────────────────────────────────────────
-function CustomCursor() {
-  const [pos, setPos] = useState({ x: -100, y: -100 });
-  const [visible, setVisible] = useState(false);
-  const [pointer, setPointer] = useState(false);
-
-  useEffect(() => {
-    const move = (e: MouseEvent) => {
-      setPos({ x: e.clientX, y: e.clientY });
-      setVisible(true);
-      const target = e.target as HTMLElement;
-      setPointer(!!target.closest("a, button, [role='button']"));
-    };
-    const hide = () => setVisible(false);
-    window.addEventListener("mousemove", move);
-    document.documentElement.addEventListener("mouseleave", hide);
-    return () => {
-      window.removeEventListener("mousemove", move);
-      document.documentElement.removeEventListener("mouseleave", hide);
-    };
-  }, []);
-
-  return (
-    <div className="hidden lg:block fixed inset-0 z-[100] pointer-events-none"
-      style={{ opacity: visible ? 1 : 0, transition: "opacity 0.2s" }}>
-      {/* small dot — tracks the pointer precisely */}
-      <motion.div
-        className="absolute rounded-full top-0 left-0"
-        style={{ width: 8, height: 8, marginLeft: -4, marginTop: -4, background: "#fff" }}
-        animate={{ x: pos.x, y: pos.y, opacity: pointer ? 0 : 1 }}
-        transition={{ type: "spring", stiffness: 900, damping: 50, mass: 0.2 }} />
-      {/* larger circle — trails behind, morphs into a thin dashed ring on hover */}
-      <motion.div
-        className="absolute rounded-full top-0 left-0 flex items-center justify-center"
-        style={{
-          width: pointer ? 40 : 26,
-          height: pointer ? 40 : 26,
-          marginLeft: pointer ? -20 : -13,
-          marginTop: pointer ? -20 : -13,
-          background: pointer ? "transparent" : "rgba(120,120,120,0.55)",
-          border: pointer ? "1px dashed rgba(255,255,255,0.55)" : "none",
-        }}
-        animate={{ x: pos.x, y: pos.y, rotate: pointer ? 360 : 0 }}
-        transition={{
-          x: { type: "spring", stiffness: 160, damping: 20, mass: 0.6 },
-          y: { type: "spring", stiffness: 160, damping: 20, mass: 0.6 },
-          width: { duration: 0.25 }, height: { duration: 0.25 }, marginLeft: { duration: 0.25 }, marginTop: { duration: 0.25 },
-          rotate: pointer ? { duration: 6, repeat: Infinity, ease: "linear" } : { duration: 0 },
-        }}>
-        {pointer && <div className="rounded-full" style={{ width: 12, height: 12, background: "rgba(150,150,150,0.85)" }} />}
-      </motion.div>
-    </div>
-  );
-}
-
 // ── Header ───────────────────────────────────────────────────────────────────
 function Header({ currentPage, setPage }: { currentPage: Page; setPage: (p: Page) => void }) {
   const [open, setOpen] = useState(false);
@@ -561,7 +506,7 @@ function Footer({ setPage }: { setPage: (p: Page) => void }) {
           <button onClick={() => go("home")} className="appearance-none mb-2 inline-block outline-none" style={{ WebkitTapHighlightColor: "transparent", boxShadow: "none" }}>
             <Logo textSize="text-sm" markSize={24} />
           </button>
-          <p className="text-xs text-white/55 leading-relaxed">
+          <p className="text-xs text-white/75 leading-relaxed">
             Váš spolehlivý topenář
           </p>
         </div>
@@ -588,7 +533,7 @@ function Footer({ setPage }: { setPage: (p: Page) => void }) {
             <ul className="space-y-2">
               {col.items.map(([page, label]) => (
                 <li key={page}>
-                  <button onClick={() => go(page)} className="text-white/50 hover:text-white text-sm transition-colors">
+                  <button onClick={() => go(page)} className="text-white/70 hover:text-white text-sm transition-colors">
                     {label}
                   </button>
                 </li>
@@ -598,7 +543,7 @@ function Footer({ setPage }: { setPage: (p: Page) => void }) {
         ))}
       </div>
 
-      <div className="border-t border-white/5 max-w-7xl mx-auto px-6 py-5 grid grid-cols-2 gap-x-12 gap-y-2 md:flex md:flex-row md:items-center md:justify-center md:gap-6 text-xs text-white/40">
+      <div className="border-t border-white/5 max-w-7xl mx-auto px-6 py-5 grid grid-cols-2 gap-x-12 gap-y-2 md:flex md:flex-row md:items-center md:justify-center md:gap-6 text-xs text-white/60">
         <span className="text-left md:text-center">© 2026 Topení v cajku</span>
         <span className="flex flex-col md:flex-row items-start md:items-center gap-1 md:gap-4 text-left md:text-center">
           <button onClick={() => go("gdpr")} className="text-xs font-normal hover:text-white transition-colors">Ochrana osobních údajů</button>
@@ -649,7 +594,7 @@ function FAQBlock({ items, title = "Časté dotazy" }: { items: FAQItem[]; title
                   </span>
                 </button>
                 {isOpen && (
-                  <div className="pb-6 pl-6 pr-6 text-sm leading-relaxed text-white/55">{item.a}</div>
+                  <div className="pb-6 pl-6 pr-6 text-sm leading-relaxed text-white/75">{item.a}</div>
                 )}
               </motion.div>
             );
@@ -827,7 +772,7 @@ function Lightbox({ images, index, onClose, onNav }: {
         </AnimatePresence>
 
         {images.length > 1 && (
-          <div className="absolute bottom-4 md:bottom-6 left-1/2 -translate-x-1/2 text-white/50 text-xs" style={{ fontFamily: FB }}>
+          <div className="absolute bottom-4 md:bottom-6 left-1/2 -translate-x-1/2 text-white/70 text-xs" style={{ fontFamily: FB }}>
             {index + 1} / {images.length}
           </div>
         )}
@@ -933,12 +878,12 @@ function SectionHero({ eyebrow, title, subtitle, icon, formId, imgId, imgSrc, vi
           {sideImageDesktop ? (
             <>
               <img src={sideImageDesktop} alt="" className="absolute inset-0 w-full h-full object-cover" style={{ objectPosition: "50% 20%" }} />
-              <div className="absolute inset-0" style={{ background: `linear-gradient(90deg, ${INK}80 0%, ${INK}33 18%, transparent 38%)` }} />
+              <div className="absolute inset-0" style={{ background: `linear-gradient(90deg, ${INK}55 0%, ${INK}22 18%, transparent 38%)` }} />
             </>
           ) : (
             <>
               <img src={sideImage} alt="" className="w-full h-full object-cover" style={{ objectPosition: "95% 30%" }} />
-              <div className="absolute inset-0" style={{ background: `linear-gradient(180deg, ${INK}66 0%, ${INK}99 55%, ${INK}E0 100%)` }} />
+              <div className="absolute inset-0" style={{ background: `linear-gradient(180deg, ${INK}40 0%, ${INK}66 55%, ${INK}B3 100%)` }} />
               <div className="absolute inset-0 mix-blend-multiply" style={{ background: `linear-gradient(115deg, ${FIRE}66 0%, transparent 55%)` }} />
             </>
           )}
@@ -947,13 +892,13 @@ function SectionHero({ eyebrow, title, subtitle, icon, formId, imgId, imgSrc, vi
       {!aurora && videoSrc && (
         <div className="absolute inset-0">
           <video src={videoSrc} className="w-full h-full object-cover" autoPlay muted loop playsInline />
-          <div className="absolute inset-0" style={{ background: `linear-gradient(180deg, ${INK}66 0%, ${INK}99 55%, ${INK}E0 100%)` }} />
+          <div className="absolute inset-0" style={{ background: `linear-gradient(180deg, ${INK}40 0%, ${INK}66 55%, ${INK}B3 100%)` }} />
         </div>
       )}
       {!aurora && !videoSrc && !sideImage && heroImg && (
         <div className="absolute inset-0">
           <img src={heroImg} alt="" className="w-full h-full object-cover" />
-          <div className="absolute inset-0" style={{ background: `linear-gradient(180deg, ${INK}4D 0%, ${INK}80 55%, ${INK}B3 100%)` }} />
+          <div className="absolute inset-0" style={{ background: `linear-gradient(180deg, ${INK}33 0%, ${INK}55 55%, ${INK}8C 100%)` }} />
           <div className="absolute inset-0 mix-blend-multiply" style={{ background: `linear-gradient(115deg, ${FIRE}40 0%, transparent 55%)` }} />
           {imgDim && <div className="absolute inset-0" style={{ background: INK, opacity: imgDim }} />}
         </div>
@@ -1076,7 +1021,7 @@ function HomePage({ setPage }: { setPage: (p: Page) => void }) {
       <section className="relative overflow-hidden py-20 md:py-28 lg:py-36" style={{ background: INK, clipPath: "polygon(0 0, 100% 0, 100% 100%, 0 96%)" }}>
         <div className="absolute inset-0">
           <img src="/images/realizace/hero-topeni.jpg" alt="" className="w-full h-full block object-cover" />
-          <div className="absolute inset-0" style={{ background: `linear-gradient(180deg, ${INK}73 0%, ${INK}A6 55%, ${INK}D9 100%)` }} />
+          <div className="absolute inset-0" style={{ background: `linear-gradient(180deg, ${INK}4D 0%, ${INK}73 55%, ${INK}B3 100%)` }} />
           <div className="absolute inset-0 mix-blend-multiply" style={{ background: `linear-gradient(115deg, ${FIRE}33 0%, transparent 55%)` }} />
         </div>
         <div className="max-w-7xl mx-auto relative z-10 px-6 lg:px-10">
@@ -1126,7 +1071,7 @@ function HomePage({ setPage }: { setPage: (p: Page) => void }) {
               <div className="absolute -right-8 -top-8 rounded-full pointer-events-none"
                 style={{ width: 120, height: 120, background: `radial-gradient(circle, ${FIRE}26 0%, transparent 70%)` }} />
               <Counter value={s.hodnota} className="font-bold break-words relative z-10" style={{ fontFamily: FD, fontSize: "clamp(1.6rem,5vw,2.8rem)", lineHeight: 1, color: FIRE }} />
-              <div className="text-white/50 text-xs mt-2 uppercase tracking-wide font-semibold relative z-10" style={{ fontFamily: FB }}>{s.popisek}</div>
+              <div className="text-white/70 text-xs mt-2 uppercase tracking-wide font-semibold relative z-10" style={{ fontFamily: FB }}>{s.popisek}</div>
             </motion.div>
           ))}
         </div>
@@ -1152,9 +1097,9 @@ function HomePage({ setPage }: { setPage: (p: Page) => void }) {
                 whileHover={{ y: -6, transition: { duration: 0.2 } }}
                 whileTap={{ scale: 0.98 }}
                 className="group relative text-left flex flex-col p-7 pt-8"
-                style={{ background: `linear-gradient(to bottom left, rgba(232,98,62,0.32) 0%, #0a0a0a 50%, #050505 100%)`, clipPath: NOTCH_LG, border: "1px solid rgba(255,255,255,0.08)" }}>
+                style={{ background: `linear-gradient(to bottom left, rgba(232,98,62,0.32) 0%, #1A1A1A 50%, #151515 100%)`, clipPath: NOTCH_LG, border: "1px solid rgba(255,255,255,0.08)" }}>
                 <div className="mb-6">
-                  <span className="text-xs font-semibold uppercase tracking-wide text-white/50" style={{ fontFamily: FB }}>
+                  <span className="text-xs font-semibold uppercase tracking-wide text-white/70" style={{ fontFamily: FB }}>
                     {s.tag}
                   </span>
                 </div>
@@ -1163,7 +1108,7 @@ function HomePage({ setPage }: { setPage: (p: Page) => void }) {
                     className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
                 </div>
                 <h3 className="font-bold text-xl text-white mb-3 leading-tight" style={{ fontFamily: FD }}>{s.title}</h3>
-                <p className="text-sm leading-relaxed mb-6 text-white/50" style={{ fontFamily: FB }}>
+                <p className="text-sm leading-relaxed mb-6 text-white/70" style={{ fontFamily: FB }}>
                   {s.desc}
                 </p>
                 <div className="mt-auto pt-5" style={{ borderTop: "1px solid rgba(255,255,255,0.1)" }}>
@@ -1202,7 +1147,7 @@ function HomePage({ setPage }: { setPage: (p: Page) => void }) {
                     <h3 className="font-bold text-white leading-tight mb-1.5" style={{ fontFamily: FD, fontSize: "clamp(1.2rem,2.5vw,1.5rem)" }}>
                       {s.title.toUpperCase()}
                     </h3>
-                    <p className="text-sm text-white/50 leading-relaxed">{s.desc}</p>
+                    <p className="text-sm text-white/70 leading-relaxed">{s.desc}</p>
                   </div>
                   <ArrowRight size={18} className="absolute top-7 right-7 shrink-0 text-white/20 group-hover:text-[#E8623E] group-hover:translate-x-1 transition-all" />
                 </div>
@@ -1230,7 +1175,7 @@ function HomePage({ setPage }: { setPage: (p: Page) => void }) {
           </Reveal>
           <Reveal delay={0.1}>
             <h3 className="font-bold text-xl text-white mb-3 leading-tight" style={{ fontFamily: FD }}>Martin Macháč</h3>
-            <p className="text-base text-white/55 leading-relaxed mb-8" style={{ fontFamily: FB }}>
+            <p className="text-base text-white/75 leading-relaxed mb-8" style={{ fontFamily: FB }}>
               Topenářství se věnuji přes 9 let. Specializuji se na servis a diagnostiku plynových kotlů a na moderní systémy vytápění.
             </p>
             <ul className="space-y-3 mb-8">
@@ -1268,7 +1213,7 @@ function HomePage({ setPage }: { setPage: (p: Page) => void }) {
                 transition={{ duration: 0.5, delay: i * 0.1, ease: [0.22, 1, 0.36, 1] }}
                 whileHover={{ y: -6, transition: { duration: 0.2 } }}
                 className="relative p-8 pt-10"
-                style={{ background: `linear-gradient(to bottom left, rgba(232,98,62,0.32) 0%, #0a0a0a 50%, #050505 100%)`, clipPath: NOTCH_LG, border: "1px solid rgba(255,255,255,0.08)" }}>
+                style={{ background: `linear-gradient(to bottom left, rgba(232,98,62,0.32) 0%, #1A1A1A 50%, #151515 100%)`, clipPath: NOTCH_LG, border: "1px solid rgba(255,255,255,0.08)" }}>
                 <div className="flex flex-col items-start mb-5">
                   <div className="flex gap-1 mb-2">
                     {Array.from({ length: t.stars }).map((_, j) => (
@@ -1277,7 +1222,7 @@ function HomePage({ setPage }: { setPage: (p: Page) => void }) {
                   </div>
                   <div className="text-sm font-semibold text-white uppercase tracking-normal" style={{ fontFamily: FD }}>{t.name}</div>
                 </div>
-                <p className="text-base text-white/55 leading-relaxed" style={{ fontFamily: FB }}>"{t.text}"</p>
+                <p className="text-base text-white/75 leading-relaxed" style={{ fontFamily: FB }}>"{t.text}"</p>
               </motion.div>
             ))}
           </div>
@@ -1333,7 +1278,7 @@ function ServisPage() {
               <div key={i} className="p-8 transition-all duration-300 hover:-translate-y-1"
                 style={{ background: "rgba(255,255,255,0.04)", clipPath: NOTCH_MD, border: "1px solid rgba(255,255,255,0.1)" }}>
                 <h3 className="font-bold text-white mb-3" style={{ fontFamily: FD, fontSize: "1.4rem" }}>{c.title.toUpperCase()}</h3>
-                <p className="text-sm text-white/55 leading-relaxed mb-4" style={{ fontFamily: FB }}>{c.desc}</p>
+                <p className="text-sm text-white/75 leading-relaxed mb-4" style={{ fontFamily: FB }}>{c.desc}</p>
               </div>
             ))}
           </div>
@@ -1347,7 +1292,7 @@ function ServisPage() {
             {symptoms.map((s, i) => (
               <div key={i} className="flex items-start gap-3 p-4 bg-white/[0.04] border border-white/8">
                 <div className="w-1.5 h-1.5 rounded-full mt-2 shrink-0" style={{ background: FIRE }} />
-                <span className="text-sm text-white/60" style={{ fontFamily: FB }}>{s}</span>
+                <span className="text-sm text-white/75" style={{ fontFamily: FB }}>{s}</span>
               </div>
             ))}
           </div>
@@ -1379,7 +1324,7 @@ function ServisPage() {
                 )}
                 <motion.span className="relative z-10 shrink-0 w-14 h-14 flex items-center justify-center font-bold"
                   variants={{
-                    inactive: { background: "rgba(255,255,255,0.06)", color: "rgba(255,255,255,0.35)", scale: 0.92 },
+                    inactive: { background: "rgba(255,255,255,0.06)", color: "rgba(255,255,255,0.5)", scale: 0.92 },
                     active: { background: FIRE, color: "#fff", scale: 1 },
                   }}
                   transition={{ duration: 0.35, ease: "easeOut" }}
@@ -1388,12 +1333,12 @@ function ServisPage() {
                 </motion.span>
                 <div className="pt-3">
                   <motion.h4 className="font-bold mb-1" style={{ fontFamily: FD, fontSize: "1.2rem" }}
-                    variants={{ inactive: { color: "rgba(255,255,255,0.3)" }, active: { color: "#fff" } }}
+                    variants={{ inactive: { color: "rgba(255,255,255,0.65)" }, active: { color: "#fff" } }}
                     transition={{ duration: 0.3 }}>
                     {s.title.toUpperCase()}
                   </motion.h4>
                   <motion.p className="text-sm" style={{ fontFamily: FB }}
-                    variants={{ inactive: { color: "rgba(255,255,255,0.2)" }, active: { color: "rgba(255,255,255,0.55)" } }}
+                    variants={{ inactive: { color: "rgba(255,255,255,0.35)" }, active: { color: "rgba(255,255,255,0.78)" } }}
                     transition={{ duration: 0.3 }}>
                     {s.desc}
                   </motion.p>
@@ -1514,7 +1459,7 @@ function CisteniPage() {
             <div key={i} className="text-center p-6" style={{ clipPath: NOTCH_MD, background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.08)" }}>
               <div className="font-bold mb-1" style={{ fontFamily: FD, fontSize: "clamp(1.8rem,3.5vw,2.6rem)", lineHeight: 1, color: FIRE }}>{b.val}</div>
               <div className="font-semibold text-white/80 text-sm mb-2" style={{ fontFamily: FD }}>{b.title.toUpperCase()}</div>
-              <p className="text-white/50 text-xs leading-relaxed" style={{ fontFamily: FB }}>{b.desc}</p>
+              <p className="text-white/70 text-xs leading-relaxed" style={{ fontFamily: FB }}>{b.desc}</p>
             </div>
           ))}
         </div>
@@ -1546,7 +1491,7 @@ function CisteniPage() {
           <div className="overflow-hidden" style={{ clipPath: NOTCH_LG, border: "1px solid rgba(255,255,255,0.1)" }}>
             <BeforeAfterSlider before={flowMeterPair.before} after={flowMeterPair.after} alt={flowMeterPair.label} />
             <div className="px-6 py-5" style={{ background: "rgba(255,255,255,0.03)" }}>
-              <p className="text-sm text-white/50" style={{ fontFamily: FB }}>{flowMeterPair.label} (přetáhněte posuvník)</p>
+              <p className="text-sm text-white/70" style={{ fontFamily: FB }}>{flowMeterPair.label} (přetáhněte posuvník)</p>
             </div>
           </div>
         </div>
@@ -1571,7 +1516,7 @@ function CisteniPage() {
                 className={`relative flex items-start gap-6 ${i < arr.length - 1 ? "pb-9" : ""}`}>
                 <motion.div className="relative z-10 w-14 h-14 text-base font-bold flex items-center justify-center shrink-0"
                   variants={{
-                    inactive: { background: "rgba(255,255,255,0.06)", color: "rgba(255,255,255,0.4)", scale: 0.92 },
+                    inactive: { background: "rgba(255,255,255,0.06)", color: "rgba(255,255,255,0.75)", scale: 0.92 },
                     active: { background: FIRE, color: "#fff", scale: 1 },
                   }}
                   transition={{ duration: 0.35, ease: "easeOut" }}
@@ -1580,12 +1525,12 @@ function CisteniPage() {
                 </motion.div>
                 <div>
                   <motion.h4 className="font-bold mb-1" style={{ fontFamily: FD, fontSize: "1.1rem" }}
-                    variants={{ inactive: { color: "rgba(255,255,255,0.35)" }, active: { color: "#fff" } }}
+                    variants={{ inactive: { color: "rgba(255,255,255,0.5)" }, active: { color: "#fff" } }}
                     transition={{ duration: 0.3 }}>
                     {s.title.toUpperCase()}
                   </motion.h4>
                   <motion.p className="text-sm" style={{ fontFamily: FB }}
-                    variants={{ inactive: { color: "rgba(255,255,255,0.25)" }, active: { color: "rgba(255,255,255,0.55)" } }}
+                    variants={{ inactive: { color: "rgba(255,255,255,0.4)" }, active: { color: "rgba(255,255,255,0.78)" } }}
                     transition={{ duration: 0.3 }}>
                     {s.desc}
                   </motion.p>
@@ -1605,7 +1550,7 @@ function CisteniPage() {
       <section style={{ background: INK }} className="py-16 md:py-24 px-6">
         <div className="max-w-4xl mx-auto">
           <h2 className="font-bold leading-none mb-6 text-white" style={{ fontFamily: FD, fontSize: "clamp(1.6rem,2.5vw,2.2rem)" }}>ČIŠTĚNÍ V PRAXI</h2>
-          <p className="text-sm text-white/55 mb-8" style={{ fontFamily: FB }}>Krátké video přímo ze zakázky — podívejte se, jak proplach probíhá ve skutečnosti.</p>
+          <p className="text-sm text-white/75 mb-8" style={{ fontFamily: FB }}>Krátké video přímo ze zakázky — podívejte se, jak proplach probíhá ve skutečnosti.</p>
           <VideoCard src="/videos/cisteni-video.mp4" duration="0:57" poster="/images/cisteni-video-poster.jpg" />
         </div>
       </section>
@@ -1665,7 +1610,7 @@ function TepelnaCerpadlaPage() {
                   </div>
                 )}
                 <h3 className="font-bold mb-3" style={{ fontFamily: FD, fontSize: "1.8rem", color: "#fff" }}>{t.title.toUpperCase()}</h3>
-                <p className="text-sm leading-relaxed mb-6" style={{ fontFamily: FB, color: "rgba(255,255,255,0.55)" }}>{t.desc}</p>
+                <p className="text-sm leading-relaxed mb-6" style={{ fontFamily: FB, color: "rgba(255,255,255,0.75)" }}>{t.desc}</p>
               </div>
             ))}
           </div>
@@ -1766,13 +1711,13 @@ function ONasPage() {
         <div className="max-w-4xl mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-16 mb-16">
             <div>
-              <p className="text-sm text-white/55 leading-relaxed mb-5" style={{ fontFamily: FB }}>
+              <p className="text-sm text-white/75 leading-relaxed mb-5" style={{ fontFamily: FB }}>
                 Topenářství se věnuji přes 9 let. Začínal jsem v Brně jako montér, postupně jsem se specializoval na servis a diagnostiku plynových kotlů — zejména značek Baxi a De Dietrich — a na moderní systémy vytápění.
               </p>
-              <p className="text-sm text-white/55 leading-relaxed mb-5" style={{ fontFamily: FB }}>
+              <p className="text-sm text-white/75 leading-relaxed mb-5" style={{ fontFamily: FB }}>
                 Dělám chemicko-mechanické čištění topných soustav s přípravky Fernox a Kamco — metodu, která se v zahraničí osvědčila a u nás zatím málokdo dělá pořádně.
               </p>
-              <p className="text-sm text-white/55 leading-relaxed" style={{ fontFamily: FB }}>
+              <p className="text-sm text-white/75 leading-relaxed" style={{ fontFamily: FB }}>
                 Pracuji sám nebo s prověřenými kolegy. Každá zakázka má mé jméno — proto si na práci zakládám.
               </p>
             </div>
@@ -1781,7 +1726,7 @@ function ONasPage() {
                 {certs.map((c, i) => (
                   <li key={i} className="flex items-start gap-3">
                     <div className="w-1.5 h-1.5 rounded-full mt-2 shrink-0" style={{ background: FIRE }} />
-                    <span className="text-sm text-white/60" style={{ fontFamily: FB }}>{c}</span>
+                    <span className="text-sm text-white/75" style={{ fontFamily: FB }}>{c}</span>
                   </li>
                 ))}
               </ul>
@@ -1798,7 +1743,7 @@ function ONasPage() {
                 style={{ background: "rgba(255,255,255,0.04)", clipPath: NOTCH_MD, border: "1px solid rgba(255,255,255,0.1)" }}>
                 <div className="w-11 h-11 flex items-center justify-center mb-4" style={{ background: SMOKE, color: FIRE, clipPath: NOTCH_SM }}>{v.icon}</div>
                 <h3 className="font-bold text-white mb-3" style={{ fontFamily: FD, fontSize: "1.3rem" }}>{v.title.toUpperCase()}</h3>
-                <p className="text-sm text-white/55 leading-relaxed" style={{ fontFamily: FB }}>{v.desc}</p>
+                <p className="text-sm text-white/75 leading-relaxed" style={{ fontFamily: FB }}>{v.desc}</p>
               </div>
             ))}
           </div>
@@ -1845,7 +1790,7 @@ function KontaktInlineForm() {
       <div className="text-center py-8">
         <CheckCircle size={36} className="mx-auto mb-4" style={{ color: FIRE }} />
         <h3 className="font-bold text-white mb-1" style={{ fontFamily: FD, fontSize: "1.4rem" }}>ODESLÁNO!</h3>
-        <p className="text-sm text-white/50" style={{ fontFamily: FB }}>Ozveme se v pracovní dny.</p>
+        <p className="text-sm text-white/70" style={{ fontFamily: FB }}>Ozveme se v pracovní dny.</p>
       </div>
     );
   }
@@ -1892,7 +1837,7 @@ function KontaktPage() {
           <div className="lg:hidden -mx-6 my-10">
             <img src="/images/realizace/martin-kotelna-mobil.png" alt="Martin Macháč" className="w-full h-auto block" />
           </div>
-          <p className="text-white/55 leading-relaxed text-base" style={{ fontFamily: FB }}>
+          <p className="text-white/75 leading-relaxed text-base" style={{ fontFamily: FB }}>
             Za Topením v cajku stojím já, Martin, se svým týmem zkušených parťáků. V oboru se pohybujeme už řadu let a hlavní je pro nás jediné – aby vám topení doma bezstarostně fungovalo. Když se cokoliv přihodí, jsme na telefonu a rychle zasáhneme.
           </p>
         </div>
@@ -1915,7 +1860,7 @@ function KontaktPage() {
                 {EMAIL}
               </a>
             </div>
-            <p className="text-sm text-white/50 leading-relaxed" style={{ fontFamily: FB }}>
+            <p className="text-sm text-white/70 leading-relaxed" style={{ fontFamily: FB }}>
               <span className="text-white font-semibold">Martin Macháč</span> · IČO 09606475
               <br />
               Jsme vám k dispozici v Jihomoravském kraji, po–pá od 8:00 do 16:00
@@ -1926,7 +1871,7 @@ function KontaktPage() {
             <h2 className="font-bold mb-2 text-white" style={{ fontFamily: FD, fontSize: "clamp(1.8rem,3vw,2.6rem)", lineHeight: 1 }}>
               POJĎME TO VYŘEŠIT
             </h2>
-            <p className="text-sm mb-8 leading-relaxed" style={{ color: "rgba(255,255,255,0.45)" }}>
+            <p className="text-sm mb-8 leading-relaxed" style={{ color: "rgba(255,255,255,0.65)" }}>
               Popište nám svůj problém nebo požadavek. Ozveme se vám s návrhem řešení.
             </p>
             <KontaktInlineForm />
@@ -1957,7 +1902,7 @@ function LegalSection({ title, children }: { title: string; children: React.Reac
   return (
     <div>
       <h2 className="font-bold text-white mb-4" style={{ fontFamily: FD, fontSize: "1.35rem" }}>{title}</h2>
-      <div className="text-sm text-white/60 leading-relaxed space-y-3" style={{ fontFamily: FB }}>{children}</div>
+      <div className="text-sm text-white/75 leading-relaxed space-y-3" style={{ fontFamily: FB }}>{children}</div>
     </div>
   );
 }
@@ -1969,7 +1914,7 @@ function GdprPage() {
       <section style={{ background: INK }} className="pt-4 md:pt-6 pb-16 md:pb-24 px-6">
         <div className="max-w-3xl mx-auto p-8 md:p-12 space-y-14"
           style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.1)", clipPath: NOTCH_LG }}>
-          <p className="text-sm text-white/50 leading-relaxed" style={{ fontFamily: FB }}>
+          <p className="text-sm text-white/70 leading-relaxed" style={{ fontFamily: FB }}>
             Ochranu vašich osobních údajů bereme vážně a zpracováváme je v souladu s nařízením GDPR (EU) 2016/679 a zákonem č. 110/2019 Sb., o zpracování osobních údajů.
           </p>
 
@@ -2265,7 +2210,7 @@ function CookieConsent({ onNavigate }: { onNavigate: (page: Page) => void }) {
               style={{ background: SMOKE, clipPath: NOTCH_LG, border: "1px solid rgba(255,255,255,0.12)" }}>
               <div className="flex items-start justify-between gap-4 mb-6">
                 <h3 className="font-bold text-white text-lg leading-tight" style={{ fontFamily: FD }}>NASTAVENÍ COOKIES</h3>
-                <button onClick={() => setSettingsOpen(false)} aria-label="Zavřít" className="shrink-0 text-white/50 hover:text-white transition-colors">
+                <button onClick={() => setSettingsOpen(false)} aria-label="Zavřít" className="shrink-0 text-white/70 hover:text-white transition-colors">
                   <X size={20} />
                 </button>
               </div>
@@ -2274,21 +2219,21 @@ function CookieConsent({ onNavigate }: { onNavigate: (page: Page) => void }) {
                 <div className="flex items-start justify-between gap-4">
                   <div>
                     <div className="text-sm font-semibold text-white mb-1" style={{ fontFamily: FD }}>Nezbytné</div>
-                    <p className="text-xs text-white/50 leading-relaxed" style={{ fontFamily: FB }}>Technické cookies pro chod webu a zapamatování vašeho souhlasu. Nelze vypnout.</p>
+                    <p className="text-xs text-white/70 leading-relaxed" style={{ fontFamily: FB }}>Technické cookies pro chod webu a zapamatování vašeho souhlasu. Nelze vypnout.</p>
                   </div>
                   <CookieToggle checked disabled />
                 </div>
                 <div className="flex items-start justify-between gap-4">
                   <div>
                     <div className="text-sm font-semibold text-white mb-1" style={{ fontFamily: FD }}>Analytické</div>
-                    <p className="text-xs text-white/50 leading-relaxed" style={{ fontFamily: FB }}>Pomáhají nám pochopit, jak web používáte, abychom ho mohli vylepšovat.</p>
+                    <p className="text-xs text-white/70 leading-relaxed" style={{ fontFamily: FB }}>Pomáhají nám pochopit, jak web používáte, abychom ho mohli vylepšovat.</p>
                   </div>
                   <CookieToggle checked={draft.analytics} onChange={() => setDraft(d => ({ ...d, analytics: !d.analytics }))} />
                 </div>
                 <div className="flex items-start justify-between gap-4">
                   <div>
                     <div className="text-sm font-semibold text-white mb-1" style={{ fontFamily: FD }}>Marketingové</div>
-                    <p className="text-xs text-white/50 leading-relaxed" style={{ fontFamily: FB }}>Slouží k cílení a měření účinnosti reklamy.</p>
+                    <p className="text-xs text-white/70 leading-relaxed" style={{ fontFamily: FB }}>Slouží k cílení a měření účinnosti reklamy.</p>
                   </div>
                   <CookieToggle checked={draft.marketing} onChange={() => setDraft(d => ({ ...d, marketing: !d.marketing }))} />
                 </div>
@@ -2396,7 +2341,6 @@ export default function App() {
   };
   return (
     <div className="min-h-screen flex flex-col pb-[calc(84px+env(safe-area-inset-bottom))] sm:pb-0" style={{ background: INK }}>
-      <CustomCursor />
       <Header currentPage={currentPage} setPage={setPage} />
       <main className="flex-1">{renderPage()}</main>
       <Footer setPage={setPage} />

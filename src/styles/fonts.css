@@ -112,15 +112,6 @@ h1, h2, h3 {
   letter-spacing: -0.03em;
 }
 
-@media (min-width: 1024px) {
-  body, a, button, [role="button"] {
-    cursor: none;
-  }
-  input, textarea, select {
-    cursor: auto;
-  }
-}
-
 .star-border-container {
   display: inline-block;
   position: relative;
@@ -163,8 +154,8 @@ h1, h2, h3 {
 
 .star-border-container .inner-content {
   position: relative;
-  border: 1px solid #222;
-  background: #000;
+  border: 1px solid #333;
+  background: #1A1A1A;
   color: white;
   text-align: center;
   z-index: 1;
